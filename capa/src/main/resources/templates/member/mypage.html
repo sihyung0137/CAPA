@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	table {
+	   	margin: auto;
+	   	height: auto;   
+	}
+		
+	th {
+
+		background-color: cadetblue;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+	#btnd {
+		text-align: center;
+	}
+	#address {
+		width: 300px
+	}
+	#home {
+		text-decoration: none;
+	}
+	h1 > a {
+		color: white;
+	}
+	body {
+		background: #98E0AD;
+	}
+	#container {
+		width: 850px;
+		margin-top: 200px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    height: 300px;    
+	    border: 1px solid black;
+	}
+	#home {
+		text-decoration: none;
+	}
+	h1 > a {
+		color: white;
+	}
+	h1 {
+		text-align: center;
+	}
+	
+</style>
+<script>
+	function validation(){
+		let id = document.querySelector("#memberid");
+		let pw = document.querySelector("#memberpw");
+		let name = document.querySelector("#mambername");
+		let pw2 = document.querySelector("#memberpw2");
+		
+		if(id.value == null || id.value == '') {
+			alert("아이디를 작성해주세요.")
+			id.focus();
+			id.select();
+			return false;
+		}
+		
+		if(id.value.length < 3 || id.value.length > 10) {
+			alert("아이디는 3~10글자 이내로 작성해 주세요.")
+			id.value = null;
+			id.focus();
+			id.select();
+			return false;
+		}
+		
+		if(pw.value != pw2.value) {
+			alert("비밀번호 값이 일치하지 않습니다.")
+			return false;
+		}
+		
+		if(name.value == null || name.value == '') {
+			alert("이름을 작성해주세요.")
+			name.focus();
+			name.select();
+			return false;
+		} 
+		return true;
+	}
+</script>
+</head>
+<body>
+<div id="header">
+<h1> <a th:href="@{/}" id="home">NAITEIGO!</a> </h1>
+</div>
+<div id="container">
+<h2>[ 個人情報修正 ]</h2>
+	<form th:action="@{mypage}" method="post" onsubmit="return validation()">
+		<table>
+			<tr>
+				<th>ID</th>
+				<td><input type="text" name="memberid" id="memberid"></td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td>
+					<input type="password" name="memberpw" id="memberpw" placeholder="パスワード入力"><br>
+					<input type="password" name="memberpw2" id="memberpw2" placeholder="パスワード入力">
+				</td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" name="membername" id="membername" placeholder="名前入力"></td>
+			</tr>
+			<tr>
+				<th>メール</th>
+				<td><input type="text" name="email" id="email" placeholder="メール入力"></td>
+			</tr>
+			<tr>
+				<th>電話番号</th>
+				<td><input type="text" name="phone" id="phone" placeholder="電話番号入力"></td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td><input type="text" name="address" id="address" placeholder="住所入力"></td>
+			</tr>
+			<tr id="btnr">
+				<td colspan="2" id="btnd"><input type="submit" value="修正">  <input type="reset" value="リセット"></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>
