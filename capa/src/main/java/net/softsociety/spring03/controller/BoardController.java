@@ -15,5 +15,10 @@ public class BoardController {
 	public String boardpage() {
 		return"boardView/boardpage";
 	}
-
+	
+	@GetMapping("createBoard")
+	public String createBoard() {
+		log.debug("게시판 생성 들어왔니????????????????????");
+		return"boardView/createBoard";
+	}
 }
