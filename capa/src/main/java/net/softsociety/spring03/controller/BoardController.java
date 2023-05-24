@@ -1,7 +1,11 @@
 package net.softsociety.spring03.controller;
 
+import org.springframework.stereotype.Controller;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
 public class BoardController {
-public static void main(String[] args) {
-	System.out.println("hi");
-}
+
 }
