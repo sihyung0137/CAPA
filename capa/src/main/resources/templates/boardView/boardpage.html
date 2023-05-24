@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	ul,li{
+		/* 리스트를 가로로 보여줌 */
+		display : inline-block;
+		padding : 10px;
+	}
+	#createBoard{
+		text-align: right; 
+	}
+	
+	/*드롭다운*/
+	.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+</style>
 <body>
-hihihi
+<h1>게시판</h1>
+	<!-- 관리자만 보이게 걸기 -->
+	<div  id="createBoard">
+	<a th:href="@{/board/createBoard}">게시판 생성</a>
+	</div>
+		<ul>
+			<li>영업</li>
+			<li>IT엔지니어</li>
+			<li>제조업</li>
+			<li>부동산</li>
+			<li>금융업</li>
+		</ul>
+		
+		<hr>
+		
+		<!-- 드롭다운 삭제하지마 -->
+		<div class="dropdown">
+			  <button class="dropbtn">Dropdown</button>
+			  <div class="dropdown-content">
+			  <a href="#">Link 1</a>
+			  <a href="#">Link 2</a>
+			  <a href="#">Link 3</a>
+			  </div>
+		</div>
+		<!-- 드롭다운 삭제하지마 -->
+
 </body>
 </html>
