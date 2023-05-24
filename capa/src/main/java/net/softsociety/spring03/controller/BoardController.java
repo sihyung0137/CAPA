@@ -15,4 +15,5 @@ public class BoardController {
 	public String boardpage() {
 		return"boardView/boardpage";
 	}
+
 }
