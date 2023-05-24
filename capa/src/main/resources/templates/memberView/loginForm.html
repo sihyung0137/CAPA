@@ -18,7 +18,7 @@ function validation() {
 }
 </script>
 <style>
-body {
+/* body {
 		background: #98E0AD;
 	}
 #container {
@@ -48,11 +48,11 @@ body {
 	#header {
 		margin-top : 50px;
 		height : 5px;
-	}
+	} */
 </style>
 </head>
 <body>
-	<div id="header">	<h1> <a th:href="@{/}" id="home">NAITEIGO!</a> </h1></div>
+	<div id="header">	<h1> <a th:href="@{/}" id="home">CAPA</a> </h1></div>
 
 	<div id="container">
 
@@ -70,8 +70,8 @@ body {
 		<tr>
 			<td class="white"></td>
 			<td class="white">
-				<div class="errorMsg" th:if="${param.error}">IDまたは、パスワードをもう一度確認してください。</div>
-				<div class="errorMsg" th:if="${param.error}"><script>alert('IDまたは、パスワードをもう一度確認してください。')</script></div>
+				<div class="errorMsg" th:if="${param.error}">ID또는 비밀번호를 다시 확인해주세요.</div>
+				<div class="errorMsg" th:if="${param.error}"><script>alert('ID또는 비밀번호를 다시 확인해주세요.')</script></div>
 			</td>
 		</tr>
 		<tr>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	table {
+	/* table {
 	   	margin: auto;
 	   	height: auto;   
 	}
@@ -49,7 +49,7 @@
 	h1 {
 		text-align: center;
 	}
-	
+	 */
 </style>
 <script>
 	function validation(){
@@ -90,10 +90,10 @@
 </head>
 <body>
 <div id="header">
-<h1> <a th:href="@{/}" id="home">NAITEIGO!</a> </h1>
+<h1> <a th:href="@{/}" id="home">CAPA</a> </h1>
 </div>
 <div id="container">
-<h2>[ 個人情報修正 ]</h2>
+<h2>[ 개인정보수정 ]</h2>
 	<form th:action="@{mypage}" method="post" onsubmit="return validation()">
 		<table>
 			<tr>
@@ -101,30 +101,30 @@
 				<td><input type="text" name="memberid" id="memberid"></td>
 			</tr>
 			<tr>
-				<th>パスワード</th>
+				<th>비밀번호</th>
 				<td>
-					<input type="password" name="memberpw" id="memberpw" placeholder="パスワード入力"><br>
-					<input type="password" name="memberpw2" id="memberpw2" placeholder="パスワード入力">
+					<input type="password" name="memberpw" id="memberpw" placeholder="비밀번호를 입력"><br>
+					<input type="password" name="memberpw2" id="memberpw2" placeholder="비밀번호 확인">
 				</td>
 			</tr>
 			<tr>
-				<th>名前</th>
-				<td><input type="text" name="membername" id="membername" placeholder="名前入力"></td>
+				<th>이름</th>
+				<td><input type="text" name="membername" id="membername" placeholder="이름을 입력"></td>
 			</tr>
 			<tr>
-				<th>メール</th>
-				<td><input type="text" name="email" id="email" placeholder="メール入力"></td>
+				<th>이메일</th>
+				<td><input type="text" name="email" id="email" placeholder="이메일 입력"></td>
 			</tr>
 			<tr>
-				<th>電話番号</th>
-				<td><input type="text" name="phone" id="phone" placeholder="電話番号入力"></td>
+				<th>전화번호</th>
+				<td><input type="text" name="phone" id="phone" placeholder="전화번호 입력"></td>
 			</tr>
 			<tr>
-				<th>住所</th>
-				<td><input type="text" name="address" id="address" placeholder="住所入力"></td>
+				<th>주소</th>
+				<td><input type="text" name="address" id="address" placeholder="주소 입력"></td>
 			</tr>
 			<tr id="btnr">
-				<td colspan="2" id="btnd"><input type="submit" value="修正">  <input type="reset" value="リセット"></td>
+				<td colspan="2" id="btnd"><input type="submit" value="수정">  <input type="reset" value="리셋"></td>
 			</tr>
 		</table>
 	</form>

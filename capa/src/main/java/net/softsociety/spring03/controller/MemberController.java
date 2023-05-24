@@ -24,7 +24,7 @@ public class MemberController {
 	@GetMapping("/join")
 	public String join() {
 		log.debug("로그인화면접속");
-		return "member/joinForm";
+		return "memberView/joinForm";
 	}
 	
 	@PostMapping("/join")
@@ -38,7 +38,7 @@ public class MemberController {
 	
 	@GetMapping("idcheck")
 	public String idChech() {
-		return "/member/idCheck";
+		return "/memberView/idCheck";
 	}
 	
 	@PostMapping("idcheck")
@@ -51,12 +51,12 @@ public class MemberController {
 		model.addAttribute("searchId", searchId);
 		model.addAttribute("result", result);
 		
-		return "/member/idCheck";
+		return "/memberView/idCheck";
 	}
 	
 	@GetMapping("loginForm")
 	public String loginForm() {
-		return "/member/loginForm";
+		return "/memberView/loginForm";
 	}
 	
 	@GetMapping("mypage")
@@ -67,7 +67,7 @@ public class MemberController {
 		
 		// model.addAttribute("member", m);
 		
-		return "member/mypage";
+		return "memberView/mypage";
 	}	
 	
 	@PostMapping("mypage")

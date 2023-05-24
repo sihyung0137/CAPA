@@ -2,9 +2,9 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>家はどこ？</title>
+<title>CareerPatner!</title>
 <style>
-	table {
+/* 	table {
 		margin: auto;
 		height: auto;
 	}
@@ -45,7 +45,7 @@
 	#header {
 		margin-top : 50px;
 		height : 10px;
-	}
+	} */
 </style>
 <script>
 	function validate() {
@@ -128,7 +128,7 @@
 		<h1> <a th:href="@{/}" id="home">CAPA</a> </h1>
 	</div>
 	<div id="container">
-	<h2>[ 会員登録 ]</h2>
+	<h2>[ 회원등록 ]</h2>
 	<form th:action="@{join}" method="post" onsubmit="return validate()">
 		<table>
 			<tr>
@@ -141,8 +141,8 @@
 			<tr>
 				<th>PASSWORD</th>
 				<td>
-					<input type="password" name="memberpw" id="memberpw" placeholder="パスワード入力">
-					<input type="password" name="memberpw2" id="memberpw2" placeholder="パスワード再入力">
+					<input type="password" name="memberpw" id="memberpw" placeholder="패스워드를 입력하세요.">
+					<input type="password" name="memberpw2" id="memberpw2" placeholder="패스워드를 재입력하세요.">
 				</td>
 			</tr>
 			<tr>
@@ -152,19 +152,19 @@
 				</td>
 			</tr>
 			<tr>
-				<th>メールアドレス</th>
-				<td><input type="text" name="email" id="email" placeholder="メール入力"></td>
+				<th>EMAIL</th>
+				<td><input type="text" name="email" id="email" placeholder="메일을 입력하세요."></td>
 			</tr>
 			<tr>
-				<th>電話番号</th>
-				<td><input type="text" name="phone" id="phone" placeholder="番号入力"></td>
+				<th>전화번호</th>
+				<td><input type="text" name="phone" id="phone" placeholder="전화번호를 입력하세요."></td>
 			</tr>
 			<tr>
-				<th>住所</th>
-				<td><input type="text" name="address" id="address" placeholder="住所入力"></td>
+				<th>주소</th>
+				<td><input type="text" name="address" id="address" placeholder="주소를 입력하세요."></td>
 			</tr>
 			<tr id="btnr">
-				<td colspan="2" id="btnd"><input type="submit" value="登録">   <input type="reset" value="キャンセル"></td>
+				<td colspan="2" id="btnd"><input type="submit" value="등록">   <input type="reset" value="취소"></td>
 			</tr>
 		</table>
 	</form>
