@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<script>
+//로그인폼 확인
+function validation() {
+	let id = document.getElementById('memberid');
+	let password = document.getElementById('memberpw');
+	
+	if (id.value == '' || password.value == '') {
+		alert('ID와 비밀번호를 입력하세요.');
+		return false;
+	}
+	return true;
+}
+</script>
+<style>
+body {
+		background: #98E0AD;
+	}
+#container {
+		width: 850px;
+		margin-top: 200px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    height: 300px;    
+	    border: 1px solid black;
+	    text-align: center;
+	}
+#loginForm {
+		width: 300px;
+		margin-left: auto;
+	    margin-right: auto;
+	    height: 500px;
+}
+#home {
+		text-decoration: none;
+	}
+	h1 > a {
+		color: white;
+	}
+	h1 {
+		text-align : center;
+	}
+	#header {
+		margin-top : 50px;
+		height : 5px;
+	}
+</style>
+</head>
+<body>
+	<div id="header">	<h1> <a th:href="@{/}" id="home">NAITEIGO!</a> </h1></div>
+
+	<div id="container">
+
+	<h2>[ LOGIN ]</h2>
+		<form id="loginForm" th:action="@{/member/login}" method="post" onSubmit="return validation();">
+		<table>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" name="memberid" id="memberid" /></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="password" name="memberpw" id="memberpw" /></td>
+		</tr>
+		<tr>
+			<td class="white"></td>
+			<td class="white">
+				<div class="errorMsg" th:if="${param.error}">IDまたは、パスワードをもう一度確認してください。</div>
+				<div class="errorMsg" th:if="${param.error}"><script>alert('IDまたは、パスワードをもう一度確認してください。')</script></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="center white">
+				<input type="submit" value="Login" />
+			</td>
+		</tr>
+		</table>
+		</form>
+	
+	</div>
+</body>
+</html>

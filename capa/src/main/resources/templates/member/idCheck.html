@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+	function validation() {
+		let searchId =document.querySelector("#searchId");
+		
+		if(searchId.value.length < 3 || searchId.value.length > 10){
+			alert("아이디를 3~10글자로 입력하세요.");
+			return false
+			}
+			return true;
+	}
+	function useId(memberid) {
+		opener.document.querySelector('#memberid').value = memberid;
+		this.close();
+	}
+</script>
+</head>
+<body>
+	<h2>[ ID 중복확인 ]</h2>
+	
+	<form th:action="@{idcheck}" method="post" onsubmit="return validation()">
+		검색할 ID <input type="text" name="searchId" id="searchId">
+		<input type="submit" value="검색">
+	</form>
+	
+	<div th:if="${searchId != null}">
+		<div th:if="${result}">
+			<p><span th:text="${searchId}"></span>: 사용할 수 있는 ID입니다.</p>
+			<input type="button" value="ID사용하기" th:checkedId="${searchId}"
+			th:onclick="useId(this.getAttribute('checkedId'))">
+		</div>
+		<div th:if="${not result}">
+			<p><span th:text="${searchId}"></span>: 사용할 수 없는 아이디 입니다.</p>
+		</div>
+	</div>
+</body>
+</html>
