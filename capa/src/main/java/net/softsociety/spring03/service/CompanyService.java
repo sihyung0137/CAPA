@@ -6,7 +6,7 @@ import net.softsociety.spring03.vo.Company_info;
 
 public interface CompanyService {
 
-	int insertCompanyInfo(Company_info companyinfo);
+	int insertCompanyInfo(Company_info company_info);
 
 	List<Company_info> selectCompany(String company_name);
 

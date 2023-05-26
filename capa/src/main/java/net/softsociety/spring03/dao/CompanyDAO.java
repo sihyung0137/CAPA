@@ -9,8 +9,9 @@ import net.softsociety.spring03.vo.Company_info;
 @Mapper
 public interface CompanyDAO {
 
-	int insertCompanyInfo(Company_info companyinfo);
+	int insertCompanyInfo(Company_info company_info);
 
-	List<Company_info> selectAll(String company_name);
+	List<Company_info> selectCompany(String company_name);
+
 
 }
