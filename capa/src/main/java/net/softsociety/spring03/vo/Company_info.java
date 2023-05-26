@@ -17,5 +17,6 @@ public class Company_info {
 	String	filed; 
 	String	scale; 
 	String	info; 
-	String	Edate; 
+	String	Edate;
+	String  logo;
 }

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회사 등록하기</title>
+<script>
+function validation() {
+	let name = document.getElementById('company_name');
+	let sales = document.getElementById('sales');
+	let employees = document.getElementById('employees');
+	let address = document.getElementById('c_address');
+	let salary = document.getElementById('salary_AVG');
+	let filed = document.getElementById('filed');
+	let scale = document.getElementById('scale');
+	let info = document.getElementById('info');
+	
+	if(!name.value){
+		alert('회사이름을 입력하세요');
+		name.focus();
+		return false;
+	}
+	if(!sales.value){
+		alert('매출을 입력하세요');
+		sales.focus();
+		return false;
+	}
+	if(!employees.value){
+		alert('사원수을 입력하세요');
+		employees.focus();
+		return false;
+	}
+	if(!address.value){
+		alert('회사주소를 입력하세요');
+		address.focus();
+		return false;
+	}
+	if(!salary.value){
+		alert('평균급여를 입력하세요');
+		salary.focus();
+		return false;
+	}
+	if(!filed.value){
+		alert('회사분야를 입력하세요');
+		filed.focus();
+		return false;
+	}
+	if(!scale.value){
+		alert('회사규모를 입력하세요');
+		scale.focus();
+		return false;
+	}
+	if(!info.value){
+		alert('간단한 회사 정보를 입력해주세요. 회사메일, 분위기 등등');
+		info.focus();
+		return false;
+	}
+	return true;
+}
+
+</script>
+</head>
+<body>
+	<header id="title">
+		<h2>CAPA 회사정보등록</h2>
+	</header>
+	<section>
+		<form id="joinForm" th:action="@{/company/joinCompany}" method="post"
+			onsubmit="return validation();">
+			<table>
+				<tr>
+					<th>회사이름</th>
+					<td><input type="text" name="company_name" id="company_name">
+					</td>
+				</tr>
+				<tr>
+					<th>매출</th>
+					<td><input type="text" name="sales" id="sales">
+					</td>
+				</tr>
+				<tr>
+					<th>사원수</th>
+					<td><input type="text" name="employees" id="employees"
+					placeholder="숫자만 적어주세요">
+					</td>
+				</tr>
+				<tr>
+					<th>회사주소</th>
+					<td><input type="text" name="c_address" id="c_address"
+						placeholder="서울특별시 종로구 청와대로 1 (세종로)"></td>
+				</tr>
+				<tr>
+					<th>회사홈페이지 URL</th>
+					<td><input type="text" name="homepage" id="homepage"
+						placeholder="http://"></td>
+				</tr>
+				<tr>
+					<th>평균급여</th>
+					<td><input type="text" name="salary_AVG" id="salary_AVG"
+						placeholder="한달기준이냐 일년기준이냐?">
+					</td>
+				</tr>
+				<tr>
+					<th>분야</th>
+					<td><input type="text" name="filed" id="filed"
+						placeholder="IT분야 , 보건분야">
+					</td>
+				</tr>
+				<tr>
+					<th>회사규모</th>
+					<td><input type="text" name="scale" id="scale"
+						placeholder="유수기업, 대기업, 중소기업">
+					</td>
+				</tr>
+				<tr>
+					<th>회사소개</th>
+					<td><input type="text" name="info" id="info"
+						placeholder="회사 소개란: 디테일 할수록 좋아요">
+					</td>
+				</tr>
+				<tr>
+					<th>설립일</th>
+					<td><input type="date" name="Edate" id="Edate"
+						placeholder="설립일">
+					</td>
+				</tr>
+				<tr>
+					<th>회사사진</th>
+					<td><input type="file" name="logo" id="logo">
+					</td>
+				</tr>
+				
+			</table>
+			<br>
+			<div id="bottan">
+				<input type="submit" value="회사정보 등록완료"> 
+				<input type="reset" value="다시쓰기">
+			</div>
+		</form>
+	</section>
+
+</body>
+</html>

@@ -23,7 +23,7 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Override
 	public List<Company_info> selectCompany(String company_name) {
-		List<Company_info> result = companyDAO.selectAll(company_name);
+		List<Company_info> result = companyDAO.selectCompany(company_name);
 		return result;
 	}
 }
