@@ -1,11 +1,16 @@
 package net.softsociety.spring03.service;
 
+
 import net.softsociety.spring03.vo.Member;
 
 public interface MemberService {
 
-	int joinInsert(Member m);
+	int join(Member member);
 
-	boolean selectId(String searchId);
+	boolean idcheck(String memberid);
+	
+	Member getMemberInfo(String username);
+	 
+	int updateMember(Member member);
 
 }

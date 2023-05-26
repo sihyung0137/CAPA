@@ -1,8 +1,6 @@
 package net.softsociety.spring03.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,61 +19,69 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
-	@GetMapping("/join")
-	public String join() {
-		log.debug("로그인화면접속");
-		return "memberView/joinForm";
+	 //회원가입으로 이동
+	 @GetMapping("join") 
+	 public String joinForm() {
+		 log.debug("회원가입 이동했다 !!!!!!!!!!!");
+		 return "/memberView/joinForm"; 
 	}
-	
-	@PostMapping("/join")
-	public String join2(Member m) {
-		log.debug("param : {}", m);
-		
-		int result = service.joinInsert(m);
-		log.debug("회원가입 성공 result: {}, m : {}", result, m);
-		return "redirect:/";
+	 
+	 //회원가입하기
+	 @PostMapping("join") 
+	 public String join(Member member) {
+		 log.debug("받아왔니? : {}",member);
+		 
+		 int result = service.join(member); 
+		 log.debug("회원가입 성공했니? : {}", result);
+		 
+		 return "redirect:/";
+		 
+	 }
+	 
+	 //id중복확인
+	@GetMapping("idcheck") 
+	public String idcheck() {
+		 log.debug("아이디체크 왔다 !!!!!!!!!!!!!!!");
+		 return "/memberView/idcheck";
 	}
-	
-	@GetMapping("idcheck")
-	public String idChech() {
-		return "/memberView/idCheck";
-	}
-	
+	 
+	//id중복체크 끝내면 값 넘기기
 	@PostMapping("idcheck")
-	public String idcheck2(String searchId, Model model) {
-		log.debug("param: {}", searchId);
-		boolean result = service.selectId(searchId);
-		// 아이디 값이 존재하면 false 존재하지 않으면 true
-		log.debug("result: {}", result);
-		
+	public String idcheck(String searchId, Model model) {
+		log.debug("검색할 ID : {}", searchId);
+		boolean result = service.idcheck(searchId);
+			
 		model.addAttribute("searchId", searchId);
 		model.addAttribute("result", result);
-		
-		return "/memberView/idCheck";
+			
+		return "/memberView/idcheck";
 	}
-	
+	 
 	@GetMapping("loginForm")
 	public String loginForm() {
 		return "/memberView/loginForm";
 	}
-	
-	@GetMapping("mypage")
-	public String mypage(@AuthenticationPrincipal UserDetails user, Model model) {
-		log.debug("user: {}", user);
 		
-		// Member m = service.selectOne(user.getUsername());
+//	@GetMapping("updateInfo") 
+//	public String updateInfo(@AuthenticationPrincipal UserDetails user, Model model) {
+//		  
+//		log.debug("들고 온 정보 : {}", user); 
+//		Member member = service.getMemberInfo(user.getUsername()); 
+//		model.addAttribute("member",member);
+//		 
+//		return "/memberView/updateInfo"; 
+//		
+//	}
+//	 
+//	@PostMapping("updateInfo") 
+//	public String mypage(@AuthenticationPrincipal UserDetails user, Member member) { 
+//		log.debug("수정할 정보 : {}", member);
+//		
+//		member.setMemberid(user.getUsername()); 
+//		int result = service.updateMember(member); 
+//		log.debug("수정 완료?:{}",result);
+//		
+//		return "redirect:/"; 
+//	}	
 		
-		// model.addAttribute("member", m);
-		
-		return "memberView/mypage";
-	}	
-	
-	@PostMapping("mypage")
-	public String mypage2(@AuthenticationPrincipal UserDetails user, Member m) {
-		log.debug("수정할 정보 m: {}", m);
-		
-		// int result = service.updateMember(m);
-		
-		return "redirect:/";
-	}
 }

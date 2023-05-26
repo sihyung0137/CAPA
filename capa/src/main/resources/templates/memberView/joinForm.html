@@ -2,171 +2,174 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>CareerPatner!</title>
+<title>회원가입</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style>
-/* 	table {
+	*{
+		font-family: 'IBM Plex Sans KR', sans-serif;
+	}
+	#logo{
+		width:70px;
+		margin-top: 30px;
+		margin-left: 20px;
+	}
+	#center{
+		text-align: center;
+	}
+	table{
 		margin: auto;
-		height: auto;
+		text-align: center;
+		border-collapse: collapse;
+		border : 1px solid rgb(228, 220, 207);
+		width : 500px;
+		height : 200px;
+		margin-bottom: 40px;
 	}
-	
-	th {
-		background-color: cadetblue;
+	th,td{
+		border : 1px solid rgb(228, 220, 207);
 	}
-	
-	h2 {
+	th{
+		background-color: rgb(228, 220, 207);
+
+	}
+	h1{
 		text-align: center;
 	}
-	#btnd {
+	hr{
+		margin-bottom: 40px;
+		background: rgb(228, 220, 207);
+		height : 4px;
+		border : 0px;
+	}
+	input{
 		text-align: center;
 	}
-	#address {
-		width: 300px;
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background: rgb(228, 220, 207);
+	  cursor: pointer;
+	  border-radius: 10px;
 	}
-	body {
-		background: #98E0AD;
+	.bt:hover {
+	  color: white;
+	  background: rgb(234, 84, 85);
 	}
-	#container {
-		width: 850px;
-		margin-top: 200px;
-	    margin-left: auto;
-	    margin-right: auto;
-	    height: 300px;    
-	    border: 1px solid black;
-	}
-	#home {
-		text-decoration: none;
-	}
-	h1 > a {
-		color: white;
-	}
-	h1 {
-		text-align: center;
-	}
-	#header {
-		margin-top : 50px;
-		height : 10px;
-	} */
 </style>
 <script>
-	function validate() {
-		let id = document.querySelector("#memberid");
-		let pw = document.querySelector("#memberpw");
-		let firstname = document.querySelctor("#firstname");
-		let familyname = document.querySelector("#familyname");
-		let hiraFirstname = document.querySelector("#hiraFirstname");
-		let hiraFamilyname = document.querySelector("#hiraFamilyname");
-		// let name = familyname.value + " " + firstname.value;
-		
-		if(id.value == null || id.value == '') {
-			alert("아이디를 작성해주세요.")
-			id.focus();
-			id.select();
-			return false;
+	function idcheck(){
+			window.open('idcheck', 'idwin', 'top=300, left=600, width=500, height=400');
 		}
-		
-		if(id.value.length < 3 || id.value.length > 10) {
-			alert("아이디는 3~10글자 이내로 작성해 주세요.")
-			id.value = null;
-			id.focus();
-			id.select();
-			return false;
-		}
-		
-		if(pw.value.length < 3 || pw.value.length > 10) {
-			alert("비밀번호는 3~10글자 이내로 작성해 주세요.")
-			pw.value = null;
-			pw.focus();
-			pw.select();
-			return false;
-		}
-		
-		if(pw.value != pw2.value) {
-			alert("비밀번호 값이 일치하지 않습니다.")
-			return false;
-		}
-		
-		if(firstname.value == null || firstname.value == '') {
-			alert("이름을 작성해주세요.")
-			firstname.focus();
-			firstname.select();
-			return false;
-		} 
-		return true;
-		
-		if(familyname.value == null || familyname.value == '') {
-			alert("이름을 작성해주세요.")
-			familyname.focus();
-			familyname.select();
-			return false;
-		} 
-		return true;
-		
-		if(hiraFirstname.value == null || hiraFirstname.value == '') {
-			alert("이름을 작성해주세요.")
-			hiraFirstname.focus();
-			hiraFirstname.select();
-			return false;
-		} 
-		return true;
-		
-		if(hiraFamilyname.value == null || hiraFamilyname.value == '') {
-			alert("이름을 작성해주세요.")
-			hiraFamilyname.focus();
-			hiraFamilyname.select();
-			return false;
-		} 
-		return true;
-	}
 	
-	function idCheck() {
-		window.open('idcheck', 'idwin', 'top=200, left500, width=400, height=300');
+	function fin(){
+		let id = document.querySelector('#memberid');
+		let pw = document.querySelector('#memberpw');
+		let pw2 = document.querySelector('#memberpw2');
+		let name = document.querySelector('#username');
+		let email = document.querySelector('#email');
+		let job = document.querySelector('#identify');
+		
+		console.log(id);
+		
+		if(id.value.length==0||id.value==''){
+			alert('아이디를 입력해 주세요 !');
+			return false;
+		}
+		
+		if(pw.value.length <3 || pw.value.length >12){
+			alert('비밀번호는 3~12자리로 입력해 주세요 !');
+			return false;
+		}
+		
+		if(pw.value!==pw2.value){
+			alert('비밀번호를 다시 확인해 주세요 !');
+			return false;
+		}
+		
+		if(name.value.length==0 || name.value ==''){
+			alert('이름을 입력해 주세요 !');
+			return false;
+		}
+		
+		if(email.value.length==0 || email.value ==''){
+			alert('이메일을 입력해 주세요 !');
+			return false;
+		}else if(!email.value.includes('@')){
+			alert('@를 포함한 형식으로 입력해 주세요 !');
+			return false;
+		}
+		
+		//이거 확인하자
+		if(job.value.equals('직업을 선택해 주세요.')){
+			alert("직업을 선택해 주세요");
+			return false;
+		}
+		
+		alert('회원가입 성공 !');
 	}
+	function goPage(){
+		location.href="/member/mypage";
+	}
+		
 </script>
 </head>
 <body>
-	<div id="header">
-		<h1> <a th:href="@{/}" id="home">CAPA</a> </h1>
-	</div>
-	<div id="container">
-	<h2>[ 회원등록 ]</h2>
-	<form th:action="@{join}" method="post" onsubmit="return validate()">
+<img src="/image/small.PNG" id="logo" onclick="goPage();">
+	<h1>JOIN US</h1>
+	<hr>
+	<div id="center">
+	<form th:action="@{/member/join}" method="post" onsubmit="return fin();">
 		<table>
 			<tr>
-				<th>ID</th>
-				<td>
-					<input type="text" name="memberid" id="memberid" placeholder="ID중복확인 이용" readonly="readonly">
-					<input type="button" value="ID중복확인" onclick="idCheck()">
+				<th>아이디</th>
+				<td>&emsp;&emsp;&emsp;&emsp;&emsp;<!--emsp: 4개의 공백 -->
+					<input name="memberid" id="memberid" placeholder="ID중복확인 이용" readonly="readonly">
+					<input type="button" value="ID중복확인" onclick="idcheck();" class="bt">
 				</td>
 			</tr>
+			
 			<tr>
-				<th>PASSWORD</th>
-				<td>
-					<input type="password" name="memberpw" id="memberpw" placeholder="패스워드를 입력하세요.">
-					<input type="password" name="memberpw2" id="memberpw2" placeholder="패스워드를 재입력하세요.">
+				<th>비밀번호</th>
+				<td><input name="memberpw" id="memberpw" placeholder="비밀번호 입력" type="password"><br>
+					<input placeholder="비밀번호 다시 입력" type="password" id="memberpw2">				
 				</td>
 			</tr>
+			
 			<tr>
-				<th>NAME</th>
+				<th>이름</th>
+				<td><input name="username" id="username" placeholder="이름 입력"></td>
+			</tr>
+			
+			<tr>
+				<th>직업</th>
 				<td>
-					<input type="text" name="membername" id="membername" placeholder="이름을 입력하세요.">
+					<select  name="identify" id="identify">
+ 						<option>직업을 선택해 주세요.</option>
+						<option>회사원</option>
+						<option>대학생</option>
+						<option>취업준비생</option>
+					</select>
 				</td>
 			</tr>
-			<tr>
-				<th>EMAIL</th>
-				<td><input type="text" name="email" id="email" placeholder="메일을 입력하세요."></td>
-			</tr>
+			
 			<tr>
 				<th>전화번호</th>
-				<td><input type="text" name="phone" id="phone" placeholder="전화번호를 입력하세요."></td>
+				<td><input name="phone" id="phone" placeholder="전화번호 입력"></td>
 			</tr>
+			
 			<tr>
 				<th>주소</th>
-				<td><input type="text" name="address" id="address" placeholder="주소를 입력하세요."></td>
+				<td><input name="u_address" id="u_address" placeholder="주소 입력"></td>
 			</tr>
-			<tr id="btnr">
-				<td colspan="2" id="btnd"><input type="submit" value="등록">   <input type="reset" value="취소"></td>
+			
+			<tr>
+				<th>이메일</th>
+				<td><input name="email" id="email" placeholder="이메일 입력"></td>
 			</tr>
+		
 		</table>
+		<input type="submit" value="가입" class="bt">&emsp;
+		<input type="reset" value="다시 쓰기" class="bt">
 	</form>
 	</div>
 </body>
