@@ -62,20 +62,19 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    //인증을 위한 쿼리
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
         .dataSource(dataSource)
         // 인증 (로그인)
         .usersByUsernameQuery(
-        		"select memberid username, memberpw password, enabled " +
-                "from naiteigo_member " +					// 복붙할 떄 바꿔줘야할 테이블명
+        		"select memberid username, memberpw password, enabled enabled " +
+                "from CAPA_Member " +
                 "where memberid = ?")
         // 권한
         .authoritiesByUsernameQuery(
         		"select memberid username, rolename role_name " +
-                "from naiteigo_member " +					// 복붙할떄 바꿔줘야할 테이블 명
+                "from CAPA_Member " +
                 "where memberid = ?");
     }
 

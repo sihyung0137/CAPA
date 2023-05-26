@@ -17,15 +17,14 @@ public class Member implements UserDetails {
 	private static final long serialVersionUID = -2115632682956880197L;
 	String memberid;
 	String memberpw;
-	String familyname;
-	String firstname;
-	String hirafamilyname;
-	String hirafirstname;
+	String username;
 	String email;
 	String phone;
-	String address;
+	String u_address;
 	boolean enabled;
 	String rolename;
+	String identify;
+	
 	
 	// UserDetails의 메소드 구현해줘야 해서 override
 		@Override
