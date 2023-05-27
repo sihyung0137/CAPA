@@ -70,6 +70,8 @@ public class CompanyController {
 			return "redirect:/";
 		}
 		model.addAttribute("CompanyInfoList",CompanyInfoList);
+		//별점을 나중에 가져와야함 
+		
 		
 		return "/companyView/companyListForm";
 	}

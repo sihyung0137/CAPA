@@ -32,6 +32,6 @@
 	
 </insert>
 <select id="selectCompany" parameterType="String" resultType="List">
-
+	select * from CAPA_Company_info where company_name like '%'||#{company_name}||'%' order by
 </select>
 </mapper>
