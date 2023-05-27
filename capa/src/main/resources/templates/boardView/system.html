@@ -53,18 +53,24 @@
 	}
 	.details:hover {
 		color:rgb(255, 110, 49);
-}
-
+	}
+	h1{
+		text-align: center;
+	}
+	#writeForm{
+		text-align: right; 
+	}
+	#pencil{
+		width:40px;
+		height: auto;
+		margin-right: 30px;
+	}
 </style>
 
 <script>
 
 </script>
 <body>
-	<!-- 관리자만 보이게 걸기 -->
-	<div id="createBoard" >
-	<a th:href="@{/board/createBoard}">게시판 생성</a>
-	</div>	
 
  	<div id="menu">
 		<ul>
@@ -105,6 +111,11 @@
 			</li>
 		</ul>
 	</div>
-
+	
+	<h1>System Engineer</h1>
+	
+	<div id="writeForm">
+	<a th:href="@{/board/write}"><img src="../image/pencil.png" id="pencil"></a>
+	</div>
 </body>
 </html>

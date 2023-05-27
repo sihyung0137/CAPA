@@ -6,4 +6,5 @@ public interface BoardService {
 
 	int createBoard(Board board);
 
+
 }
