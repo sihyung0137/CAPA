@@ -3,22 +3,155 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Welcom to CAPA</title>
+<style>
+	#company{
+		height:300px;
+		width:auto;
+	}
+	#picture{
+		margin-top : 50px;
+		text-align: center;
+	}
+	footer{
+		position : relative;
+	  	transform : translateY(-100%);
+	}
+	
+	#logo{
+		margin-top : 50px;
+		text-align: center;
+		height:100px;
+		width:auto; 
+	}
+	header{
+		text-align: center;
+	} 
+
+	/*여기서부터 사진 관련*/ 
+	.column {
+	  margin: 15px 15px 0;
+	  padding: 0;
+	}
+	.column:last-child {
+	  padding-bottom: 60px;
+	}
+	.column::after {
+	  content: '';
+	  clear: both;
+	  display: block;
+	}
+	.column div {
+	  position: relative;
+	  float: left;
+/* 	  width: 300px;
+	  height: 200px; */
+	  margin: 0 0 0 25px;
+	  padding: 0;
+	}
+	.column div:first-child {
+	  margin-left: 0;
+	}
+	.column div span {
+	  position: absolute;
+	  bottom: -20px;
+	  left: 0;
+	  z-index: -1;
+	  display: block;
+/* 	  width: 300px; */
+	  margin: 0;
+	  padding: 0;
+	  color: #444;
+	  font-size: 18px;
+	  text-decoration: none;
+	  text-align: center;
+	  -webkit-transition: .3s ease-in-out;
+	  transition: .3s ease-in-out;
+	  opacity: 0;
+	}
+	figure {
+/* 	  width: 300px;
+	  height: 200px; */
+	  margin: 0;
+	  padding: 0;
+	  background: #fff;
+	  overflow: hidden;
+	}
+	figure:hover+span {
+	  bottom: -36px;
+	  opacity: 1;
+	}
+	
+	
+	/* 사진에 마우스 올리면 확대 */
+	.picHover figure img {
+ 	  width: 500px;
+	  height: auto;
+	  -webkit-transition: .3s ease-in-out;
+	  transition: .3s ease-in-out;
+	}
+	.picHover figure:hover img {
+	  width: 550px;
+	}
+	
+	ul,li{
+		/* 리스트를 가로로 보여줌 */
+		display : inline-block;
+		padding : 10px;
+	}
+	#login{
+		text-align: right;
+	}
+	.menu{
+		text-decoration-line : none; 
+		color:rgb(36, 55, 99);
+	} 
+	.menu:hover {
+		color:rgb(255, 110, 49);
+	}
+</style>
+
+<script>
+	function goBoard(){
+		location.href="board/boardpage"; 
+	}
+	function goCompany(){
+		location.href="company/searchCompanyForm";
+	}
+</script>
+
 </head>
 <body>
-<h1>homepage</h1>
 
-			<div id="login">
+	
+	<header>
+		<img src="image/capa.PNG" id="logo">
+	</header>
+	
+ 	<div id="login">
 		<ul>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}">회원가입</a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}">로그인</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}">회원정보 수정</a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{board/boardpage}">게시판</a></li>
-			<li sec:authorize="not isAuthenticated()"><a th:href="@{company/searchCompanyForm}">회사정보검색폼</a></li>
+			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" class="menu">로그인</a></li>
+			<li sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" class="menu">회원가입</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}" class="menu">로그아웃</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}" class="menu">회원정보 수정</a></li>
 		</ul>
+	</div> 
+	<hr>
+	
+	<div class="picHover column">
+		<div>
+			<figure><img src="image/main2.jpg" class="mainpic" onclick="goBoard();"></figure>
+			<span>게시판</span>
+		</div>
+		<div>
+			<figure><img src="image/main1.jpg" class="mainpic" onclick="goCompany();"></figure>
+			<span>회사 정보</span>
+		</div>
 	</div>
 
 
+	<footer>
+		
+	</footer>
 </body>
 </html>
