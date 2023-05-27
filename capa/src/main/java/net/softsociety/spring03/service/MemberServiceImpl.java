@@ -1,6 +1,5 @@
 package net.softsociety.spring03.service;
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

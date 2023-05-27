@@ -9,4 +9,5 @@ public interface BoardDAO {
 
 	int createBoard(Board board);
 
+
 }

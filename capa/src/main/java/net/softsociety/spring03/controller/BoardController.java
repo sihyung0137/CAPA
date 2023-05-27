@@ -2,6 +2,7 @@ package net.softsociety.spring03.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.BoardService;
 import net.softsociety.spring03.vo.Board;
-import oracle.net.ano.Service;
 
 @Controller
 @Slf4j
@@ -38,6 +38,18 @@ public class BoardController {
 		log.debug("게시판 생성 성공?:{}", result);
 		
 		return "redirect:boardpage";
+	}
+	
+	@GetMapping("system")
+	public String system() {
+		log.debug("서비스 들어오오오옴");
+		return "boardView/system";
+	}
+	
+	@GetMapping("write")
+	public String write() {
+		log.debug("글쓰기 들어오오오오옹ㅁ");
+		return "boardView/write";
 	}
 	
 }

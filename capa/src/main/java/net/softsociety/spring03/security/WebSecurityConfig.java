@@ -33,9 +33,12 @@ public class WebSecurityConfig {
                 "/board/load",
                 "/post/read",
                 "/board/boardpage",
+                "/board/write",
                 "/board/download",
                 "/board/loadReply",
                 "/board/createBoard",
+                "/board/write",
+                "/board/sysetem",
                 
                 "/company/searchCompanyForm", // 누구나 볼수 있게 열어놓았음
                 "/company/joinCompanyForm", // 테스트용으로 열어놓았으니 권한에 맞게 보이게끔 다시 고쳐야함
