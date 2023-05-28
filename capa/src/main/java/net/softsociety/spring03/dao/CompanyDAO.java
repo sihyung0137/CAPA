@@ -14,6 +14,8 @@ public interface CompanyDAO {
 
 	int insertCompanyInfo(Company_info company_info);
 
+	
+	
 	List<Company_info> selectCompany(String company_name);
 
 	ArrayList<Company_info> selectAll();

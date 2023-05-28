@@ -20,6 +20,8 @@ public class CompanyServiceImpl implements CompanyService{
 		return result;
 	}
 
+	
+	
 
 	@Override
 	public ArrayList<Company_info> selectAll() {

@@ -15,6 +15,8 @@ public interface CompanyService {
 
 	ArrayList<Company_info> selectAll();
 
+	
+	
 	Company_info readinfo(String company_name);
 	
 }
