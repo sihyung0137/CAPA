@@ -2,33 +2,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-    <mapper namespace="net.softsociety.spring03.dao.PostDAO">
-    	<insert id="insertPost" parameterType="Post">
+      <mapper namespace="net.softsociety.spring03.dao.PostDAO">
+     	<insert id="writePost" parameterType="Post">
 		insert into CAPA_post (
 			postnum
-			, boardnum
-			, memberid
-			, boardname
+			,memberid
 			, title
-			, contents
+			, content
 			<if test="originalfile != null or savedfile != null">
 			, originalfile
 			, savedfile
 			</if>			
 		) values (
-			naiteigo_post_seq.nextval
-			, #{boardnum}
+			CAPA_Post_seq.nextval
 			, #{memberid}
-			, #{boardname}
 			, #{title}
-			, #{contents}
+			, #{content}
 			<if test="originalfile != null or savedfile != null">
 			, #{originalfile}
 			, #{savedfile}
 			</if>
 		)
-	</insert>
-	<insert id="insertReply" parameterType="Reply">
+	</insert> 
+<!-- <insert id="insertReply" parameterType="Reply">
 		insert into naiteigo_reply (
 			replynum
 			, boardnum
@@ -96,7 +92,7 @@
 	 
 	<update id="updatePost" parameterType="Post">
 		update 
-			naiteigo_post 
+			CAPA_post 
 		set
 			title = #{title}
 			, contents = #{contents} 
@@ -113,7 +109,7 @@
 		delete from CAPA_post where postnum = #{postnum} and memberid = #{memberid}
 	</delete>
 	 
-	 <!-- 검색했을 때의 글 개수 -->
+	 검색했을 때의 글 개수
 	<select id="countPost" parameterType="SelNumber" resultType="int">
 		select count(*) from CAPA_post
 		<where>
@@ -139,7 +135,7 @@
 	</select>
 	
 
-<!-- 	<select id="getOneReply" parameterType="int" resultType="Reply">
+	<select id="getOneReply" parameterType="int" resultType="Reply">
 		select * from naiteigo_reply where replynum = #{replynum}
 	</select>
 	<delete id="deleteReply" parameterType="Reply">

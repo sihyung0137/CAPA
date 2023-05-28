@@ -58,7 +58,7 @@
 	  left: 0;
 	  z-index: -1;
 	  display: block;
-/* 	  width: 300px; */
+ 	  width: 500px;
 	  margin: 0;
 	  padding: 0;
 	  color: #444;
@@ -70,18 +70,17 @@
 	  opacity: 0;
 	}
 	figure {
-/* 	  width: 300px;
-	  height: 200px; */
 	  margin: 0;
 	  padding: 0;
 	  background: #fff;
 	  overflow: hidden;
+	  text-align: center;
 	}
 	figure:hover+span {
 	  bottom: -36px;
 	  opacity: 1;
+	  text-align: center;
 	}
-	
 	
 	/* 사진에 마우스 올리면 확대 */
 	.picHover figure img {
@@ -89,9 +88,11 @@
 	  height: auto;
 	  -webkit-transition: .3s ease-in-out;
 	  transition: .3s ease-in-out;
+	  text-align: center;
 	}
 	.picHover figure:hover img {
 	  width: 550px;
+	  text-align: center;
 	}
 	
 	ul,li{
@@ -109,6 +110,13 @@
 	.menu:hover {
 		color:rgb(255, 110, 49);
 	}
+	#center{
+		margin-left : 200px;
+		text-align: center;
+	}
+	span{
+		text-align: center;
+	}
 </style>
 
 <script>
@@ -122,8 +130,6 @@
 
 </head>
 <body>
-
-	
 	<header>
 		<img src="image/capa.PNG" id="logo">
 	</header>
@@ -136,8 +142,9 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}" class="menu">회원정보 수정</a></li>
 		</ul>
 	</div> 
-	<hr>
+
 	
+	<div id="center">
 	<div class="picHover column">
 		<div>
 			<figure><img src="image/main2.jpg" class="mainpic" onclick="goBoard();"></figure>
@@ -148,7 +155,7 @@
 			<span>회사 정보</span>
 		</div>
 	</div>
-
+	</div>
 
 	<footer>
 		

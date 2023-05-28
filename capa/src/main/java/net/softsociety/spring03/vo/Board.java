@@ -12,6 +12,5 @@ public class Board {
 	String boardname;
 	String memberid;
 	String boardtype;
-	String boardjob;
 
 }
