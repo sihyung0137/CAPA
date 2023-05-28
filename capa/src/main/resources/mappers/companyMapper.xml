@@ -46,4 +46,13 @@
 		
 		
 </select>
+<select id="selectAll" resultType="Company_info">
+	select * from CAPA_Company_info
+</select>
+
+<select id="readinfo" parameterType="String" resultType="Company_info">
+	select * from CAPA_Company_info
+	where 
+		company_name = #{company_name}
+</select>
 </mapper>

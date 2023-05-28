@@ -19,7 +19,7 @@ function validation() {
 }
 </script>
 <body>
-	<h1>회사정보 찾기 창ssss</h1>
+	<h1>회사정보 찾기 창</h1>
 	
 	<ul>
 		<li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
@@ -27,11 +27,46 @@ function validation() {
 		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
 		<li><a th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
 	</ul>
-		
+	<div id="searchBox">
 	<a>회사정보 찾기</a><br>
-	<form th:action="@{/company/companyListForm}" method="get" onsubmit="return validation();">
-		<input type="text" name="company_name" id="search"> 
-		<input type="submit" value="검색">
+	<form th:action="@{/company/searchcompanyForm}" method="get" onsubmit="return validation();">
+		<input type="text" name="searchWord" id="searchWord"> 
+		<input type="button" value="검색" onclick="wordSearch();">
 	</form>
+	</div>
+	
+ 	<div id="divBox">
+		<section>
+			<div id="container" th:each="list:${list}" th:value="${list.company_name}">
+				<table>
+					<tr>
+						<td>
+							<!-- <img th:src="@{/company/upload(company_name=${list.company_name})}"> -->
+							<img th:src="@{/company/upload(company_name=${list.company_name})}">
+						</td>
+					</tr> 
+					<tr>
+						<td th:text="${list.company_name}">
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		</section>
+	</div>
+<!-- 	   <div id="searchBox">
+      <form th:action="@{/company/searchcompanyForm}" method="get" id="pagingForm">
+      <select id="type" name="type">
+         <option value="bookname">제목</option>
+         <option value="contents">본문</option>
+      </select>
+      <input type="text"  name="searchWord" id="searchWord">
+      <input type="button"value="검색" class="bt" onclick="wordSearch();">
+      </form>
+   </div>
+   
+   <hr>
+   </div> -->
+
 </body>
 </html>

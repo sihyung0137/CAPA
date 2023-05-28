@@ -41,10 +41,12 @@ public class WebSecurityConfig {
                 "/board/system",
                 "/post/writePost",
                 
-                "/company/searchCompanyForm", // 누구나 볼수 있게 열어놓았음
+                "/company/CompanyForm", // 누구나 볼수 있게 열어놓았음
                 "/company/companyListForm", 
                 "/company/joinCompanyForm", // 테스트용으로 열어놓았으니 권한에 맞게 보이게끔 다시 고쳐야함
                 "/company/joinCompany", 
+                "/company/upload", 
+                
                 "/image/**",
                 "/css/**",
                 "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용

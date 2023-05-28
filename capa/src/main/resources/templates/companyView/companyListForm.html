@@ -4,12 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-
-vdfsd
-	<h1>회사 정보 리스트</h1>
-	<style>
+<style>
 section {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -39,24 +34,7 @@ td {
 }
 
 
-</style>
-	<script>
-	/* function writeFunc() {
-		location.href = 'writeForm'
-		
-	}
-	function deleteFunc(num) {
-		let inputPw = document.querySelector('#pw' + num); //<!-- 붙여서 elements를 가져옴 -->
-		let inputNum = document.querySelector('#num'); //<!-- 바로밑에 form -->
-		let pw = document.querySelector('#pw'); //<!-- 바로밑에 form -->
-		let form = document.querySelector('#deleteForm');
-		
-		inputNum.value = num;
-		pw.value = inputPw.value;
-		form.submit();
-		
-		/* location.href = 'deleteFunc' */
-</script>   
+</style> 
 </head>
 <body>
 	<form th:action="@{/company/companyInfoForm}" id="infoForm" method="post">
