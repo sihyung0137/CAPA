@@ -100,23 +100,32 @@
 	}
 
 </style>
+
+<script>
+function wirtePost() {
+	location.href = 'post/writePost';
+}
+
+</script>
 </head>
 <body>
-<!-- 	int boardnum;
-	String boardname;
-	String memberid;
-	String boardtype;
-	String boardjob; -->
 
 	<h1>글쓰기</h1>
 	<hr>
 	<div id="center">
-	<form th:action="@{/post/writePost}" method="post" onsubmit="return writePost();">
+	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();">
 		<table>
 			<tr>
 				<th>제목</th>
 				<td>
-					<input type="text" name="postname" id="postname" placeholder="제목을 입력해 주세요 :)">
+					<input type="text" name="title" id="title" placeholder="제목을 입력해 주세요 :)">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" id="title" placeholder="제목을 입력해 주세요 :)">
 				</td>
 			</tr>
 			
@@ -126,9 +135,16 @@
 					<textarea name="content" id="content" placeholder="내용을 입력해 주세요."></textarea>
 				</td>
 			</tr>
+			
+			<tr>
+				<th>파일첨부</th> 
+				<td>
+					<input type="file" name="upload">
+				</td>
+			</tr>
 		
 		</table>
-		<input type="submit" value="저장하기" class="bt">&emsp;
+ 		<input type="submit" value="저장하기" class="bt">&emsp;
 		<button type="reset" onclick="resetForm();" class="bt">취소</button>
 	</form>
 	</div>

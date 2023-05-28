@@ -1,6 +1,8 @@
 package net.softsociety.spring03.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,14 +43,20 @@ public class BoardController {
 	}
 	
 	@GetMapping("system")
-	public String system() {
-		log.debug("서비스 들어오오오옴");
+	public String system(String boardname) {
+		log.debug("서비스 들어오오오옴 :{}", boardname);
+		
 		return "boardView/system";
 	}
 	
 	@GetMapping("write")
-	public String write() {
-		log.debug("글쓰기 들어오오오오옹ㅁ");
+	public String write(Board board, Model model, @AuthenticationPrincipal UserDetails user) {
+		
+		board.setMemberid(user.getUsername());
+		log.debug("글쓰기 가져온 값ㅇ : {}",board);
+		
+		model.addAttribute("board", board);
+		
 		return "boardView/write";
 	}
 	
