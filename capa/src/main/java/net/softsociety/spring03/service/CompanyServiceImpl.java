@@ -26,4 +26,6 @@ public class CompanyServiceImpl implements CompanyService{
 		List<Company_info> result = companyDAO.selectCompany(company_name);
 		return result;
 	}
+	
+	
 }

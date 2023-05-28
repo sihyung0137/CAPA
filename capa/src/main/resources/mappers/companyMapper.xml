@@ -43,5 +43,7 @@
 				company_name like '%'||#{company_name}||'%' 
 			</if>
 		</where>
+		
+		
 </select>
 </mapper>

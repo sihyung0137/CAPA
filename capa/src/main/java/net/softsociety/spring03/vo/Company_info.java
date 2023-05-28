@@ -19,4 +19,6 @@ public class Company_info {
 	String	info; 
 	String	Edate;
 	String  logo;
+	
+	
 }
