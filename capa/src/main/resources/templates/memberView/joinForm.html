@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
 <style>
-	*{
-		font-family: 'IBM Plex Sans KR', sans-serif;
-	}
+
 	#logo{
 		width:70px;
 		margin-top: 30px;
@@ -20,16 +18,19 @@
 		margin: auto;
 		text-align: center;
 		border-collapse: collapse;
-		border : 1px solid rgb(228, 220, 207);
+		border : 1px solid rgb(38, 49, 89);
 		width : 500px;
-		height : 200px;
+		height : 300px;
 		margin-bottom: 40px;
+		
 	}
 	th,td{
-		border : 1px solid rgb(228, 220, 207);
+		border : 1px solid rgb(38, 49, 89);
+		
 	}
 	th{
-		background-color: rgb(228, 220, 207);
+		background-color: rgb(38, 49, 89);
+		color:white;
 
 	}
 	h1{
@@ -37,7 +38,7 @@
 	}
 	hr{
 		margin-bottom: 40px;
-		background: rgb(228, 220, 207);
+		background: rgb(38, 49, 89);
 		height : 4px;
 		border : 0px;
 	}
@@ -47,7 +48,8 @@
 	.bt{
 	  border: 0;
 	  outline: none;
-	  background: rgb(228, 220, 207);
+	  background: rgb(38, 49, 89);
+	  color:white;
 	  cursor: pointer;
 	  border-radius: 10px;
 	}
@@ -65,7 +67,7 @@
 		let id = document.querySelector('#memberid');
 		let pw = document.querySelector('#memberpw');
 		let pw2 = document.querySelector('#memberpw2');
-		let name = document.querySelector('#username');
+		let name = document.querySelector('#membername');
 		let email = document.querySelector('#email');
 		let job = document.querySelector('#identify');
 		
@@ -108,14 +110,14 @@
 		alert('회원가입 성공 !');
 	}
 	function goPage(){
-		location.href="/member/mypage";
+		location.href="/capa";
 	}
 		
 </script>
 </head>
 <body>
-<img src="/image/small.PNG" id="logo" onclick="goPage();">
-	<h1>JOIN US</h1>
+<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	<h1>회원가입</h1>
 	<hr>
 	<div id="center">
 	<form th:action="@{/member/join}" method="post" onsubmit="return fin();">
@@ -137,7 +139,7 @@
 			
 			<tr>
 				<th>이름</th>
-				<td><input name="username" id="username" placeholder="이름 입력"></td>
+				<td><input name="membername" id="membername" placeholder="이름 입력"></td>
 			</tr>
 			
 			<tr>

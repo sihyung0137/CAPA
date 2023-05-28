@@ -6,6 +6,7 @@
      	<insert id="writePost" parameterType="Post">
 		insert into CAPA_post (
 			postnum
+			,boardnum
 			,memberid
 			, title
 			, content
@@ -15,6 +16,7 @@
 			</if>			
 		) values (
 			CAPA_Post_seq.nextval
+			,boardnum
 			, #{memberid}
 			, #{title}
 			, #{content}

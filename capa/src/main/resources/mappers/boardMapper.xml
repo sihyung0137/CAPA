@@ -8,6 +8,6 @@
     	insert into CAPA_Board (boardnum, boardname, boardtype, boardjob)
     	values
     		(CAPA_Board_seq.nextval, #{boardnum}, #{boardname}, #{boardtype}, #{boardjob})
-    </insert>
-    
+    </insert>    
+
     </mapper>
