@@ -11,5 +11,6 @@ public interface CompanyService {
 	List<Company_info> selectCompany(String company_name);
 	
 	
+	
 
 }

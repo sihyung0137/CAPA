@@ -10,7 +10,6 @@ import net.softsociety.spring03.dao.CompanyDAO;
 import net.softsociety.spring03.vo.Company_info;
 
 @Service
-@Slf4j
 public class CompanyServiceImpl implements CompanyService{
 	@Autowired
 	CompanyDAO companyDAO;
@@ -26,6 +25,8 @@ public class CompanyServiceImpl implements CompanyService{
 		List<Company_info> result = companyDAO.selectCompany(company_name);
 		return result;
 	}
+	
+	
 	
 	
 }

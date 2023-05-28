@@ -20,5 +20,5 @@ public class Company_info {
 	String	Edate;
 	String  logo;
 	
-	
+	String name;
 }

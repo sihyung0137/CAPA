@@ -40,7 +40,7 @@
 	select * from CAPA_Company_info
 		<where>
 			<if test="company_name!=null">
-				company_name like '%'||#{company_name}||'%' 
+				 
 			</if>
 		</where>
 		
