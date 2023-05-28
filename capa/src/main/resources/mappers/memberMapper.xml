@@ -6,8 +6,8 @@
    
    <!-- 회원가입 -->
    <insert id="join" parameterType="Member">
-   		insert into CAPA_Member (memberid, memberpw, username, email, u_address, phone, identify)
-   			values(#{memberid},#{memberpw},#{username},#{email}, #{u_address}, #{phone}, #{identify})
+   		insert into CAPA_Member (memberid, memberpw, membername, email, u_address, phone, identify)
+   			values(#{memberid},#{memberpw},#{membername},#{email}, #{u_address}, #{phone}, #{identify})
    </insert>
    
    <!-- 아이디 중복조회 -->

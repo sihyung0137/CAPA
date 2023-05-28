@@ -114,11 +114,19 @@ function wirtePost() {
 	<hr>
 	<div id="center">
 	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();">
+	<input type="hidden" name="boardnum" th:value="${board.boardnum}">
 		<table>
 			<tr>
-				<th>제목</th>
+				<th>직업</th>
 				<td>
-					<input type="text" name="title" id="title" placeholder="제목을 입력해 주세요 :)">
+					<select  name="boardname" id="boardname">
+ 						<option>직업을 선택해 주세요.</option>
+						<option>영업</option>
+						<option>IT</option>
+						<option>제조업</option>
+						<option>부동산</option>
+						<option>금융</option>
+					</select>
 				</td>
 			</tr>
 			

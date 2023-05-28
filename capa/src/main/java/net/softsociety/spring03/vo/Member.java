@@ -17,7 +17,7 @@ public class Member implements UserDetails {
 	private static final long serialVersionUID = -2115632682956880197L;
 	String memberid;
 	String memberpw;
-	String username;
+	String membername;
 	String email;
 	String phone;
 	String u_address;

@@ -1,6 +1,8 @@
 package net.softsociety.spring03.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,26 +64,27 @@ public class MemberController {
 		return "/memberView/loginForm";
 	}
 		
-//	@GetMapping("updateInfo") 
-//	public String updateInfo(@AuthenticationPrincipal UserDetails user, Model model) {
-//		  
-//		log.debug("들고 온 정보 : {}", user); 
-//		Member member = service.getMemberInfo(user.getUsername()); 
-//		model.addAttribute("member",member);
-//		 
-//		return "/memberView/updateInfo"; 
-//		
-//	}
-//	 
-//	@PostMapping("updateInfo") 
-//	public String mypage(@AuthenticationPrincipal UserDetails user, Member member) { 
-//		log.debug("수정할 정보 : {}", member);
-//		
-//		member.setMemberid(user.getUsername()); 
-//		int result = service.updateMember(member); 
-//		log.debug("수정 완료?:{}",result);
-//		
-//		return "redirect:/"; 
-//	}	
+	@GetMapping("updateInfo") 
+	public String updateInfo(@AuthenticationPrincipal UserDetails user, Model model) {
+		  
+		log.debug("들고 온 정보 : {}", user); 
+		Member member = service.getMemberInfo(user.getUsername()); 
+		
+		model.addAttribute("member",member);
+		 
+		return "/memberView/updateInfo"; 
+		
+	}
+	 
+	@PostMapping("updateInfo") 
+	public String mypage(@AuthenticationPrincipal UserDetails user, Member member) { 
+		log.debug("수정할 정보 : {}", member);
+		
+		member.setMemberid(user.getUsername()); 
+		int result = service.updateMember(member); 
+		log.debug("수정 완료?:{}",result);
+		
+		return "redirect:/"; 
+	}	
 		
 }
