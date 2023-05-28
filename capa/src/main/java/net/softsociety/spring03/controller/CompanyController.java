@@ -65,15 +65,23 @@ public class CompanyController {
 	@GetMapping("companyListForm")
 	public String companyListForm(Model model,
 			@RequestParam(name = "company_name", defaultValue = "") String company_name) {
+		
+		log.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		log.debug("회사 정보 찾기 :{}",company_name);
+		
 		List<Company_info> CompanyInfoList = service.selectCompany(company_name);
+		log.debug("회사정보  !!!! :{}",CompanyInfoList);
+		
 		if(CompanyInfoList.isEmpty()) {
-			return "redirect:/";
+			return "redirect:searchCompanyForm";
 		}
+		
 		model.addAttribute("CompanyInfoList",CompanyInfoList);
 		//별점을 나중에 가져와야함 
 		
 		
-		return "/companyView/companyListForm";
+		
+		return "redirect:searchCompanyForm";
 	}
 	
 	/**

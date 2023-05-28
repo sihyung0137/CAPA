@@ -51,7 +51,7 @@ public class BoardController {
 	
 	@GetMapping("write")
 	public String write(Board board, Model model, @AuthenticationPrincipal UserDetails user) {
-		
+		log.debug("글쓰기 들어옴");
 		board.setMemberid(user.getUsername());
 		log.debug("글쓰기 가져온 값ㅇ : {}",board);
 		
