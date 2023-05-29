@@ -6,4 +6,5 @@ public interface PostService {
 
 	int writePost(Post post);
 
+
 }

@@ -113,15 +113,11 @@ function wirtePost() {
 	<h1>글쓰기</h1>
 	<hr>
 	<div id="center">
-	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();">
-		<table>
-			<tr>
-				<th>제목</th>
-				<td>
-					<input type="text" name="title" id="title" placeholder="제목을 입력해 주세요 :)">
-				</td>
-			</tr>
-			
+	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();"
+	enctype="multipart/form-data">
+	<input type="hidden" name="boardnum" th:value="${board.boardnum}">
+	<input type="hidden" name="boardname" th:value="${board.boardname}">
+		<table>			
 			<tr>
 				<th>제목</th>
 				<td>

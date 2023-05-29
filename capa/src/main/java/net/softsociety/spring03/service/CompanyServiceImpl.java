@@ -30,18 +30,6 @@ public class CompanyServiceImpl implements CompanyService{
 		return list;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
 	@Override
 	public List<Company_info> selectCompany(String company_name) {
 		// TODO Auto-generated method stub

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="net.softsociety.spring03.dao.SurveyDAO">
+    
+    <!-- 기업평가 리스트 -->
+    <select id="selectSurveyList" resultType="Survey">
+    	select
+    		surveynum
+    		, company_name
+    		, memberid
+    		, department
+    		, q1
+    		, q2
+    		, q3
+    		, to_char(inputdate, 'yy.mm.dd') inputdate
+    	from
+    		CAPA_Company_Survey
+    	where
+   			company_name = #{company_name}
+    </select>
+    
+    <!-- 기업평가 읽기 -->
+    <select id="selectSurvey" parameterType="int" resultType="Survey">
+    	select
+    		surveynum
+    		, company_name
+    		, memberid
+    		, department
+    		, q1
+    		, q2
+    		, q3
+    		, to_char(inputdate, 'yy.mm.dd') inputdate
+    	from
+    		CAPA_Company_Survey
+    	where
+    		surveynum = #{surveynum}
+    </select>
+    
+    <!-- 기업평가 저장 -->
+    <insert id="insertSurvey" parameterType="Survey">
+    	insert
+   	 	into
+    		CAPA_Company_Survey (
+    			surveynum
+    			, company_name
+    			, memberid
+    			, department
+    			, q1
+    			, q2
+    			, q3
+    	)
+    	values (
+    		CAPA_Company_Survey_seq.nextval
+    			, #{memberid}
+    			, #{company_name}
+    			, #{department}
+    			, #{q1}
+    			, #{q2}
+    			, #{q3}
+    	)
+    </insert>
+    
+    <!-- 전체 기업평가 개수(검색 필터링 후)  -->
+    <select id="countSurvey" parameterType="map" resultType="int">
+    	select
+    		count(*)
+    	from
+    		CAPA_Company_Survey
+    	<if test="searchWord != null">
+    	<where>
+    		upper(company_name) like '%' || upper(#{searchWord}) || '%'
+    	</where>
+    	</if>
+    </select>
+    
+    
+    <!-- 기업평가 삭제 -->
+    <delete id="deleteSurvey" parameterType="Survey">
+    	delete
+    	from
+    		CAPA_Company_Survey
+    	where
+    		surveynum = #{surveynum}
+    		and memberid = #{memberid}
+    </delete>
+    
+    <!-- 기업평가 수정 -->
+    <update id="updateSurvey" parameterType="Survey">
+    	update
+    		CAPA_Company_Survey
+    	set
+    		department
+    		, q1
+    		, q2
+    		, q3
+    	where
+    		surveynum = #{surveynum}
+    		and memberid = #{memberid}		
+    </update>
+    
+    <!-- 별점 저장 -->
+    <!-- <insert id="insertReview" parameterType="Review">
+    	insert
+    	into
+    		CAPA_Company_Review (
+    			reviewnum
+    			, company_name
+    			, memberid
+    			, welfare
+    			, culture
+    			, salary_STF
+    			, growth
+    			, wlb
+    		)
+    	values (
+    		CAPA_Company_Review_seq.nextval
+    		, #{company_name}
+    		, #{memberid}
+    		, #{welfare}
+    		, #{culture}
+    		, #{salary_STF}
+    		, #{growth}
+    		, #{wlb}
+    	)
+    </insert> -->
+    
+    <!-- 별점 평균 구하기 -->
+    <!-- <select id="selectAvgReview" parameterType="String" resultType="Review">
+    	select
+    		round(AVG(welfare),1)
+    		, round(AVG(culture),1)
+    		, round(AVG(salary_STF),1)
+    		, round(AVG(growth),1)
+    		, round(AVG(wlb),1)
+    	from
+    		CAPA_Company_Review
+    	where
+    		company_name = #{company_name}
+    </select> -->
+    
+    
+    </mapper>
