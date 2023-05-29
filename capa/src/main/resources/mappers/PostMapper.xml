@@ -16,7 +16,7 @@
 			</if>			
 		) values (
 			CAPA_Post_seq.nextval
-			, #{boardname}
+			, #{boardnum}
 			, #{memberid}
 			, #{title}
 			, #{content}
