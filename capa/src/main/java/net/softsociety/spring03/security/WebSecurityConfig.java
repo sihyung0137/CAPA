@@ -25,29 +25,31 @@ public class WebSecurityConfig {
         http.csrf().disable()
         .authorizeRequests()
         .antMatchers("/",
-        		"/member/thymeleaf",
-        		"/member/join",
-        		"/member/idcheck",
-                "/board/list",
-                "/board/read",
-                "/board/load",
-                "/post/read",
-                "/board/boardpage",
-                "/board/write",
-                "/board/download",
-                "/board/loadReply",
-                "/board/createBoard",
-                "/board/write",
-                "/board/system",
-                "/post/writePost",
-                
-                "/company/searchCompanyForm", // 누구나 볼수 있게 열어놓았음
-                "/company/companyListForm", 
-                "/company/joinCompanyForm", // 테스트용으로 열어놓았으니 권한에 맞게 보이게끔 다시 고쳐야함
-                "/company/joinCompany", 
-                "/image/**",
-                "/css/**",
-                "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
+                "/member/thymeleaf",
+                "/member/join",
+                "/member/idcheck",
+                  "/board/list",
+                  "/board/read",
+                  "/board/load",
+                  "/post/read",
+                  "/board/boardpage",
+                  "/board/write",
+                  "/board/download",
+                  "/board/loadReply",
+                  "/board/createBoard",
+                  "/board/write",
+                  "/board/system",
+                  "/post/writePost",
+                  
+                  "/company/CompanyForm", // 누구나 볼수 있게 열어놓았음
+                  "/company/companyListForm", 
+                  "/company/joinCompanyForm", // 테스트용으로 열어놓았으니 권한에 맞게 보이게끔 다시 고쳐야함
+                  "/company/joinCompany", 
+                  "/company/upload", 
+                  
+                  "/image/**",
+                  "/css/**",
+                  "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용

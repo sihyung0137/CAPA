@@ -1,36 +1,168 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://thymeleaf.org"
- 	   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>회사정보 찾기</title>
-</head>
-<script>
-function validation() {
-	let search = document.getElementById('search');
-	
-	if(!search.value) {
-		alert('검색 정보를 입력해주세요');
-		search.focus();
-		return false;
+<style>
+	#divBox{
+		margin:auto;
+		text-align: center;
+		height: auto;
+		width: 1100px;
+		margin-top: 40px;
+		margin-bottom: 50px;
 	}
-	return true;
-}
-</script>
-<body>
-	<h1>회사정보 찾기 창</h1>
-	
-	<ul>
-		<li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
-		<li sec:authorize="not isAuthenticated()"><a th:href="@{member/loginForm}">로그인</a></li>
-		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
-		<li><a th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
-	</ul>
+
+	#container{
+		background-color:white;
+		border: solid 1px #ddd;
+		box-shadow: 2px 2px 3px 1px #dadce0;
+		height:250px;
+		width: 600x;
+		margin-bottom: 40px;
+	}
+	#companyImg{
+		height:auto;
+		width:170px;
+		margin: auto;
+	}
+	table{
+		text-align: center;
+		margin: auto;
+		width: 500px;
+		height :200px;
+	}
+	ul,li{
+		/* 리스트를 가로로 보여줌 */
+		display : inline-block;
+		padding : 10px;
+	}
+	#login{
+		text-align: right;
+	}
+	a{
+		text-decoration-line : none;  
+		color:rgb(36, 55, 99);
+	}
+	a:hover{
+		color:rgb(255, 110, 49);
+	}
+	#searchBox{
+		text-align: center;
+	}
+	#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	#logo{
+		width:100px;
+		height: auto; 
+	}
+	h1{
+		text-align: center;
+	}
+	hr{
+		margin-bottom: 40px;
+		border:0px;
+		background : black;
+		height : 3px;
+	}
+	.bt{
+		margin-left : 10px;
+		border: 0;
+		outline: none;
+		background: black;
+		color:white;
+		cursor: pointer;
+		border-radius: 5px;
+		margin-right: 30px;
+	}
+	.bt:hover {
+	  color: black;
+	  background: rgb(255, 225, 148);
+	}
+</style>
+<script>
+
+/* function wordSearch(){
+		var searchWord = document.getElementById('searchWord').value;
+		console.log(searchWord);
 		
-	<a>회사정보 찾기</a><br>
-	<form th:action="@{/company/companyListForm}" method="get" onsubmit="return validation();">
-		<input type="text" name="company_name" id="search"> 
-		<input type="submit" value="검색">
-	</form>
+		location.href="company/CompanyForm?searchWord=" +searchWord;
+ 		location.href="/company/CompanyForm";
+} */
+
+	function wordSearch(){
+			var type = document.getElementById('type').value;
+		var searchWord = document.getElementById('searchWord').value;
+		
+			location.href="company/CompanyFrom?"+type+"="+searchWord;
+	}
+	
+	function hi(company_name){
+			location.href='/company/companyInfoForm?company_name=' +company_name; 
+	}
+	
+	function goHome(){
+		location.href="/capa";
+	}
+
+</script>
+</head>
+
+<body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goHome();">
+	</div>
+   <h1>회사정보</h1>
+      	<div id="login">
+		   <ul>
+		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
+		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/loginForm}">로그인</a></li>
+		      <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
+		      <li><a th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
+		   </ul>
+  		</div>
+   <hr>
+   
+
+   
+	<!--원래 검색창  	
+	<div id="searchBox">
+		<form th:action="@{/company/CompanyForm}" method="get">
+			<input type="text"  name="company_name" id="searchWord">
+			<input type="button"value="검색" class="bt" onclick="wordSearch();">
+		</form>
+	</div> -->
+	
+	<div id="searchBox">
+		<form th:action="@{/company/CompanyForm}" method="get">
+			<select id="type" name="type">
+				<option value="company_name">회사명</option>
+			</select>
+			<input type="text"  name="searchWord" id="searchWord">
+			<input type="button"value="검색" class="bt" onclick="wordSearch();">
+		</form>
+	</div>
+   
+   	<div id="divBox">
+			<section>
+ 			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
+ 												th:onclick="hi(this.getAttribute('value'));" >
+            <table>
+               <tr>
+                  <td>
+                     <img th:src="@{/company/upload(company_name=${list.company_name})}" id="companyImg">
+                     <th th:text="${list.company_name}">
+                  </td>
+               </tr> 
+       
+            </table>
+            
+         </div>
+      </section>
+   </div>
+
 </body>
 </html>
