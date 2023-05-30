@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>글쓰기 폼(질문)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+<script>
+	function resetForm(){
+		//글쓰기 취소하면 질문게시판 초기화면으로 돌아가기
+		location.href='/board/question';
+	}
+	
+	function goPage(){
+		location.href="/member/mypage";
+	}
+</script>
+<style>
+	*{
+		font-family: 'IBM Plex Sans KR', sans-serif;
+	}
+	#logo{
+		width:70px;
+		margin-top: 30px;
+		margin-left: 20px;
+	}
+	h1{
+		text-align: center;	
+	}
+	table{
+		text-align : center;
+		margin: auto;
+		width:600px;
+		height:200px;
+		border-collapse: collapse;
+		border : 1px solid rgb(228, 220, 207);
+		margin-bottom: 40px;
+		margin-top: 30px;
+	}
+	#boardname{
+		width:300px;
+		text-align: center;
+		border : 0px;
+	}
+	#contents{
+		width:300px;
+		height :100px;
+		text-align: center;
+		border : 0px;
+		resize : none;
+	}
+	th,td{
+		border : 1px solid rgb(228, 220, 207);
+	}
+	#center {
+		text-align: center;
+	}
+	hr{
+		border:0px;
+		background :  rgb(228, 220, 207);
+		height : 3px;
+		margin-bottom: 40px;
+	}
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background: rgb(228, 220, 207);
+	  cursor: pointer;
+	  border-radius: 10px;
+	}
+	.bt:hover {
+	  color: white;
+	  background: rgb(234, 84, 85);
+	}
+	th{
+		background:rgb(228, 220, 207);
+	}
+</style>
+</head>
+<body>
+<img src="/image/small.PNG" id="logo" onclick="goPage();">
+	<h1>Question</h1>
+	<hr>
+	<div id="center">
+	<form th:action="@{/board/writeBoard}" method="post" onsubmit="writeBoard();">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="boardname" id="boardname" placeholder="제목을 입력해 주세요 :)">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="contents" id="contents" placeholder="내용을 입력해 주세요."></textarea>
+				</td>
+			</tr>
+		
+		</table>
+		<input type="submit" value="저장하기" class="bt">&emsp;
+		<button type="reset" onclick="resetForm();" class="bt">취소</button>
+	</form>
+	</div>
+</body>
+</html>

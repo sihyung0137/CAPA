@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>게시판 생성</title>
+<style>
+
+</style>
+<script>
+	function checkForm(){
+		let job = document.getElementById('job_Check');
+		let name = document.getElementById('createName');
+		
+		if(job.value.includes('선')){
+			alert("직종을 선택해 주세요 !");
+			return false;
+		}else if(name.value==''||name.value.lenght==0){
+			alert("게시판 제목을 입력해 주세요 !");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+<h1>게시판 만들기</h1>
+<form th:action="@{/board/createBoard}" method="post" onsubmit="return checkForm();">
+	<table>
+		<tr>
+			<th>직종</th>
+			<td>
+				<select id="job_Check" name="boardjob">
+					<option>선택헤주세요.</option>
+					<option>영업</option>
+					<option>IT엔지니어</option>
+					<option>제조업</option>
+					<option>부동산</option>
+					<option>금융</option>
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>게시판 이름</th>
+			<td>
+				<input id="createName" name="boardname">
+			</td>
+		</tr>
+	</table>
+	<button type="submit">제출하기</button>
+	<button type="reset">취소하기</button>
+	</form>
+</body>
+</html>

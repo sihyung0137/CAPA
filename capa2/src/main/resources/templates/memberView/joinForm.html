@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+
+<style>
+
+	#logo{
+		width:70px;
+		margin-top: 30px;
+		margin-left: 20px;
+	}
+	#center{
+		text-align: center;
+	}
+	table{
+		margin: auto;
+		text-align: center;
+		border-collapse: collapse;
+		border : 1px solid rgb(38, 49, 89);
+		width : 500px;
+		height : 300px;
+		margin-bottom: 40px;
+		
+	}
+	th,td{
+		border : 1px solid rgb(38, 49, 89);
+		
+	}
+	th{
+		background-color: rgb(38, 49, 89);
+		color:white;
+
+	}
+	h1{
+		text-align: center;
+	}
+	hr{
+		margin-bottom: 40px;
+		background: rgb(38, 49, 89);
+		height : 4px;
+		border : 0px;
+	}
+	input{
+		text-align: center;
+	}
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background: rgb(38, 49, 89);
+	  color:white;
+	  cursor: pointer;
+	  border-radius: 10px;
+	}
+	.bt:hover {
+	  color: white;
+	  background: rgb(234, 84, 85);
+	}
+</style>
+<script>
+	function idcheck(){
+			window.open('idcheck', 'idwin', 'top=300, left=600, width=500, height=400');
+		}
+	
+	function fin(){
+		let id = document.querySelector('#memberid');
+		let pw = document.querySelector('#memberpw');
+		let pw2 = document.querySelector('#memberpw2');
+		let name = document.querySelector('#membername');
+		let email = document.querySelector('#email');
+		let job = document.querySelector('#identify');
+		
+		console.log(id);
+		
+		if(id.value.length==0||id.value==''){
+			alert('아이디를 입력해 주세요 !');
+			return false;
+		}
+		
+		if(pw.value.length <3 || pw.value.length >12){
+			alert('비밀번호는 3~12자리로 입력해 주세요 !');
+			return false;
+		}
+		
+		if(pw.value!==pw2.value){
+			alert('비밀번호를 다시 확인해 주세요 !');
+			return false;
+		}
+		
+		if(name.value.length==0 || name.value ==''){
+			alert('이름을 입력해 주세요 !');
+			return false;
+		}
+		
+		if(email.value.length==0 || email.value ==''){
+			alert('이메일을 입력해 주세요 !');
+			return false;
+		}else if(!email.value.includes('@')){
+			alert('@를 포함한 형식으로 입력해 주세요 !');
+			return false;
+		}
+		
+		//이거 확인하자
+		if(job.value.equals('직업을 선택해 주세요.')){
+			alert("직업을 선택해 주세요");
+			return false;
+		}
+		
+		alert('회원가입 성공 !');
+	}
+	function goPage(){
+		location.href="/capa";
+	}
+		
+</script>
+</head>
+<body>
+<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	<h1>회원가입</h1>
+	<hr>
+	<div id="center">
+	<form th:action="@{/member/join}" method="post" onsubmit="return fin();">
+		<table>
+			<tr>
+				<th>아이디</th>
+				<td>&emsp;&emsp;&emsp;&emsp;&emsp;<!--emsp: 4개의 공백 -->
+					<input name="memberid" id="memberid" placeholder="ID중복확인 이용" readonly="readonly">
+					<input type="button" value="ID중복확인" onclick="idcheck();" class="bt">
+				</td>
+			</tr>
+			
+			<tr>
+				<th>비밀번호</th>
+				<td><input name="memberpw" id="memberpw" placeholder="비밀번호 입력" type="password"><br>
+					<input placeholder="비밀번호 다시 입력" type="password" id="memberpw2">				
+				</td>
+			</tr>
+			
+			<tr>
+				<th>이름</th>
+				<td><input name="membername" id="membername" placeholder="이름 입력"></td>
+			</tr>
+			
+			<tr>
+				<th>직업</th>
+				<td>
+					<select  name="identify" id="identify">
+ 						<option>직업을 선택해 주세요.</option>
+						<option>회사원</option>
+						<option>대학생</option>
+						<option>취업준비생</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<th>전화번호</th>
+				<td><input name="phone" id="phone" placeholder="전화번호 입력"></td>
+			</tr>
+			
+			<tr>
+				<th>주소</th>
+				<td><input name="u_address" id="u_address" placeholder="주소 입력"></td>
+			</tr>
+			
+			<tr>
+				<th>이메일</th>
+				<td><input name="email" id="email" placeholder="이메일 입력"></td>
+			</tr>
+		
+		</table>
+		<input type="submit" value="가입" class="bt">&emsp;
+		<input type="reset" value="다시 쓰기" class="bt">
+	</form>
+	</div>
+</body>
+</html>
