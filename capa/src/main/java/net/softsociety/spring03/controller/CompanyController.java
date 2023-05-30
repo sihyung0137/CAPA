@@ -126,8 +126,10 @@ public class CompanyController {
     * @return
     */
    @GetMapping("companyInfoForm")
-   public String companyInfoForm(String company_name, Model model) {
+   public String companyInfoForm(String companyName, Model model) {
 	     
+	   String company_name = companyName;
+	   
 	   log.debug("회사 이름 가져옴?:{}",company_name);
 	   
 	  Company_info info = service.selectOne(company_name);

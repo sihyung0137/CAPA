@@ -86,7 +86,7 @@
 <script>
 	
 	function goPage(company_name){
-			location.href='company/companyInfoForm?company_name=' +company_name; 
+			location.href='/capa/company/companyInfoForm?companyName=' + company_name; 
 	}
 	
 	function goHome(){
@@ -135,8 +135,8 @@
 			<section>
  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
  												th:onclick="goPage(this.getAttribute('value'));" >
-<!--  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
- 												th:href="@{/company/companyInfoForm}"> -->
+<!--   		<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
+ 						th:onclick="location.href='@{/company/companyInfoForm?company_name}'">-->
             <table>
                <tr>
                   <td>

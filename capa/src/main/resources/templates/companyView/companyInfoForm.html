@@ -4,69 +4,22 @@
 <meta charset="UTF-8">
 <title>회사정보 읽기, 수정</title>
 <style>
-	
-	#logo{
-		width:70px;
+	#logoLoca{
+		margin-left: 30px;
 		margin-top: 30px;
-		margin-left: 20px;
 	}
-	table{
-		margin: auto;
-		text-align: center;
-		border-collapse: collapse;
-		border : solid rgb(228, 220, 207) 1px;
-		height: 400px;
-		width:700px;
-		margin-bottom: 30px;
+	#logo{
+		width:100px;
+		height: auto; 
 	}
-	td,th{
-		border : solid rgb(228, 220, 207) 1px;
-	}
-	
 	h1{
-		text-align: center;
+		text-align: center; 
 	}
-	.menu:hover{
-		color :tomato;	
-	}
-
 	hr{
-		margin-bottom:30px;
+		margin-bottom: 40px;
 		border:0px;
-		background :  rgb(228, 220, 207);
+		background : black;
 		height : 3px;
-	}
-	.bt{
-	  border: 0;
-	  outline: none;
-	  background: rgb(228, 220, 207);
-	  cursor: pointer;
-	  border-radius: 10px;
-	}
-	.bt:hover {
-	  color: white;
-	  background: rgb(234, 84, 85);
-	}
-	#soominPj{
-		margin-top : 40px;
-		text-align: center; 
-		font-size: 10px;
-		clear :both;
-	}
-	#centerBt{
-		text-align: center; 
-	}
- 	#imgBox{
-		text-align :center;
-		height : auto;
-		width : 200px;
-		margin: auto;
-		
-	}
-	#bookImg{
-		height : auto;
-		width : 200px;
-		
 	}
 </style>
 <script>
@@ -86,30 +39,25 @@
 </script>
 </head>
 <body>
-<img src="/image/small.PNG" id="logo" onclick="goPage();">
-	<h1>후기 읽기</h1>
-<!-- 	<hr>
-	<div id="imgBox">
-	<img th:src="@{/review/upload(booknum=${review.booknum})}" id="bookImg">
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goHome();">
 	</div>
+	<h1>후기 읽기</h1>
+	<hr>
 	
  	<table>
 		<tr>
-			<th colspan="2">책 제목</th>
-		</tr>
-
-		<tr>
-			<td th:text="${review.bookname}" colspan="2"></td>
+			<th th:text="${info.company_name}" colspan="2"></th>
 		</tr>
 		
-		<tr>
+ 		<tr>
 			<th>작성 날짜</th>
-			<td th:text="${review.inputdate}"></td>
+			<td th:text="${info.sales}"></td>
 		</tr>
 	
 		<tr>
 			<th>평점</th>
-			<td th:text="${review.grade}"></td>
+			<td th:text="${info.employees}"></td>
 		</tr>
 
 		
@@ -118,17 +66,15 @@
 		</tr>
 		
 		<tr>
-			<td th:text="${review.contents}" colspan="2"></td>
+			<td th:text="${info.homepage}" colspan="2"></td>
 		</tr>
 	</table>
 
-<div id="centerBt">
+<!-- <div id="centerBt">
 <input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
 <input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">
 </div> -->
 
-<div id="soominPj">
-<a>@soomin_project</a>
-</div>
+
 </body>
 </html>
