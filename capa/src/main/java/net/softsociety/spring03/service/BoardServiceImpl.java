@@ -17,10 +17,11 @@ import net.softsociety.spring03.vo.Post;
  @Override public int createBoard(Board board) { int result =
  dao.createBoard(board); return result; }
 
+
 @Override
 public ArrayList<Post> postlist(Post post) {
-	ArrayList<Post> list = dao.postlist(post);
-	return list;
+	/* ArrayList<Post> list = dao.postlist(post); */
+	return dao.postlist(post);
 }
  
  
