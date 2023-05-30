@@ -26,13 +26,7 @@ public class BoardController {
 	private BoardService service;
 
 	@GetMapping("boardpage")
-	public String boardpage(Model model, Post post
-			, @RequestParam(name = "boardname", defaultValue = "") String boardname ) {
-		log.debug("boardname============== : ", boardname);
-		
-		ArrayList<Post> postlist = service.postlist(post);
-		
-		model.addAttribute(postlist);
+	public String boardpage() {
 		return"boardView/boardpage";
 	}
 	
@@ -53,9 +47,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("system")
-	public String system(String boardname) {
+	public String system(String boardname, Model model, Post post) {
 		log.debug("서비스 들어오오오옴 :{}", boardname);
 		
+		ArrayList<Post> postlist = service.postlist(post);
+		model.addAttribute("postlist", postlist);
+		log.debug("postlist : {} ", postlist);
 		return "boardView/system";
 	}
 	

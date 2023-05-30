@@ -10,6 +10,7 @@ public interface BoardService {
 
 int createBoard(Board board);
 
+
 ArrayList<Post> postlist(Post post);
 
 

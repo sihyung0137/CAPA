@@ -10,15 +10,9 @@
     		(CAPA_Board_seq.nextval, #{boardnum}, #{boardname}, #{boardtype}, #{boardjob})
     </insert>    
 
-	<select id="postlist" parameterType="Post" resultType="ArrayList">
-	select 
-		postnum
-		, memberid
-		, title
-		, hits
-	from 
-		CAPA_Post
+	<select id="postlist" parameterType="Post" resultType="Post">
+	select * from CAPA_Post
 	where 
-		memberid = #{memberid}
+		boardname = #{boardname}
 	</select>
     </mapper>
