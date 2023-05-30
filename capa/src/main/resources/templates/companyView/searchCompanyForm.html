@@ -84,24 +84,9 @@
 	}
 </style>
 <script>
-
-/* function wordSearch(){
-		var searchWord = document.getElementById('searchWord').value;
-		console.log(searchWord);
-		
-		location.href="company/CompanyForm?searchWord=" +searchWord;
- 		location.href="/company/CompanyForm";
-} */
-
-	function wordSearch(){
-			var type = document.getElementById('type').value;
-		var searchWord = document.getElementById('searchWord').value;
-		
-			location.href="company/CompanyFrom?"+type+"="+searchWord;
-	}
 	
-	function hi(company_name){
-			location.href='/company/companyInfoForm?company_name=' +company_name; 
+	function goPage(company_name){
+			location.href='company/companyInfoForm?company_name=' +company_name; 
 	}
 	
 	function goHome(){
@@ -118,10 +103,10 @@
    <h1>회사정보</h1>
       	<div id="login">
 		   <ul>
-		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
-		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/loginForm}">로그인</a></li>
+<!-- 		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
+		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/loginForm}">로그인</a></li> -->
 		      <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
-		      <li><a th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
+		      <li sec:authorize="isAuthenticated()"><a th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
 		   </ul>
   		</div>
    <hr>
@@ -137,25 +122,27 @@
 	</div> -->
 	
 	<div id="searchBox">
-		<form th:action="@{/company/CompanyForm}" method="get">
-			<select id="type" name="type">
+		<form th:action="@{/company/companyForm}" method="get">
+<!-- 			<select id="type" name="type">
 				<option value="company_name">회사명</option>
-			</select>
+			</select> -->
 			<input type="text"  name="searchWord" id="searchWord">
-			<input type="button"value="검색" class="bt" onclick="wordSearch();">
+			<input type="submit" value="검색" class="bt">
 		</form>
 	</div>
    
    	<div id="divBox">
 			<section>
  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
- 												th:onclick="hi(this.getAttribute('value'));" >
+ 												th:onclick="goPage(this.getAttribute('value'));" >
+<!--  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
+ 												th:href="@{/company/companyInfoForm}"> -->
             <table>
                <tr>
                   <td>
                      <img th:src="@{/company/upload(company_name=${list.company_name})}" id="companyImg">
-                     <th th:text="${list.company_name}">
-                  </td>
+                 </td>
+                 <th th:text="${list.company_name}"></th>
                </tr> 
        
             </table>

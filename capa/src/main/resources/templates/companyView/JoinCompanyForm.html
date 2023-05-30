@@ -3,6 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>회사 등록하기</title>
+<style>
+	section{
+		text-align: center;
+	}
+	table{
+		text-align: center;
+		margin:auto;
+	}
+	h2{
+		text-align: center;
+	}
+</style>
 <script>
 function validation() {
    let name = document.getElementById('company_name');
@@ -16,42 +28,42 @@ function validation() {
    
    
    
-   if(!name.value){
+   if(name.value==''){
       alert('회사이름을 입력하세요');
       name.focus();
       return false;
    }
-   if(!sales.value){
+   if(sales.value==''){
       alert('매출을 입력하세요');
       sales.focus();
       return false;
    }
-   if(!employees.value){
+   if(employees.value==''){
       alert('사원수을 입력하세요');
       employees.focus();
       return false;
    }
-   if(!address.value){
+   if(address.value==''){
       alert('회사주소를 입력하세요');
       address.focus();
       return false;
    }
-   if(!salary.value){
+   if(salary.value==''){
       alert('평균급여를 입력하세요');
       salary.focus();
       return false;
    }
-   if(!filed.value){
+   if(filed.value==''){
       alert('회사분야를 입력하세요');
       filed.focus();
       return false;
    }
-   if(!scale.value){
+   if(scale.value==''){
       alert('회사규모를 입력하세요');
       scale.focus();
       return false;
    }
-   if(!info.value){
+   if(info.value==''){
       alert('간단한 회사 정보를 입력해주세요. 회사메일, 분위기 등등');
       info.focus();
       return false;
@@ -63,7 +75,7 @@ function validation() {
 </head>
 <body>
    <header id="title">
-      <h2>CAPA 회사정보등록</h2>
+      <h2>회사정보등록</h2>
    </header>
    <section>
       <form id="joinForm" th:action="@{/company/joinCompany}" method="post"
@@ -88,7 +100,7 @@ function validation() {
             <tr>
                <th>회사주소</th>
                <td><input type="text" name="c_address" id="c_address"
-                  placeholder="서울특별시 종로구 청와대로 1 (세종로)"></td>
+                  placeholder="EX) 서울특별시 종로구 "></td>
             </tr>
             <tr>
                <th>회사홈페이지 URL</th>
@@ -98,13 +110,13 @@ function validation() {
             <tr>
                <th>평균급여</th>
                <td><input type="text" name="salary_AVG" id="salary_AVG"
-                  placeholder="한달기준이냐 일년기준이냐?">
+                  placeholder="한 달 기준 월급">
                </td>
             </tr>
             <tr>
                <th>분야</th>
                <td><input type="text" name="filed" id="filed"
-                  placeholder="IT분야 , 보건분야">
+                  placeholder="EX) IT분야 , 보건분야">
                </td>
             </tr>
             <tr>
@@ -115,8 +127,7 @@ function validation() {
             </tr>
             <tr>
                <th>회사소개</th>
-               <td><input type="text" name="info" id="info"
-                  placeholder="회사 소개란: 디테일 할수록 좋아요">
+               <td><input type="text" name="info" id="info">
                </td>
             </tr>
             <tr>

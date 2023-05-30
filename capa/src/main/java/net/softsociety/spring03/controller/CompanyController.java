@@ -41,15 +41,16 @@ public class CompanyController {
     * CompanyForm
     * @return
     */
-   @GetMapping("CompanyForm")
-   public String CompanyForm(Model model, Company_info info, String searchWord, String type) {
+   @GetMapping("companyForm")
+   public String companyForm(Model model, Company_info info, String searchWord) {
 	   
 	   log.debug("찾을 단어 들고온 값 :{}", searchWord);
 	   
-	   ArrayList<Company_info> list = service.selectAll(info);
+	   //ArrayList<Company_info> list = service.selectAll(info);
+	   ArrayList<Company_info> list = service.selectAll( searchWord);
 	   
 	   model.addAttribute("searchWord",searchWord);
-	   model.addAttribute("type", type);
+
 	   model.addAttribute("list", list);
 	   
 	   return "/companyView/searchCompanyForm";
@@ -125,8 +126,14 @@ public class CompanyController {
     * @return
     */
    @GetMapping("companyInfoForm")
-   public String companyInfoForm() {
-	   log.debug("asdfasdf");      
+   public String companyInfoForm(String company_name, Model model) {
+	     
+	   log.debug("회사 이름 가져옴?:{}",company_name);
+	   
+	  Company_info info = service.selectOne(company_name);
+	  
+	  model.addAttribute("info",info);
+	  
 	   return "/companyView/companyInfoForm";
    }
 }

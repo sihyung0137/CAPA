@@ -40,7 +40,7 @@
 	   )
 	</insert>
 
-	<select id="selectAll" parameterType="Company_info" resultType="Company_info">
+	<select id="selectAll" parameterType="String" resultType="Company_info">
 	   select 
 	   		company_name
 	   from 
@@ -54,6 +54,12 @@
 	
 	<select id="readinfo" parameterType="String" resultType="Company_info">
 	   select * from CAPA_Company_info
+	   where 
+	      company_name = #{company_name}
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Company_info">
+		  select * from CAPA_Company_info
 	   where 
 	      company_name = #{company_name}
 	</select>
