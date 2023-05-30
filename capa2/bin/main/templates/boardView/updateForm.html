@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>질문 게시판 수정하기</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
+<style>
+	*{
+		font-family: 'IBM Plex Sans KR', sans-serif;
+	}
+	#logo{
+		width:70px;
+		margin-top: 30px;
+		margin-left: 20px;
+	}
+	hr{
+		border:0px;
+		background :  rgb(228, 220, 207);
+		height : 3px;
+		margin-bottom: 40px;
+	}
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background: rgb(228, 220, 207);
+	  cursor: pointer;
+	  border-radius: 10px;
+	}
+	.bt:hover {
+	  color: white;
+	  background: rgb(234, 84, 85);
+	}
+	th{
+		background:rgb(228, 220, 207);
+	}
+	table{
+		border-collapse : collapse;
+		border : solid 1px rgb(228, 220, 207);
+		text-align : center;
+		margin: auto;
+		height : 300px;
+		width:500px;
+		margin-bottom: 30px;
+	}
+	h1{
+		text-align: center;
+	}
+	#boardname{
+		width : 150px;
+	}
+	#contents{
+		resize : none;
+		width:80%;
+		height : 200px;
+	}
+	th,td{
+		border : solid 1px rgb(228, 220, 207);
+	}
+	div{
+		text-align: center;
+	}
+</style>
+<script>
+	function updateCheck(){
+		alert('수정 완료 !');
+	}
+	function goPage(){
+		location.href="/member/mypage";
+	}
+
+</script>
+</head>
+<body>
+<img src="/image/small.PNG" id="logo" onclick="goPage();">
+	<h1>질문 수정</h1>
+	<hr>
+	<div>
+	<form th:action="@{/board/updateForm}" method="post" onsubmit="return updateCheck();">
+	<input type="hidden" name="boardnum" th:value="${board.boardnum}">
+	<table>
+		<tr>
+			<th>제목</th>
+			<td><input th:value=${board.boardname} name = "boardname" id="boardname"></td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td><textarea th:text=${board.contents} name = "contents" id="contents"></textarea></td>
+		</tr>
+	</table>
+	<input type="submit" value="수정하기" class="bt">&emsp;
+	<input type="reset" value="다시쓰기" class="bt">
+	</form>
+	</div>
+</body>
+</html>

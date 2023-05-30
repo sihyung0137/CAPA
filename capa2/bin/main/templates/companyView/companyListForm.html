@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>회사 정보 리스트</h1>
+	<style>
+section {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 50px;
+	row-gap: 30px;
+}
+
+table {
+	border: 1px dotted lightgray;
+	border-radius: 10px;
+	margin: 20px;
+}
+
+td {
+	border: 1px dotted lightgray;
+	border-collapse: separate;
+	border-radius: 5px;
+	padding: 10px;
+	width: 200px;
+	text-align: center;
+}
+
+#container {
+	background-color: beige;
+	border-radius: 10px;
+	box-shadow: 2px 2px 3px 1px #dadce0;
+}
+
+
+</style>
+	<script>
+	/* function writeFunc() {
+		location.href = 'writeForm'
+		
+	}
+	function deleteFunc(num) {
+		let inputPw = document.querySelector('#pw' + num); //<!-- 붙여서 elements를 가져옴 -->
+		let inputNum = document.querySelector('#num'); //<!-- 바로밑에 form -->
+		let pw = document.querySelector('#pw'); //<!-- 바로밑에 form -->
+		let form = document.querySelector('#deleteForm');
+		
+		inputNum.value = num;
+		pw.value = inputPw.value;
+		form.submit();
+		
+		/* location.href = 'deleteFunc' */
+</script>   
+</head>
+<body>
+	<form th:action="@{/company/companyInfoForm}" id="infoForm" method="post">
+		<h1>회사정보 간략하게 보여주는 창</h1>
+		<section>
+			<div id="container" th:each="i : ${CompanyInfoList}">
+				<table border="1">
+					<tr>
+						<td><a th:href="${i.logo}" th:text="${i.logo}"></td>
+					</tr>
+					<tr>
+						<td><a th:text="${i.company_name}" th:href="@{/company/companyInfoForm(company_name=${Company_info.company_name})}"></td>
+					</tr>
+					<!-- <tr> //  별점과 북마크버튼을 나중에 가져와야함
+						<td><a th:text="${reply.
+						
+						}"></td>
+					</tr> -->
+				</table>
+			</div>
+		</section>
+	</form>
+</body>
+</html>

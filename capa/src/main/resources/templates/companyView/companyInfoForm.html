@@ -54,13 +54,36 @@
 		text-align: center;
 		margin-bottom: 30px;
 	}
+	#map {
+    	height: 100%;
+  	}
+  	html, body {
+    	height: 100%;
+    	margin: 0;
+    	padding: 0;
+  	}
 </style>
 <script>
 
 	function goPage(){
 		location.href="/capa/company/companyForm";
 	}
+	
+	let map;
+
+	function initMap() {
+	  map = new google.maps.Map(document.getElementById("map"), {
+	    center: { lat: 35.696572, lng: 139.708859 },
+	    zoom: 8,
+	  });
+	}
+
+	window.initMap = initMap;
 </script>
+ <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
 </head>
 <body>
 	<div id="logoLoca">
@@ -117,6 +140,13 @@
 		
 	</table>
 
+	<div id="map"></div>
+
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiKf1OyaeUuYj6lcpUAwJdpWVkqW_vVEA&libraries=places&callback=initMap">
+	</script>
+	
+	
 <!-- <div id="centerBt">
 <input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
 <input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">

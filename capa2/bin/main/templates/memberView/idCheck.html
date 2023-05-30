@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>아이디 중복확인</title>
+
+<script>
+	function cid(){
+		let searchId = document.querySelector('#searchId');
+		
+		if(searchId.value.length < 3 || searchId.value.length > 10){
+			alert('아이디를 3~10자리로 입력하세요.');
+			return false;
+		}
+		return true;
+	}
+	
+	function useId(memberid){
+		opener.document.querySelector('#memberid').value=memberid;
+		this.close();
+	}
+</script>
+<style>
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background: rgb(38, 49, 89);
+	  color:white;
+	  cursor: pointer;
+	  border-radius: 10px;
+	}
+	.bt:hover {
+	  color: white;
+	  background: rgb(234, 84, 85);
+	}
+	*{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<h2>ID 중복 확인</h2>
+	<form action="idcheck" method="post" onsubmit="return cid()">
+	검색할 ID <input type="text" name="searchId" id="searchId">
+			<input type="submit" value="검색" class="bt">
+	</form>
+	
+		<div th:if="${searchId != null}">
+		<div th:if="${result}">
+			<p><span th:text="${searchId}"></span>: 사용할 수 있는 아이디 입니다.</p>
+			<input type="button" value="사용" th:checkedId="${searchId}"
+					th:onclick="useId(this.getAttribute('checkedId'))" class="bt">
+		</div>
+		
+		<div th:if="${not result}">
+			<p><span th:text="${searchId}"></span>: 사용할 수 없는 아이디 입니다.</p>
+		</div>
+	</div>
+</body>
+</html>
