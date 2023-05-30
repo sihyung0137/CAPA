@@ -1,5 +1,7 @@
 package net.softsociety.spring03.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.BoardService;
 import net.softsociety.spring03.vo.Board;
+import net.softsociety.spring03.vo.Post;
 
 @Controller
 @Slf4j
@@ -22,7 +26,13 @@ public class BoardController {
 	private BoardService service;
 
 	@GetMapping("boardpage")
-	public String boardpage() {
+	public String boardpage(Model model, Post post
+			, @RequestParam(name = "boardname", defaultValue = "") String boardname ) {
+		log.debug("boardname============== : ", boardname);
+		
+		ArrayList<Post> postlist = service.postlist(post);
+		
+		model.addAttribute(postlist);
 		return"boardView/boardpage";
 	}
 	

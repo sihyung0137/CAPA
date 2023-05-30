@@ -106,5 +106,26 @@
 		</ul>
 	</div>
 
+	<div id="postList">
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+			</tr>
+			<tr th:each="post : ${postlist}">
+				<td th:text:="${post.postnum}">
+				</td>
+				<td th:text:="${post.title}">
+				</td>
+				<td th:text:="${post.memberid}">
+				</td>
+				<td th:text:="${post.hits}">
+				</td>
+			</tr>
+		</table>
+	</div>
+
 </body>
 </html>
