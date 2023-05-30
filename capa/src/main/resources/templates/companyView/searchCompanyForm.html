@@ -8,7 +8,7 @@
 	#divBox{
 		margin:auto;
 		text-align: center;
-		height: auto;
+		height: 100px;
 		width: 1100px;
 		margin-top: 40px;
 		margin-bottom: 50px;
@@ -18,7 +18,7 @@
 		background-color:white;
 		border: solid 1px #ddd;
 		box-shadow: 2px 2px 3px 1px #dadce0;
-		height:250px;
+/* 		height:250px; */
 		width: 600x;
 		margin-bottom: 40px;
 	}
@@ -86,7 +86,7 @@
 <script>
 	
 	function goPage(company_name){
-			location.href='company/companyInfoForm?company_name=' +company_name; 
+			location.href='/capa/company/companyInfoForm?companyName=' + company_name; 
 	}
 	
 	function goHome(){
@@ -135,8 +135,6 @@
 			<section>
  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
  												th:onclick="goPage(this.getAttribute('value'));" >
-<!--  			<div id="container" th:each="list:${list}" th:value="${list.company_name}" 
- 												th:href="@{/company/companyInfoForm}"> -->
             <table>
                <tr>
                   <td>

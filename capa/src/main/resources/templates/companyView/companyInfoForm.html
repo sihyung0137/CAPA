@@ -4,131 +4,124 @@
 <meta charset="UTF-8">
 <title>회사정보 읽기, 수정</title>
 <style>
+	#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
 	
 	#logo{
-		width:70px;
-		margin-top: 30px;
-		margin-left: 20px;
-	}
-	table{
-		margin: auto;
-		text-align: center;
-		border-collapse: collapse;
-		border : solid rgb(228, 220, 207) 1px;
-		height: 400px;
-		width:700px;
-		margin-bottom: 30px;
-	}
-	td,th{
-		border : solid rgb(228, 220, 207) 1px;
+		width:100px;
+		height: auto; 
 	}
 	
 	h1{
-		text-align: center;
+		text-align: center; 
 	}
-	.menu:hover{
-		color :tomato;	
-	}
-
+	
 	hr{
-		margin-bottom:30px;
+		margin-top : 40px;
+		margin-bottom: 40px;
 		border:0px;
-		background :  rgb(228, 220, 207);
+		background : black;
 		height : 3px;
 	}
-	.bt{
-	  border: 0;
-	  outline: none;
-	  background: rgb(228, 220, 207);
-	  cursor: pointer;
-	  border-radius: 10px;
+	
+	#companyImg{
+		width:300px;
 	}
-	.bt:hover {
-	  color: white;
-	  background: rgb(234, 84, 85);
+	
+	table{
+		margin : auto;
+		border : solid 1px rgb(36, 55, 99);
+		border-collapse: collapse;
+		height:300px;
+		width:600px;
+		text-align: center;
+		margin-bottom: 40px;
 	}
-	#soominPj{
-		margin-top : 40px;
-		text-align: center; 
-		font-size: 10px;
-		clear :both;
+	
+	th,td{
+		border : solid 1px rgb(36, 55, 99);
 	}
-	#centerBt{
-		text-align: center; 
+	
+	#company{
+		text-align: center;
+		font-weight: 900;
+		font-size: 50px;
 	}
- 	#imgBox{
-		text-align :center;
-		height : auto;
-		width : 200px;
-		margin: auto;
-		
-	}
-	#bookImg{
-		height : auto;
-		width : 200px;
-		
+	
+	#compDiv{
+		text-align: center;
+		margin-bottom: 30px;
 	}
 </style>
 <script>
-/* 	function updateForm(booknum) {
-		location.href = '/review/updateForm?booknum=' + booknum;
 
-	}
-
-	function deleteForm(booknum) {
-		if (confirm('삭제하시겠습니까?')) {
-			location.href = '/review/deleteForm?booknum=' + booknum;
-		}
-	}
 	function goPage(){
-		location.href="/member/mypage";
-	} */
+		location.href="/capa/company/companyForm";
+	}
 </script>
 </head>
 <body>
-<img src="/image/small.PNG" id="logo" onclick="goPage();">
-	<h1>후기 읽기</h1>
-<!-- 	<hr>
-	<div id="imgBox">
-	<img th:src="@{/review/upload(booknum=${review.booknum})}" id="bookImg">
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
 	</div>
+	<h1>후기 읽기</h1>
+	<hr>
 	
+	<div id="compDiv">
+	<img th:src="@{/company/upload(company_name=${info.company_name})}" id="companyImg">
+	</div>
  	<table>
-		<tr>
-			<th colspan="2">책 제목</th>
-		</tr>
-
-		<tr>
-			<td th:text="${review.bookname}" colspan="2"></td>
+ 	
+ 		<tr>
+			<th>기업명</th>
+			<td th:text="${info.company_name}" colspan="2"></td>
 		</tr>
 		
 		<tr>
-			<th>작성 날짜</th>
-			<td th:text="${review.inputdate}"></td>
+			<th>분야</th>
+			<td th:text="${info.filed}" colspan="2"></td>
+		</tr>
+		
+		<tr>
+			<th>설립일</th>
+			<td th:text="${info.Edate}" colspan="2"></td>
+		</tr>
+		
+ 		<tr>
+			<th>매출</th>
+			<td th:text="${info.sales}"></td>
 		</tr>
 	
 		<tr>
-			<th>평점</th>
-			<td th:text="${review.grade}"></td>
-		</tr>
-
-		
-		<tr>
-			<th colspan="2">후기</th>
+			<th>사원수</th>
+			<td th:text="${info.employees}"></td>
 		</tr>
 		
+		
 		<tr>
-			<td th:text="${review.contents}" colspan="2"></td>
+			<th>홈페이지</th>
+			<td th:text="${info.homepage}" colspan="2"></td>
 		</tr>
+		
+		<tr>
+			<th>회사 소개</th>
+			<td th:text="${info.info}" colspan="2"></td>
+		</tr>
+		
+		<tr>
+			<th>주소</th>
+			<td th:text="${info.c_address}" colspan="2"></td>
+		</tr>
+		
 	</table>
 
-<div id="centerBt">
+<!-- <div id="centerBt">
 <input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
 <input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">
 </div> -->
 
-<div id="soominPj">
-<a>@soomin_project</a>
-</div>
+
 </body>
 </html>

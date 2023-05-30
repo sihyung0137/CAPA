@@ -2,12 +2,8 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <title>정보 수정</title>
 <style>
-	*{
-		font-family: 'IBM Plex Sans KR', sans-serif;
-	}
 	#logo{
 		width:70px;
 		margin-top: 30px;
@@ -24,12 +20,15 @@
 		text-align: center;
 		margin-top: 40px;
 		border-collapse: collapse;
-		border : 1px solid rgb(228, 220, 207);
+		border : 1px solid rgb(37, 23, 73);
 		width : 500px;
 		height : 200px;
 	}
+	th{
+		color:white;
+	}
 	th,td{
-		border:1px solid rgb(228, 220, 207);
+		border:1px solid rgb(37, 23, 73);
 	}
 	#memberpw, #memberpw2, #membername, #email{
 		width:200px;
@@ -38,9 +37,10 @@
 	.bt{
 	  border: 0;
 	  outline: none;
-	  background: rgb(228, 220, 207);
+	  background: rgb(37, 23, 73);
 	  cursor: pointer;
 	  border-radius: 10px;
+	  color:white;
 	}
 	.bt:hover {
 	  color: white;
@@ -48,18 +48,22 @@
 	}
 	hr{
 		border:0px;
-		background :  rgb(228, 220, 207);
+		background : rgb(37, 23, 73);
 		height : 3px;
 		margin-bottom: 40px;
 	}
 	th{
-		background-color: rgb(228, 220, 207);
+		background-color:rgb(37, 23, 73);
 	}
-	#soominPj{
-		margin-top : 40px;
-		text-align: center; 
-		font-size: 10px;
+	#logo{
+		width:100px;
+		height: auto; 
 	}
+	#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
 </style>
 <script>
 //가입폼 확인
@@ -89,6 +93,9 @@ function validation() {
 
 </head>
 <body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goHome();">
+	</div>
 	<header>
 	<h1>정보 수정</h1>
 	<hr>

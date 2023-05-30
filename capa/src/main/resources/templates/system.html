@@ -53,18 +53,24 @@
 	}
 	.details:hover {
 		color:rgb(255, 110, 49);
-}
-
+	}
+	h1{
+		text-align: center;
+	}
+	#writeForm{
+		text-align: right; 
+	}
+	#pencil{
+		width:40px;
+		height: auto;
+		margin-right: 30px;
+	}
 </style>
 
 <script>
 
 </script>
 <body>
-	<!-- 관리자만 보이게 걸기 -->
-	<div id="createBoard" >
-	<a th:href="@{/board/createBoard}">게시판 생성</a>
-	</div>	
 
  	<div id="menu">
 		<ul>
@@ -77,7 +83,7 @@
 			</li>
 			<li><a href="#" class="details">IT엔지니어</a>
 				<ul>
-					<li><a class="details" th:href="@{/board/system?boardname=system}">시스템 엔지니어</a></li>
+					<li><a class="details"  th:href="@{/board/system?boardnum=1}">시스템 엔지니어</a></li>
 					<li><a class="details">사내SE</a></li>
 					<li><a class="details">인프라 엔지니어</a></li>
 				</ul>
@@ -105,27 +111,11 @@
 			</li>
 		</ul>
 	</div>
-
-	<div id="postList">
-		<table>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-			</tr>
-			<tr th:each="post : ${postlist}">
-				<td th:text:="${post.postnum}">
-				</td>
-				<td th:text:="${post.title}">
-				</td>
-				<td th:text:="${post.memberid}">
-				</td>
-				<td th:text:="${post.hits}">
-				</td>
-			</tr>
-		</table>
+	
+	<h1>System Engineer</h1>
+	
+	<div id="writeForm">
+	<a th:href="@{/board/write?boardnum=1}"><img src="../image/pencil.png" id="pencil"></a>
 	</div>
-
 </body>
 </html>
