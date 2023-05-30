@@ -47,7 +47,7 @@ public class CompanyController {
 	   log.debug("찾을 단어 들고온 값 :{}", searchWord);
 	   
 	   //ArrayList<Company_info> list = service.selectAll(info);
-	   ArrayList<Company_info> list = service.selectAll( searchWord);
+	   ArrayList<Company_info> list = service.selectAll(searchWord);
 	   
 	   model.addAttribute("searchWord",searchWord);
 
@@ -138,5 +138,6 @@ public class CompanyController {
 	  
 	   return "/companyView/companyInfoForm";
    }
+   
 }
    
