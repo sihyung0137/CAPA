@@ -11,8 +11,10 @@ public interface CompanyService {
 
    List<Company_info> selectCompany(String company_name);
 
-   ArrayList<Company_info> selectAll(Company_info info);
+   ArrayList<Company_info> selectAll(String searchWord);
 
    Company_info readinfo(String company_name);
+
+   Company_info selectOne(String company_name);
    
 }

@@ -22,9 +22,9 @@ public class CompanyServiceImpl implements CompanyService{
 
 
    @Override
-   public ArrayList<Company_info> selectAll(Company_info info) {
+   public ArrayList<Company_info> selectAll(String searchWord) {
       
-      return companyDAO.selectAll(info);
+      return companyDAO.selectAll(searchWord);
    }
 
 
@@ -43,4 +43,13 @@ public class CompanyServiceImpl implements CompanyService{
          Company_info result = companyDAO.readinfo(company_name);
          return result;
       }
+
+
+	@Override
+	public Company_info selectOne(String company_name) {
+		Company_info info = companyDAO.selectOne(company_name);
+		return info;
+	}
+      
+      
 }
