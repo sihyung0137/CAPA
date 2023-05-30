@@ -29,7 +29,7 @@ public class PostController {
 	public String wirtePost(Post post, 
 			@AuthenticationPrincipal UserDetails user,
 			MultipartFile upload) {
-		
+		log.debug("post {}:",post);	
 		post.setMemberid(user.getUsername());
 		
 		log.debug("포스트 글쓰기 가져온 값 :{}",post);
@@ -46,6 +46,7 @@ public class PostController {
 		
 		return "redirect:/board/boardpage";
 	}
+	
 	
 	
 }
