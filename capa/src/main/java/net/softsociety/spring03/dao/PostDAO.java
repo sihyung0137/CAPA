@@ -6,7 +6,7 @@ import net.softsociety.spring03.vo.Post;
 
 @Mapper
 public interface PostDAO {
-
+ 
 	int writePost(Post post);
 
 }

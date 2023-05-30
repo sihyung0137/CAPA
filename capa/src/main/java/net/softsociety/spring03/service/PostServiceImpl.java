@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import net.softsociety.spring03.dao.PostDAO;
 import net.softsociety.spring03.vo.Post;
-
+ 
 @Service
 public class PostServiceImpl implements PostService{
 
