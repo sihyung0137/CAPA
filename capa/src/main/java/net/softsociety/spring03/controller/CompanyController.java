@@ -47,7 +47,7 @@ public class CompanyController {
 	   log.debug("찾을 단어 들고온 값 :{}", searchWord);
 	   
 	   //ArrayList<Company_info> list = service.selectAll(info);
-	   ArrayList<Company_info> list = service.selectAll( searchWord);
+	   ArrayList<Company_info> list = service.selectAll(searchWord);
 	   
 	   model.addAttribute("searchWord",searchWord);
 
@@ -126,8 +126,10 @@ public class CompanyController {
     * @return
     */
    @GetMapping("companyInfoForm")
-   public String companyInfoForm(String company_name, Model model) {
+   public String companyInfoForm(String companyName, Model model) {
 	     
+	   String company_name = companyName;
+	   
 	   log.debug("회사 이름 가져옴?:{}",company_name);
 	   
 	  Company_info info = service.selectOne(company_name);
@@ -136,5 +138,6 @@ public class CompanyController {
 	  
 	   return "/companyView/companyInfoForm";
    }
+   
 }
    

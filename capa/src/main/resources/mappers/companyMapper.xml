@@ -50,6 +50,8 @@
 				company_name like '%'||#{company_name}||'%'
 			</if>
 		</where>
+		order by
+			company_name desc
 	</select>
 	
 	<select id="readinfo" parameterType="String" resultType="Company_info">
@@ -59,7 +61,17 @@
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Company_info">
-		  select * from CAPA_Company_info
+		  select 
+		  	company_name,
+		  	sales,
+		  	employees,
+		  	filed,
+		  	homepage,
+		  	to_char(Edate, 'YYYY-MM-DD') Edate,
+		  	info,
+		  	c_address
+		  from 
+		  	CAPA_Company_info
 	   where 
 	      company_name = #{company_name}
 	</select>
