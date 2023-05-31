@@ -16,5 +16,7 @@ public interface CompanyService {
    Company_info readinfo(String company_name);
 
    Company_info selectOne(String company_name);
+
+//   int update(Company_info info);
    
 }
