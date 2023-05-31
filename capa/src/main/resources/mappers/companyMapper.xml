@@ -69,7 +69,9 @@
 		  	homepage,
 		  	to_char(Edate, 'YYYY-MM-DD') Edate,
 		  	info,
-		  	c_address
+		  	c_address,
+		  	lat,
+		  	lng
 		  from 
 		  	CAPA_Company_info
 	   where 

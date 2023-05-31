@@ -23,6 +23,14 @@ public ArrayList<Post> postlist(Post post) {
 	/* ArrayList<Post> list = dao.postlist(post); */
 	return dao.postlist(post);
 }
+
+
+@Override
+public Post read(int postnum) {
+	Post post = dao.read(postnum);
+	int result = dao.updateHits(postnum);
+	return post;
+}
  
  
  

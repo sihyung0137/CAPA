@@ -117,8 +117,6 @@ function wirtePost() {
 	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();" enctype="multipart/form-data">
 	<input type="hidden" name="boardnum" th:value="${board.boardnum}" >
 
-	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();">
-	<input type="hidden" name="boardnum" th:value="${board.boardnum}">
 		<table>
 			<tr>
 				<th>직업</th>
@@ -126,7 +124,7 @@ function wirtePost() {
 					<select  name="boardname" id="boardname">
  						<option>직업을 선택해 주세요.</option>
 						<option>영업</option>
-						<option>IT</option>
+						<option>system</option>
 						<option>제조업</option>
 						<option>부동산</option>
 						<option>금융</option>

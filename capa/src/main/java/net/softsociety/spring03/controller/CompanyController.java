@@ -86,7 +86,7 @@ public class CompanyController {
       int result = service.insertCompanyInfo(company_info);
       log.debug("회사 정보 등록 완료 ?:{}", result);
       
-      return "redirect:CompanyForm";
+      return "redirect:companyForm";
    }
 
    
@@ -134,6 +134,7 @@ public class CompanyController {
 	   
 	  Company_info info = service.selectOne(company_name);
 	  
+	  log.debug("info : {}",info);
 	  model.addAttribute("info",info);
 	  
 	   return "/companyView/companyInfoForm";

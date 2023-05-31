@@ -14,5 +14,8 @@ int createBoard(Board board);
 ArrayList<Post> postlist(Post post);
 
 
+Post read(int postnum);
+
+
 }
 
