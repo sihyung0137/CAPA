@@ -18,5 +18,7 @@ public interface BoardDAO {
 
 	int updateHits(int postnum);
 
+	int deletePost(Post post);
+
 
 }

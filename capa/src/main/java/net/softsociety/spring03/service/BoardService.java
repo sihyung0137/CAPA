@@ -17,5 +17,8 @@ ArrayList<Post> postlist(Post post);
 Post read(int postnum);
 
 
+int deletePost(Post post);
+
+
 }
 
