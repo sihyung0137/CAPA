@@ -14,5 +14,9 @@ public interface BoardDAO {
 
 	ArrayList<Post> postlist(Post post);
 
+	Post read(int postnum);
+
+	int updateHits(int postnum);
+
 
 }

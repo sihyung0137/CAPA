@@ -12,6 +12,8 @@ public class Company_info {
    int      sales; 
    int      employees; 
    String   c_address; 
+   double	lat;
+   double	lng;
    String   homepage; 
    int      salary_AVG; 
    String   filed; 

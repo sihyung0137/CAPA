@@ -4,102 +4,103 @@
 <meta charset="UTF-8">
 <title>회사정보 읽기, 수정</title>
 <style>
-	#logoLoca{
-		margin-left: 30px;
-		margin-top: 30px;
-	}
-	
-	#logo{
-		width:100px;
-		height: auto; 
-	}
-	
-	h1{
-		text-align: center; 
-	}
-	
-	hr{
-		margin-top : 40px;
-		margin-bottom: 40px;
-		border:0px;
-		background : black;
-		height : 3px;
-	}
-	
-	#companyImg{
-		width:300px;
-	}
-	
-	table{
-		margin : auto;
-		border : solid 1px rgb(36, 55, 99);
-		border-collapse: collapse;
-		height:300px;
-		width:600px;
-		text-align: center;
-		margin-bottom: 40px;
-	}
-	
-	th,td{
-		border : solid 1px rgb(36, 55, 99);
-	}
-	
-	#company{
-		text-align: center;
-		font-weight: 900;
-		font-size: 50px;
-	}
-	
-	#compDiv{
-		text-align: center;
-		margin-bottom: 30px;
-	}
-	#map {
-		height: 500px;
-		width: 700px;
-		margin: auto;
-		text-align: center;
-  	}
-  	html, body {
-    	height: 100%;
-    	margin: 0;
-    	padding: 0;
-  	}
+
+#logoLoca {
+	margin-left: 30px;
+	margin-top: 30px;
+}
+
+#logo {
+	width: 100px;
+	height: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+hr {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	border: 0px;
+	background: black;
+	height: 3px;
+}
+
+#companyImg {
+	width: 300px;
+}
+
+table {
+	margin: auto;
+	border: solid 1px rgb(36, 55, 99);
+	border-collapse: collapse;
+	height: 300px;
+	width: 600px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+th, td {
+	border: solid 1px rgb(36, 55, 99);
+}
+
+#company {
+	text-align: center;
+	font-weight: 900;
+	font-size: 50px;
+}
+
+#compDiv {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+#map {
+	height: 100%;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+
 
 </style>
-<script>
 
-	function goPage(){
+<script>
+function goPage(){
 		location.href="/capa/company/companyForm";
 	}
 	
-	let map;
+     function initMap() {
+        var map;
+     	  var cityHall = {lat: 35.69657202866965, lng: 139.70885950104952};
+		    var lat =  document.getElementById('lat').value;
+		    var lng =  document.getElementById('lng').value;
+		    var myLatlng = (lat == 0.0 || lng == 0.0) ? null : new google.maps.LatLng(lat, lng);
+		
+		    console.log(lat);
+		    console.log(lng);
+		
+        var defaultOptions = {
+            zoom:17,
+            center: myLatlng == null ? cityHall : myLatlng,
+            disableDefaultUI:true,
+            zoomControl: true
+            };
+        map = new google.maps.Map(document.getElementById('map'), defaultOptions);
 
-/* 	function initMap() {
-	  map = new google.maps.Map(document.getElementById("map"), {
-	    center: { lat: 35.696572, lng: 139.708859 },
-	    zoom: 8,
-	  });
+        var marker = new google.maps.Marker({position: myLatlng == null ? cityHall : myLatlng, map: map});
+       }
 	}
 
-	window.initMap = initMap; */
+	window.initMap = initMap;
 </script>
 <script>
-        function initMap() {
-        	var map;
-            var cityHall = {lat: 35.69657202866965, lng: 139.70885950104952};
-
-            var defaultOptions = {
-                zoom:17,
-                center: cityHall,
-                disableDefaultUI:true,
-                zoomControl: true
-                };
-            map = new google.maps.Map(document.getElementById('map'), defaultOptions);
-
-            var marker = new google.maps.Marker({position: cityHall, map: map});
-        }
-        
+  
       //수정하기(본문글)
 /*     	function updateForm(company_name){
     		location.href="/company/updateForm?company_name="+company_name;
@@ -112,64 +113,70 @@
     	}
     }
 </script>
- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+<!-- <script type="module" src="./index.js"></script> -->
 </head>
 <body>
+	<input type="hidden" th:value="${info.lat}" id="lat">
+	<input type="hidden" th:value="${info.lng}" id="lng">
 	<div id="logoLoca">
-	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+		<img src="../image/capa.PNG" id="logo" onclick="goPage();">
 	</div>
 	<h1>후기 읽기</h1>
 	<hr>
-	
+
 	<div id="compDiv">
-	<img th:src="@{/company/upload(company_name=${info.company_name})}" id="companyImg">
+		<img th:src="@{/company/upload(company_name=${info.company_name})}"
+			id="companyImg">
 	</div>
- 	<table>
- 	
- 		<tr>
+	<table>
+
+		<tr>
 			<th>기업명</th>
 			<td th:text="${info.company_name}" colspan="2"></td>
 		</tr>
-		
+
 		<tr>
 			<th>분야</th>
 			<td th:text="${info.filed}" colspan="2"></td>
 		</tr>
-		
+
 		<tr>
 			<th>설립일</th>
 			<td th:text="${info.Edate}" colspan="2"></td>
 		</tr>
-		
- 		<tr>
+
+		<tr>
 			<th>매출</th>
 			<td th:text="${info.sales}"></td>
 		</tr>
-	
+
 		<tr>
 			<th>사원수</th>
 			<td th:text="${info.employees}"></td>
 		</tr>
-		
-		
+
+
 		<tr>
 			<th>홈페이지</th>
 			<td th:text="${info.homepage}" colspan="2"></td>
 		</tr>
-		
+
 		<tr>
 			<th>회사 소개</th>
 			<td th:text="${info.info}" colspan="2"></td>
 		</tr>
-		
+
 		<tr>
 			<th>주소</th>
-			<td th:text="${info.c_address}" colspan="2"></td>
+			<td th:text="${info.c_address}" colspan="2">
+			
+			</td>
 		</tr>
-		
+
 	</table>
 	
 <!-- 	<div th:if="${#authentication.name} == ${info.memberid}" id="deleteANDupdate">
@@ -179,12 +186,12 @@
 
 	<div id="map"></div>
 
-    <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiKf1OyaeUuYj6lcpUAwJdpWVkqW_vVEA&libraries=places&callback=initMap">
+	<script>
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiKf1OyaeUuYj6lcpUAwJdpWVkqW_vVEA&libraries=places&callback=initMap"
 	</script>
-	
-	
-<!-- <div id="centerBt">
+
+
+	<!-- <div id="centerBt">
 <input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
 <input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">
 </div> -->
