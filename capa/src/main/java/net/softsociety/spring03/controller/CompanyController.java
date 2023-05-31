@@ -140,5 +140,15 @@ public class CompanyController {
 	   return "/companyView/companyInfoForm";
    }
    
+   
+	/*
+	 * @GetMapping("updateForm") public String updateForm(Company_info info) {
+	 * 
+	 * log.debug("html에서 받아온 값:{}", info);
+	 * 
+	 * int result = service.update(info);
+	 * 
+	 * log.debug("저장 성공????????:{}",result); return "redirect:companyInfoForm"; }
+	 */
 }
    

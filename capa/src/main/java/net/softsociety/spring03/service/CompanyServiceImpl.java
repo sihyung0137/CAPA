@@ -50,6 +50,12 @@ public class CompanyServiceImpl implements CompanyService{
 		Company_info info = companyDAO.selectOne(company_name);
 		return info;
 	}
+
+
+	/*
+	 * @Override public int update(Company_info info) { int result =
+	 * companyDAO.update(info); return result; }
+	 */
       
-      
+    
 }
