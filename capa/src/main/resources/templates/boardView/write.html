@@ -84,10 +84,10 @@
 		location.href="/member/mypage";
 	}
 	function writePost(){
-		let postname = document.getElementById("postname");
+		let postname = document.getElementById("title");
 		let content = document.getElementById("content");
 		
-		if(postname.value.lenght==0 || postname.value==''){
+		if(postname.value.length==0 || postname.value==''){
 			alert("제목을 입력해주세요.");
 			return false;
 		}else if(postname.value.length < 5){
@@ -125,7 +125,7 @@ function goPage(){
 	<hr>
 	<div id="center">
 
-	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  wirtePost();" enctype="multipart/form-data">
+	<form th:action="@{/post/writePost}" method="post" th:onsubmit="return  writePost();" enctype="multipart/form-data">
 	<input type="hidden" name="boardnum" th:value="${board.boardnum}" >
 
 		<table>
@@ -134,11 +134,9 @@ function goPage(){
 				<td>
 					<select  name="boardname" id="boardname">
  						<option>직업을 선택해 주세요.</option>
-						<option>영업</option>
+						<option>se</option>
 						<option>system</option>
-						<option>제조업</option>
-						<option>부동산</option>
-						<option>금융</option>
+						<option>infra</option>
 					</select>
 				</td>
 			</tr>

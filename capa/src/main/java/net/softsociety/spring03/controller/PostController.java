@@ -44,7 +44,7 @@ public class PostController {
 		int result = service.writePost(post);
 		log.debug("글쓰기 성공했니ㅣㅣ?:{}", result);
 		
-		return "redirect:/board/boardpage";
+		return "redirect:/board/system?boardname=" + post.getBoardname();
 	}
 	
 	
