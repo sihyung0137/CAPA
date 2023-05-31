@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -150,5 +152,40 @@ public class CompanyController {
 	 * 
 	 * log.debug("저장 성공????????:{}",result); return "redirect:companyInfoForm"; }
 	 */
+   
+   @GetMapping("update")
+   public String update(
+		   Company_info company_info
+		   , @AuthenticationPrincipal UserDetails user
+		   , MultipartFile upload) {
+	   
+	   log.debug("수정할 기업정보 : {}", company_info);
+	   log.debug("파일정보: {}", upload);
+	   
+	   Company_info oldInfo = null;
+	   String oldSavedfile = null;
+	   String savedfile = null;
+	   
+	   // 첨부파일이 있는 경우 기존파일 삭제 후 새파일 저장
+	   if (upload != null && !upload.isEmpty()) {
+		   oldInfo = service.readinfo(company_info.getCompany_name());
+		   oldSavedfile = oldInfo == null ? null : oldInfo.getSavedfile();
+		   
+		   savedfile = FileService.saveFile(upload, uploadPath);
+		   company_info.setOriginalfile(upload.getOriginalFilename());
+		   company_info.setSavedfile(savedfile);
+		   log.debug("새파일:{}, 구파일:{}", savedfile, oldSavedfile);
+	   }
+	   
+	   int result = service.update(company_info);
+	   
+	   if(result == 1 && savedfile != null) {
+		   FileService.deleteFile(uploadPath + "/" + oldSavedfile); 
+	   }
+	   
+	   return "redirect:/company/companyInfoForm?company_name=" + company_info.getCompany_name();
+   }
+   
+   
 }
    

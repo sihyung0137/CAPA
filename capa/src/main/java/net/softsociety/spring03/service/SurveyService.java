@@ -17,4 +17,6 @@ public interface SurveyService {
 
 	int writeReview(Review review);
 
+	Review selectAvgReview(String company_name);
+
 }

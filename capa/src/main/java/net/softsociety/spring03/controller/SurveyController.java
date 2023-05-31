@@ -34,12 +34,24 @@ public class SurveyController {
 	@GetMapping("list")
 	public String queList(Model model) {
 		
-		// 회사 설문지 글 목록 조회
+		// 회사 기업평가 글 목록 조회
 		ArrayList<Survey> surveylist = service.surveyList();
 		log.debug("surveylist:{} ", surveylist);
 		
 		model.addAttribute("surveylist", surveylist);
 				
+		return "/surveyView/list";
+	}
+	
+	@GetMapping("AvgReview")
+	public String listReview(Model model, String company_name) {
+		
+		// 회사 별점 조회
+		Review reviewAvg = service.selectAvgReview(company_name);
+		log.debug("reviewAvg:{} ", reviewAvg);
+		
+		model.addAttribute("reviewAvg", reviewAvg);
+		
 		return "/surveyView/list";
 	}
 	
@@ -124,6 +136,7 @@ public class SurveyController {
 
 		return "redirect:/survey/read?surveynum=" + review.getSurveynum();
 	}
+	
 	
 	
 }

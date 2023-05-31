@@ -23,4 +23,6 @@ public interface SurveyDAO {
 
 	int writeReview(Review review);
 
+	Review selectAvgReview(String company_name);
+
 }

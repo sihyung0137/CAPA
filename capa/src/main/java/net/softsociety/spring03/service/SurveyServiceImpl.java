@@ -44,6 +44,14 @@ public class SurveyServiceImpl implements SurveyService {
 		int result = surveyDAO.writeReview(review);
 		return result;
 	}
+
+	@Override
+	public Review selectAvgReview(String company_name) {
+		Review selectAvg = surveyDAO.selectAvgReview(company_name);
+		return selectAvg;
+	}
+
+	
 	
 	
 	

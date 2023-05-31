@@ -22,6 +22,8 @@ public interface CompanyDAO {
 
    Company_info selectOne(String company_name);
 
+int update(Company_info company_info);
+
 //   int update(Company_info info);		
 
    
