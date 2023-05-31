@@ -40,5 +40,12 @@
 	where
 		postnum = #{postnum}
 	</update>
-	
+	<delete id="deletePost" parameterType="Post">
+	delete
+	from
+		CAPA_Post
+	where
+		postnum = #{postnum}
+		and memberid = #{memberid}
+	</delete>
     </mapper>

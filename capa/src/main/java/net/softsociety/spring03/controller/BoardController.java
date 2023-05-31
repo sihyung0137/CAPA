@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.BoardService;
+import net.softsociety.spring03.util.FileService;
 import net.softsociety.spring03.vo.Board;
-import net.softsociety.spring03.vo.Company_info;
 import net.softsociety.spring03.vo.Post;
 
 @Controller
@@ -138,4 +138,35 @@ public class BoardController {
 			e.printStackTrace();
 		}
 	}	
+	/**
+	 * Post 삭제
+	 * @param postnum 삭제할 글 번호
+	 * @param user 인증정보
+	 */
+	@GetMapping ("deletePost")
+	public String deletePost(int postnum
+			, @AuthenticationPrincipal UserDetails user) {
+		
+		//해당 번호의 글 정보 조회
+		Post post = service.read(postnum);
+		
+		if (post == null) {
+			return "redirect:list";
+		}
+		//첨부된 파일명 확인
+		String savedfile = post.getSavedfile();
+		
+		//로그인 아이디를 post객체에 저장
+		post.setMemberid(user.getUsername());
+		
+		//글 삭제
+		int result = service.deletePost(post);
+		
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		return "redirect:system";
+		
+	}
 }

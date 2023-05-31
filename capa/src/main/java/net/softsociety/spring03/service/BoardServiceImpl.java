@@ -31,6 +31,13 @@ public Post read(int postnum) {
 	int result = dao.updateHits(postnum);
 	return post;
 }
+
+
+@Override
+public int deletePost(Post post) {
+	int result = dao.deletePost(post);
+	return result;
+}
  
  
  
