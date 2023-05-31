@@ -75,5 +75,15 @@
 	   where 
 	      company_name = #{company_name}
 	</select>
+	
+<!-- 	<update id="update" parameterType="Company_info">
+		update CAPA_Company_info
+		set sales = #{sales},
+			homepage = #{homepage},
+			info = #{info},
+			c_address = #{c_address}
+		where
+			company_name = #{company_name}
+	</update> -->
 
 </mapper>
