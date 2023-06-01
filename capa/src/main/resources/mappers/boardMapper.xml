@@ -1,7 +1,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+ 
     <mapper namespace="net.softsociety.spring03.dao.BoardDAO">
     
     <insert id="createBoard" parameterType="Board">
@@ -19,6 +19,7 @@
 	<select id="read" parameterType="int" resultType="Post">
 	select 
 		postnum
+		, boardname
 		, memberid
 		, title
 		, content
@@ -39,6 +40,20 @@
 		hits = hits + 0.5
 	where
 		postnum = #{postnum}
+	</update>
+	<update id="updatePost" parameterType="Post">
+	update
+		CAPA_Post
+	set
+		title = #{title}
+		,content = #{content}
+		<if test="originalfile != null and savedfile != null">
+		, originalfile = #{originalfile}
+		, savedfile = #{savedfile}
+		</if>
+	where
+		postnum = #{postnum}
+		and memberid = #{memberid}
 	</update>
 	<delete id="deletePost" parameterType="Post">
 	delete

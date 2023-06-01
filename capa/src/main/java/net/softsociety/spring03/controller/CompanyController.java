@@ -139,7 +139,7 @@ public class CompanyController {
 	  log.debug("info : {}",info);
 	  model.addAttribute("info",info);
 	  
-	   return "/companyView/companyInfoForm";
+	   return "companyView/companyInfoForm";
    }
    
    
@@ -152,8 +152,14 @@ public class CompanyController {
 	 * 
 	 * log.debug("저장 성공????????:{}",result); return "redirect:companyInfoForm"; }
 	 */
-   
    @GetMapping("update")
+   public String update(String company_name, Model model) {
+	   Company_info info = service.readinfo(company_name);
+	   
+	   model.addAttribute("info", info);
+	   return "/companyView/updateForm";
+   }
+   @PostMapping("update")
    public String update(
 		   Company_info company_info
 		   , @AuthenticationPrincipal UserDetails user

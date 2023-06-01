@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.BoardService;
@@ -139,6 +140,60 @@ public class BoardController {
 		}
 	}	
 	/**
+	 * 전달된 postnum으로 글정보를 조회해서 본인 post이면 post수정폼으로 이동
+	 * @param 
+	 */
+	@GetMapping("updatePost")
+	public String updatePost(
+			@AuthenticationPrincipal UserDetails user
+			, Model model
+			, int postnum) {
+		log.debug("user : {}",user);
+		log.debug("postnum : {}", postnum);
+				
+		Post post = service.read(postnum);
+		
+		if(!post.getMemberid().equals(user.getUsername())) {
+			return "redirect:system";
+		}
+		model.addAttribute("post", post);
+		
+		return "/boardView/updatePostForm";
+	}
+	/**
+	 * post수정
+	 * @param 
+	 */
+	@PostMapping("updatePost")
+	public String update(
+			Post post
+			, @AuthenticationPrincipal UserDetails user
+			, MultipartFile upload) {
+		
+		post.setMemberid(user.getUsername());
+		Post oldPost = null;
+		String oldSavedfile = null;
+		String savedfile = null;
+		
+		//첨부파일이 있는 경우 기존파일 삭제 후 새 파일 저장
+		if (upload != null && !upload.isEmpty()) {
+			oldPost = service.read(post.getBoardnum());
+			oldSavedfile = oldPost == null ? null : oldPost.getSavedfile();
+			
+			savedfile = FileService.saveFile(upload, uploadPath);
+			post.setOriginalfile(upload.getOriginalFilename());
+			post.setSavedfile(savedfile);
+		}
+		
+		int result = service.updatePost(post);
+		
+		//글 수정 성공  and 첨부된 파일이 있는 경우 파일도 삭제
+		if(result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + oldSavedfile);
+		}
+		return "redirect:/board/read?postnum=" + post.getPostnum();
+	}
+	/**
 	 * Post 삭제
 	 * @param postnum 삭제할 글 번호
 	 * @param user 인증정보
@@ -146,13 +201,14 @@ public class BoardController {
 	@GetMapping ("deletePost")
 	public String deletePost(int postnum
 			, @AuthenticationPrincipal UserDetails user) {
-		
+		log.debug("postnum================================= : {}", postnum);
 		//해당 번호의 글 정보 조회
 		Post post = service.read(postnum);
 		
-		if (post == null) {
-			return "redirect:list";
+		if(post == null) {
+			return "redirect:system";
 		}
+		
 		//첨부된 파일명 확인
 		String savedfile = post.getSavedfile();
 		
@@ -162,11 +218,14 @@ public class BoardController {
 		//글 삭제
 		int result = service.deletePost(post);
 		
-		if (result == 1 && savedfile != null) {
+//		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post);
+		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if(result == 1 && savedfile != null) {
 			FileService.deleteFile(uploadPath + "/" + savedfile);
 		}
 		
-		return "redirect:system";
-		
+		log.debug("post=========================== : {}", post);
+		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post.getBoardname());
+		return "redirect:system?boardname=" + post.getBoardname();
 	}
 }
