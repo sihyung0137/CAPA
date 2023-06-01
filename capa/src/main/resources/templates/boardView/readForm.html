@@ -3,22 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 한 개 읽기</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style>
 	table{
 		height:300px;
 		width:700px;
 		border-collapse: collapse; 
-		border : solid 1px rgb(228, 220, 207);
+		border :1px solid rgb(38, 49, 89);
 		text-align: center;
 		margin :auto;
 		margin-bottom: 20px;
 	}
 	th,td{
-		border : solid 1px rgb(228, 220, 207);
-	}
-	*{
-		font-family: 'IBM Plex Sans KR', sans-serif;
+		border : solid 1px rgb(38, 49, 89);
 	}
 	#logo{
 		width:70px;
@@ -49,7 +45,7 @@
 	.bt{
 	  border: 0;
 	  outline: none;
-	  background: rgb(228, 220, 207);
+	  background:rgb(38, 49, 89);
 	  cursor: pointer;
 	  border-radius: 10px;
 	}
@@ -59,13 +55,27 @@
 	}
 	hr{
 		border:0px;
-		background :  rgb(228, 220, 207);
+		background : rgb(38, 49, 89);
 		height : 3px;
 		margin-bottom: 40px;
 	}
 	#deleteANDupdate{
 		margin-bottom: 20px;
 	}
+	th{
+		background-color: rgb(38, 49, 89);
+		color:white;
+	}
+		#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
+	#logo{
+		width:100px;
+		height: auto; 
+	}
+	
 </style>
 <script th:src = "@{/js/jquery-3.6.4.min.js}"></script>
 <script>
@@ -232,15 +242,17 @@
  		}
  	}
  	
-	function goPage(){
-		location.href="/member/mypage";
-	}
+
 </script>
 
 </head>
-<body>
+	<body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	</div>
 	<h1>게시글 읽기</h1>
 	<br>
+	<hr>
 	<table>
 		<tr>
 			<th>제목</th>
