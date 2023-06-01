@@ -65,4 +65,12 @@
 		postnum = #{postnum}
 		and memberid = #{memberid}
 	</delete>
+	
+	<delete id="deletePost2" parameterType="Post">
+	delete
+	from
+		CAPA_Post
+	where
+		postnum = #{postnum}
+	</delete>	
     </mapper>

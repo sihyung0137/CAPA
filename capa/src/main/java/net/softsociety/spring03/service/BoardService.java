@@ -23,5 +23,8 @@ int deletePost(Post post);
 int updatePost(Post post);
 
 
+int deletePost2(Post post);
+
+
 }
 

@@ -45,6 +45,13 @@ public int updatePost(Post post) {
 	int result = dao.updatePost(post);
 	return result;
 }
+
+
+@Override
+public int deletePost2(Post post) {
+	int result = dao.deletePost2(post);
+	return result;
+}
  
  
  
