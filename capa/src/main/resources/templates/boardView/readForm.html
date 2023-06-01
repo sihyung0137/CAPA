@@ -3,22 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 한 개 읽기</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <style>
 	table{
 		height:300px;
 		width:700px;
 		border-collapse: collapse; 
-		border : solid 1px rgb(228, 220, 207);
+		border :1px solid rgb(38, 49, 89);
 		text-align: center;
 		margin :auto;
 		margin-bottom: 20px;
 	}
 	th,td{
-		border : solid 1px rgb(228, 220, 207);
-	}
-	*{
-		font-family: 'IBM Plex Sans KR', sans-serif;
+		border : solid 1px rgb(38, 49, 89);
 	}
 	#logo{
 		width:70px;
@@ -49,7 +45,7 @@
 	.bt{
 	  border: 0;
 	  outline: none;
-	  background: rgb(228, 220, 207);
+	  background:rgb(38, 49, 89);
 	  cursor: pointer;
 	  border-radius: 10px;
 	}
@@ -59,22 +55,157 @@
 	}
 	hr{
 		border:0px;
-		background :  rgb(228, 220, 207);
+		background : rgb(38, 49, 89);
 		height : 3px;
 		margin-bottom: 40px;
 	}
 	#deleteANDupdate{
 		margin-bottom: 20px;
 	}
+	th{
+		background-color: rgb(38, 49, 89);
+		color:white;
+	}
+		#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
+	#logo{
+		width:100px;
+		height: auto; 
+	}
+	
 </style>
 <script th:src = "@{/js/jquery-3.6.4.min.js}"></script>
 
+	}
+ 	function loadReply(){
+		let boardnum = $("#boardnum").val();
+		//alert(boardnum);
+		
+			$.ajax({
+			url : "loadReply",
+			type : "get",
+			data : {"boardnum" : boardnum},
+			success : function(list){
+				let str = "";
+				
+				//현재 로그인한 username
+				let loginUser = $("#loginUser").val();
+				
+				//댓글 목록에 있는 요소만큼 반복
+				$.each(list, function(index, reply){
+					str += "<tr>";
+					str += "<th>"+ reply.replytext +"</th>";
+					str += "<td>"+ reply.memberid +"</td>"; 
+					str += "<td>"+ reply.inputdate +"</td>"; 
+					str += "<td>";
+					if(reply.memberid == loginUser){
+						str += "<a href = '#' onclick='getOneReply(" + reply.replynum + ");'>수정</a>"; 
+						str += "&nbsp;"+ "|" + "&nbsp;";
+						str += "<a href = '#' onclick = 'deleteReply(" + reply.replynum + ");'>삭제</a>";
+					}else{
+						//버튼 없으니 칸이 줄어들어서 그냥 공백 넣어줌
+						str += "&nbsp;&nbsp;&nbsp;"
+					}
+					str += "</td>"; 
+					str += "</tr>";
+				});
+
+				$("#replyTable").html(str);
+			}
+		});
+	} 
+ 	
+ 	function getOneReply(replynum){
+ 		
+ 		$.ajax({
+ 			url:"getOneReply",
+ 			type:"get",
+ 			data:{"replynum": replynum},
+ 			success:function(reply){
+ 				$("#replytext").val(reply.replytext);
+ 				//댓글 쓰기 버튼 숨기기
+ 				$("#btnWrite").hide();
+ 				
+ 				//댓글 수정,취소 버튼 보여주기
+ 				$("#btnUpdate").show();
+ 				$("#btnReset").show();
+ 				
+ 				//hidden태그 댓글 번호 설정하기
+ 				$("#replynum").val(reply.replynum);
+ 				loadReply();
+ 			}
+ 		});
+ 	}
+ 	
+ 	function resetReply(){
+ 		$("#btnWrite").show();
+ 		$("#btnReset").hide();
+ 		$("#btnUpdate").hide();
+ 
+ 		$("#replytext").val("");
+ 		
+ 	}
+ 	
+ 	function updateReply(){
+ 		let replynum = $("#replynum").val();
+ 		
+ 		// 댓글 텍스트 가져오기
+ 		let replytext = $("#replytext").val();
+ 		
+ 		let reply = {
+ 				//앞에 key값은 vo와 같아야 해
+ 				"replynum" : replynum,
+ 				"replytext" : replytext
+ 		};
+ 		
+ 		$.ajax({
+ 			url:"updateReply",
+ 			type :"post",
+ 			data : reply,
+ 	 		success : function(){
+ 	 			$("#btnUpdate").hide();
+ 	 			$("#btnReset").hide();
+ 	 			$("#btnWrite").show();
+ 	 			$("#replyNum").val("");
+ 	 			$("#replytext").val("");
+ 	 			loadReply();
+ 	 			location.hash="replyTable";
+ 			} 
+ 		});
+ 	}
+ 	
+ 	function deleteReply(replynum){
+ 		if (confirm('삭제하시겠습니까?')) {
+ 			$.ajax({
+ 				url : "deleteReply",
+ 				type : "get",
+ 				data : {"replynum" : replynum},
+ 				success : function(){
+ 					loadReply();
+ 					//댓글 삭제했을 때 위로 안 올라가고 새로고침 됨
+  					location.hash="replyTable";
+ 				}
+ 			});
+ 		}
+ 	}
+ 	
+</script>
 
 </head>
-<body>
+	<body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	</div>
 	<h1>게시글 읽기</h1>
 	<br>
+
 	<input type="hidden" th:value="${post.boardname}" name="boardname" id="boardname">
+
+	<hr>
+
 	<table>
 		<tr>
 			<th>제목</th>

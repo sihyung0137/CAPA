@@ -65,12 +65,47 @@
 		height: auto;
 		margin-right: 30px;
 	}
+		#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
+	#logo{
+		width:100px;
+		height: auto; 
+	}
+	table{
+		margin: auto;
+		border-collapse: collapse;
+		border : 1px solid rgb(38, 49, 89);
+		width:600px;
+		text-align: center;
+	}
+	th,td{
+		border : 1px solid rgb(38, 49, 89);
+	}
+	th{
+		background-color: rgb(38, 49, 89);
+		color: white;
+	}
+	#title{
+		text-decoration: none;
+		color:black;
+	}
+	#title:hover {
+		color:rgb(255, 110, 49);
+}
 </style>
 
 <script>
-
+function goPage(){
+	location.href="/capa";
+}
 </script>
 <body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	</div>
 
  	<div id="menu">
 		<ul>
@@ -128,7 +163,7 @@
 			<tr th:each="post : ${postlist}">
 				<td th:text="${post.postnum}">
 				</td>
-				<td><a th:text="${post.title}" th:href="@{/board/read(postnum=${post.postnum})}"></a>
+				<td><a th:text="${post.title}" th:href="@{/board/read(postnum=${post.postnum})}" id="title"></a>
 				</td>
 				<td th:text="${post.memberid}">
 				</td>
