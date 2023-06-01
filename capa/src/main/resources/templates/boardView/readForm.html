@@ -78,56 +78,6 @@
 	
 </style>
 <script th:src = "@{/js/jquery-3.6.4.min.js}"></script>
-<script>
-	$(document).ready( function(){
- 		$("#btnWrite").on("click", function (){ writeReply(); });
-		
-		//댓글 수정 버튼 숨기기
-		$("#btnUpdate").hide();
-		$("#btnReset").hide();
-		
-		$("#btnReset").on("click", function(){ resetReply(); });
-		$("#btnUpdate").on("click", function(){ updateReply(); });
-		
-		//댓글 목록 불러오기
-   		loadReply();
-	});
-</script>	
-<script>
-	//수정하기(본문글)
-	function updateForm(boardnum){
-		location.href="/board/updateForm?boardnum="+boardnum;
-	}
-	
-	//삭제하기(본문글)
-	function deleteForm(boardnum){
-		if (confirm('삭제하시겠습니까?')) {
-		location.href="/board/deleteForm?boardnum="+boardnum;
-	}
-}
-	//----------------댓글 관련 작업-------------------
-	//댓글 쓰기
-	function writeReply(){
-		//댓글창에 있는 텍스트 가져오기
- 		let replytext = $("#replytext").val();
-		
-   		if(replytext.length < 5){
-			alert("댓글 내용이 너무 짧습니다.");
-			return;
-		}
-		
-		//글번호
-		let boardnum = $("#boardnum").val();
-			
-		$.ajax({
-			url:"writeReply",
-			type:"post",
-			data:{"boardnum" :boardnum , "replytext" : replytext},
-			success:function(){
-				loadReply();
-				$("#replytext").val("");
-				}
-		});
 
 	}
  	function loadReply(){
@@ -242,7 +192,6 @@
  		}
  	}
  	
-
 </script>
 
 </head>
@@ -252,34 +201,38 @@
 	</div>
 	<h1>게시글 읽기</h1>
 	<br>
+
+	<input type="hidden" th:value="${post.boardname}" name="boardname" id="boardname">
+
 	<hr>
+
 	<table>
 		<tr>
 			<th>제목</th>
-			<td><a th:text="${post.title}"></a></td>
+			<td><a th:text="${post.title}" name="title" id="title"></a></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><a th:text="${post.memberid}"></a></td>
+			<td><a th:text="${post.memberid}" name="memberid" id="memberid"></a></td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td><a th:text="${post.hits}"></a></td>
+			<td><a th:text="${post.hits}" name="hits" id="hits"></a></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><a th:text="${post.content}"></a></td>
+			<td><a th:text="${post.content}" name="content" id="content"></a></td>
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td><a th:text="${post.inputdate}"></a></td>
+			<td><a th:text="${post.inputdate}" name="inputdate" id="inputdate"></a></td>
 		</tr>
 		<tr>
 			<th>첨부파일</th>
 			<td><img th:src="@{/board/download(postnum=${post.postnum})}" style="max-width:  400px; max-height: 400px"></td>
 		</tr>
 	</table>
-	<div th:if="${#authentication.name} == ${post.memberid}">
+	<div th:if="${#authentication.name} == ${post.memberid}"> 
 		<a th:href="@{/board/updatePost(postnum=${post.postnum})}">수정</a>
 		<a th:href="@{/board/deletePost(postnum=${post.postnum})}">삭제</a>
 	</div>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<script>
+function validation() {
+	let title = document.getElementById('title');
+	let content = document.getElementById('content');
+	
+	if (title.value.length < 5) {
+		alert("제목을 입력하세요.");
+		title.focus();
+		title.select();
+		return false;
+	}
+	if (content.value.length < 5) {
+		alert("내용을 입력하세요.");
+		contents.focus();
+		contents.select();
+		return false;
+	}
+	return true;
+}
+</script>
+</head>
+<body>
+<header>
+<h1>글 수정</h1>
+</header>
+
+<section>
+<form th:action="@{/board/updatePost}"  method="post" 
+	enctype="multipart/form-data" onsubmit="return validation();">
+	
+	<input type="hidden" name="postnum" th:value="${post.postnum}">
+	
+	<table>
+	<tr>
+		<th>제목</th>
+		<td>
+			<input type="text" name="title" id="title" style="width:400px;" th:value="${post.title}">
+		</td>
+	</tr>
+	<tr>
+		<th>내용</th> 
+		<td>
+			<textarea name="content" id="content" th:text="${post.content}"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<th>파일첨부</th> 
+		<td>
+			<input type="file" name="upload">
+			<span th:text="${post.originalfile}"></span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="white center">
+			<input type="submit" value="수정">
+		</td> 
+	</tr>
+	</table>
+</form>
+
+</section>
+</body>
+</html>

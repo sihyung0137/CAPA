@@ -20,5 +20,8 @@ Post read(int postnum);
 int deletePost(Post post);
 
 
+int updatePost(Post post);
+
+
 }
 

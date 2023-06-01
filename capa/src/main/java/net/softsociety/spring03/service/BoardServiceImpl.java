@@ -38,6 +38,13 @@ public int deletePost(Post post) {
 	int result = dao.deletePost(post);
 	return result;
 }
+
+
+@Override
+public int updatePost(Post post) {
+	int result = dao.updatePost(post);
+	return result;
+}
  
  
  
