@@ -189,7 +189,7 @@ html, body {
 	<br>
 	
 	
-	<div th:if="${#authentication.name} == ${info.memberid}" id="deleteANDupdate">
+	<div id="update">
 		<!-- <input type="button" th:onclick="|javascript:updateForm('${info.company_name}')|" id="updateB" class="bt" value="수정하기">&emsp;
 		<input type="button" th:onclick="|javascript:deleteForm('${info.company_name}')|" id="deleteB" class="bt" value="삭제하기"> -->
 		<a th:href="@{/company/update(company_name=${info.company_name})}">회사정보 변경</a>
