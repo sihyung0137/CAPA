@@ -57,8 +57,8 @@ th, td {
 
 #map {
 	/* height: 100%; */
-	height:500px;
-	width:500px;
+	height: 500px;
+	width: 500px;
 	text-align: center;
 	margin: auto;
 	margin-bottom: 40px;
@@ -69,9 +69,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
-.blank{
-	height: 40px;
-}
+
 #update{
 	text-align: right;
 	margin-bottom: 40px; 
@@ -199,8 +197,8 @@ a:hover {
 
 	</table>
 	<br>
-	
-	
+
+
 
 	<!-- <div th:if="${#authentication.name} == ${info.memberid}" id="deleteANDupdate">
 		<input type="button" th:onclick="|javascript:updateForm('${info.company_name}')|" id="updateB" class="bt" value="수정하기">&emsp;
@@ -210,12 +208,13 @@ a:hover {
 		<input type="button" th:onclick="|javascript:deleteForm('${info.company_name}')|" id="deleteB" class="bt" value="삭제하기"> -->
 
 
- 
 	<div id="map"></div>
 
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiKf1OyaeUuYj6lcpUAwJdpWVkqW_vVEA&libraries=places&callback=initMap">
+		
 	</script>
+
 	
 	<div class="blank">
 	</div>
@@ -247,6 +246,29 @@ a:hover {
 	
 </table>
 <input type="hidden" id="loginUser" th:value="${#authentication.name}"> -->
+
+
+	<div id="blank"></div>
+
+
+	<div>
+		<p sec:authorize="isAuthenticated()">
+			<textarea id="replyText"></textarea>
+			<br> <input type="button" value="댓글쓰기" id="btnWrite"> <input
+				type="button" value="수정하기" id="btnUpdate"> <input
+				type="button" value="취소하기" id="btnCancel"> <input
+				type="hidden" id="replyNum">
+		</p>
+	</div>
+	<!-- 글 번호를 가지고 있는 요소 -->
+	<input type="hidden" id="boardNum" th:value="${board.boardnum}">
+
+	<!-- 리플 목록 출력 시작 -->
+	<table class="reply" id="replyTable">
+
+	</table>
+	<input type="hidden" id="loginUser" th:value="${#authentication.name}">
+
 	<!-- <div id="centerBt">
 <input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
 <input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">

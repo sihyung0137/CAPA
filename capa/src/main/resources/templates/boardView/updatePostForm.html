@@ -4,6 +4,61 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style>
+	#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
+	#logo{
+		width:100px;
+		height: auto; 
+	}
+	hr{
+		border:0px;
+		background : rgb(38, 49, 89);
+		height : 3px;
+		margin-bottom: 40px;
+	}
+	header{
+		text-align: center;
+	}
+	table{
+		margin: auto;
+		text-align: center;
+		border-collapse: collapse;
+		border :1px solid rgb(38, 49, 89);
+		height: 300px;
+		width:700px;
+		margin-bottom: 40px;
+	}
+	th,td{
+		border : solid 1px rgb(38, 49, 89);
+	}
+	th{
+		background:rgb(38, 49, 89);
+		color:white;
+	}
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background:rgb(38, 49, 89);
+	  color:white;
+	  cursor: pointer;
+	  border-radius: 5px;
+	}
+	.bt:hover {
+	  color: white;
+	  background:rgb(27, 156, 133);
+	}
+	#center{
+		text-align: center;
+	}
+	textarea{
+		height:90%;
+		width:90%;
+	}
+</style>
 <script>
 function validation() {
 	let title = document.getElementById('title');
@@ -23,14 +78,21 @@ function validation() {
 	}
 	return true;
 }
+function goPage(){
+	location.href= "/capa/board/system?boardname="+'system';
+}
 </script>
 </head>
 <body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	</div>
 <header>
 <h1>글 수정</h1>
 </header>
-
+<hr>
 <section>
+<div id="center">
 <form th:action="@{/board/updatePost}"  method="post" 
 	enctype="multipart/form-data" onsubmit="return validation();">
 	
@@ -56,14 +118,11 @@ function validation() {
 			<span th:text="${post.originalfile}"></span>
 		</td>
 	</tr>
-	<tr>
-		<td colspan="2" class="white center">
-			<input type="submit" value="수정">
-		</td> 
-	</tr>
 	</table>
+	
+	<input type="submit" value="수정" class="bt">
 </form>
-
+</div>
 </section>
 </body>
 </html>
