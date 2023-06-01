@@ -54,13 +54,28 @@
 	.details:hover {
 		color:rgb(255, 110, 49);
 }
+		#logoLoca{
+		margin-left: 30px;
+		margin-top: 30px;
+	}
+	
+	#logo{
+		width:100px;
+		height: auto; 
+	}
 
 </style>
 
 <script>
-
+	function goPage(){
+		location.href="/capa";
+	}
 </script>
 <body>
+	<div id="logoLoca">
+	<img src="../image/capa.PNG" id="logo" onclick="goPage();">
+	</div>
+
 	<!-- 관리자만 보이게 걸기 -->
 	<div id="createBoard" >
 	<a th:href="@{/board/createBoard}">게시판 생성</a>

@@ -92,21 +92,21 @@
 			alert('이름을 입력해 주세요 !');
 			return false;
 		}
+		if(job.value.includes('직업')){
+			alert("직업을 선택해 주세요");
+			return false;
+		}
 		
 		if(email.value.length==0 || email.value ==''){
 			alert('이메일을 입력해 주세요 !');
 			return false;
 		}else if(!email.value.includes('@')){
-			alert('@를 포함한 형식으로 입력해 주세요 !');
+			alert('이메일은 @를 포함한 형식으로 입력해 주세요 !');
 			return false;
 		}
 		
 		//이거 확인하자
-		if(job.value.equals('직업을 선택해 주세요.')){
-			alert("직업을 선택해 주세요");
-			return false;
-		}
-		
+		return true;
 		alert('회원가입 성공 !');
 	}
 	function goPage(){
