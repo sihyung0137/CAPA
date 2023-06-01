@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>게시글 한 개 읽기</title>
@@ -84,6 +85,10 @@
 	}
 	a:hover {
 		color: rgb(234, 84, 85);
+}
+img{ 
+	max-width: 300px;
+	height: auto;
 }
 </style>
 <script th:src = "@{/js/jquery-3.6.4.min.js}"></script>
@@ -241,12 +246,17 @@
 		</tr>
 		<tr>
 			<th>첨부파일</th>
-			<td><img th:src="@{/board/download(postnum=${post.postnum})}" style="max-width:  400px; max-height: 400px"></td>
+			<td><img th:src="@{/board/download(postnum=${post.postnum})}" onerror="this.src='../image/logo.png';"></td>
+				
 		</tr>
 	</table>
 	<div th:if="${#authentication.name} == ${post.memberid}" id="updateANDdelete"> 
 		<a th:href="@{/board/updatePost(postnum=${post.postnum})}">수정</a>&emsp;
 		<a th:href="@{/board/deletePost(postnum=${post.postnum})}">삭제</a>
+	</div>
+	
+	<div sec:authorize="hasRole('ADMIN')" id="updateANDdelete"> 
+		<a th:href="@{/board/deletePost2(postnum=${post.postnum})}">관리자 삭제</a>
 	</div>
 	<!-- <div th:if="${#authentication.name} == ${board.memberid}" id="deleteANDupdate">
 	<input type="button" th:onclick="|javascript:updateForm('${board.boardnum}')|" id="updateB" class="bt" value="수정하기">&emsp;

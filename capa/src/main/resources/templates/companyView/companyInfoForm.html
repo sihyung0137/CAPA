@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>회사정보 읽기, 수정</title>
@@ -43,7 +44,10 @@ table {
 th, td {
 	border: solid 1px rgb(36, 55, 99);
 }
-
+th{
+	background:  rgb(36, 55, 99);
+	color:white;
+}
 #company {
 	text-align: center;
 	font-weight: 900;
@@ -81,6 +85,13 @@ a{
 }
 a:hover {
 	color:red;
+}
+#update{
+	text-align: center;
+	text-decoration: none;
+}
+.blank{
+	margin-bottom: 40px;
 }
 </style>
 
@@ -219,61 +230,13 @@ a:hover {
 	<div class="blank">
 	</div>
 	
-	<div id="update">
+	<div id="update" sec:authorize="hasRole('ADMIN')">
 		<a th:href="@{/company/update(company_name=${info.company_name})}">회사정보 변경</a>&emsp;&emsp;
 		<a th:href="@{/company/delete(company_name=${info.company_name})}">삭제</a>
 	</div>
-
-	<hr>
+	
 	<div class="blank">
 	</div>
-	
-	
-	<!-- <div>
-	<p sec:authorize="isAuthenticated()">
-	<textarea id="replyText"></textarea><br>
-	<input type="button" value="댓글쓰기" id="btnWrite">
-	<input type="button" value="수정하기" id="btnUpdate">
-	<input type="button" value="취소하기" id="btnCancel">
-	<input type="hidden" id="replyNum">
-	</p>
-</div>
-글 번호를 가지고 있는 요소
-	<input type="hidden" id="boardNum" th:value="${board.boardnum}">
-
-리플 목록 출력 시작
-<table class="reply" id="replyTable">
-	
-</table>
-<input type="hidden" id="loginUser" th:value="${#authentication.name}"> -->
-
-
-	<div id="blank"></div>
-
-
-	<div>
-		<p sec:authorize="isAuthenticated()">
-			<textarea id="replyText"></textarea>
-			<br> <input type="button" value="댓글쓰기" id="btnWrite"> <input
-				type="button" value="수정하기" id="btnUpdate"> <input
-				type="button" value="취소하기" id="btnCancel"> <input
-				type="hidden" id="replyNum">
-		</p>
-	</div>
-	<!-- 글 번호를 가지고 있는 요소 -->
-	<input type="hidden" id="boardNum" th:value="${board.boardnum}">
-
-	<!-- 리플 목록 출력 시작 -->
-	<table class="reply" id="replyTable">
-
-	</table>
-	<input type="hidden" id="loginUser" th:value="${#authentication.name}">
-
-	<!-- <div id="centerBt">
-<input type="button" th:onclick="|javascript:updateForm('${review.booknum}')|" id="update" class="bt" value="수정하기">
-<input type="button" th:onclick="|javascript:deleteForm('${review.booknum}')|" class="bt" value="삭제">
-</div> -->
-
-
+	<hr>
 </body>
 </html>

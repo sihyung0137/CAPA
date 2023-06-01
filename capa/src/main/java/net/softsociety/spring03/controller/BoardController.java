@@ -233,4 +233,40 @@ public class BoardController {
 		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post.getBoardname());
 		return "redirect:system?boardname=" + post.getBoardname();
 	}
+	
+	/**
+	 * Post 관리자 권한으로 삭제
+	 * @param postnum 삭제할 글 번호
+	 * @param user 인증정보
+	 */
+	@GetMapping ("deletePost2")
+	public String deletePost2(int postnum
+			, @AuthenticationPrincipal UserDetails user) {
+		log.debug("postnum================================= : {}", postnum);
+		//해당 번호의 글 정보 조회
+		Post post = service.read(postnum);
+		
+		if(post == null) {
+			return "redirect:system";
+		}
+		
+		//첨부된 파일명 확인
+		String savedfile = post.getSavedfile();
+		
+		//로그인 아이디를 post객체에 저장
+		post.setMemberid(user.getUsername());
+		
+		//글 삭제
+		int result = service.deletePost2(post);
+		
+//		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post);
+		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if(result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		log.debug("post=========================== : {}", post);
+		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post.getBoardname());
+		return "redirect:system?boardname=" + post.getBoardname();
+	}
 }
