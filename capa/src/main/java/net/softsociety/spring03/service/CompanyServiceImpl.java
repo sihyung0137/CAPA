@@ -59,10 +59,13 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 
-	/*
-	 * @Override public int update(Company_info info) { int result =
-	 * companyDAO.update(info); return result; }
-	 */
+	@Override
+	public int delete(Company_info info) {
+		int result = companyDAO.delete(info);
+		return result;
+	}
+
+
       
 	
     

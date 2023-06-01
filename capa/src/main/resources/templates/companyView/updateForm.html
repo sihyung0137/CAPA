@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
 function validation() {
@@ -17,42 +17,42 @@ function validation() {
    
    
    if(name.value==''){
-      alert('È¸»çÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('íšŒì‚¬ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”');
       name.focus();
       return false;
    }
    if(sales.value==''){
-      alert('¸ÅÃâÀ» ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('ë§¤ì¶œì„ ì…ë ¥í•˜ì„¸ìš”');
       sales.focus();
       return false;
    }
    if(employees.value==''){
-      alert('»ç¿ø¼öÀ» ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('ì‚¬ì›ìˆ˜ì„ ì…ë ¥í•˜ì„¸ìš”');
       employees.focus();
       return false;
    }
    if(address.value==''){
-      alert('È¸»çÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('íšŒì‚¬ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”');
       address.focus();
       return false;
    }
    if(salary.value==''){
-      alert('Æò±Õ±Ş¿©¸¦ ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('í‰ê· ê¸‰ì—¬ë¥¼ ì…ë ¥í•˜ì„¸ìš”');
       salary.focus();
       return false;
    }
    if(filed.value==''){
-      alert('È¸»çºĞ¾ß¸¦ ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('íšŒì‚¬ë¶„ì•¼ë¥¼ ì…ë ¥í•˜ì„¸ìš”');
       filed.focus();
       return false;
    }
    if(scale.value==''){
-      alert('È¸»ç±Ô¸ğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä');
+      alert('íšŒì‚¬ê·œëª¨ë¥¼ ì…ë ¥í•˜ì„¸ìš”');
       scale.focus();
       return false;
    }
    if(info.value==''){
-      alert('°£´ÜÇÑ È¸»ç Á¤º¸¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. È¸»ç¸ŞÀÏ, ºĞÀ§±â µîµî');
+      alert('ê°„ë‹¨í•œ íšŒì‚¬ ì •ë³´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. íšŒì‚¬ë©”ì¼, ë¶„ìœ„ê¸° ë“±ë“±');
       info.focus();
       return false;
    }
@@ -66,64 +66,66 @@ function goHome(){
 <body>
 	<form th:action="@{/company/update}" method="post"
 	onsubmit="return validation();" enctype="multipart/form-data">
-	<input type="hidden" name="company_name" th:value="${info.company_name}">
+	<!-- <input type="hidden" name="company_name" th:value="${info.company_name}"> -->
+	<input type="hidden" th:value="${info.lat}" id="lat" name="lat">
+	<input type="hidden" th:value="${info.lng}" id="lng" name="lng">
 	<table>
             <tr>
-               <th>È¸»çÀÌ¸§</th>
-               <td><input type="text" name="company_name" id="company_name" class="put" th:value="${info.company_name}">
+               <th>íšŒì‚¬ì´ë¦„</th>
+               <td><input type="text" name="company_name" id="company_name" class="put" th:value="${info.company_name}" readonly="readonly">
                </td>
             </tr>
             <tr>
-               <th>¸ÅÃâ</th>
+               <th>ë§¤ì¶œ</th>
                <td><input type="text" name="sales" id="sales" class="put" th:value="${info.sales}">
                </td>
             </tr>
             <tr>
-               <th>»ç¿ø¼ö</th>
-               <td><input type="text" name="employees" id="employees" placeholder="¼ıÀÚ¸¸ Àû¾îÁÖ¼¼¿ä" class="put" th:value="${info.employees}">
+               <th>ì‚¬ì›ìˆ˜</th>
+               <td><input type="text" name="employees" id="employees" placeholder="ìˆ«ìë§Œ ì ì–´ì£¼ì„¸ìš”" class="put" th:value="${info.employees}">
                </td>
             </tr>
             <tr>
-               <th>È¸»çÁÖ¼Ò</th>
-               <td><input type="text" name="c_address" id="c_address" placeholder="EX) ¼­¿ïÆ¯º°½Ã Á¾·Î±¸ " class="put" th:value="${info.c_address}"></td>
+               <th>íšŒì‚¬ì£¼ì†Œ</th>
+               <td><input type="text" name="c_address" id="c_address" placeholder="EX) ì„œìš¸íŠ¹ë³„ì‹œ ì¢…ë¡œêµ¬ " class="put" th:value="${info.c_address}"></td>
             </tr>
             <tr>
-               <th>È¸»çÈ¨ÆäÀÌÁö URL</th>
+               <th>íšŒì‚¬í™ˆí˜ì´ì§€ URL</th>
                <td><input type="text" name="homepage" id="homepage" placeholder="http://" class="put" th:value="${info.homepage}"></td>
             </tr>
             <tr>
-               <th>Æò±Õ±Ş¿©</th>
-               <td><input type="text" name="salary_AVG" id="salary_AVG" placeholder="ÇÑ ´Ş ±âÁØ ¿ù±Ş" class="put" th:value="${info.salary_AVG}">
+               <th>í‰ê· ê¸‰ì—¬</th>
+               <td><input type="text" name="salary_AVG" id="salary_AVG" placeholder="í•œ ë‹¬ ê¸°ì¤€ ì›”ê¸‰" class="put" th:value="${info.salary_AVG}">
                </td>
             </tr>
             <tr>
-               <th>ºĞ¾ß</th>
-               <td><input type="text" name="filed" id="filed" placeholder="EX) ITºĞ¾ß , º¸°ÇºĞ¾ß" class="put" th:value="${info.filed}">
+               <th>ë¶„ì•¼</th>
+               <td><input type="text" name="filed" id="filed" placeholder="EX) ITë¶„ì•¼ , ë³´ê±´ë¶„ì•¼" class="put" th:value="${info.filed}">
                </td>
             </tr>
             <tr>
-               <th>È¸»ç±Ô¸ğ</th>
-               <td><input type="text" name="scale" id="scale" placeholder="À¯¼ö±â¾÷, ´ë±â¾÷, Áß¼Ò±â¾÷" class="put" th:value="${info.scale}">
+               <th>íšŒì‚¬ê·œëª¨</th>
+               <td><input type="text" name="scale" id="scale" placeholder="ìœ ìˆ˜ê¸°ì—…, ëŒ€ê¸°ì—…, ì¤‘ì†Œê¸°ì—…" class="put" th:value="${info.scale}">
                </td>
             </tr>
             <tr>
-               <th>È¸»ç¼Ò°³</th>
+               <th>íšŒì‚¬ì†Œê°œ</th>
                <td><input type="text" name="info" id="info" th:value="${info.info}">
                </td>
             </tr>
             <tr>
-               <th>¼³¸³ÀÏ</th>
+               <th>ì„¤ë¦½ì¼</th>
                <td><input type="date" name="Edate" id="Edate" th:value="${info.Edate}"
-                  placeholder="¼³¸³ÀÏ">
+                  placeholder="ì„¤ë¦½ì¼">
                </td>
             </tr>
             <tr>
-               <th>È¸»ç»çÁø</th>
-               <td><input type="file" name="upload" id="logo" th:value="${info.upload}">
-               </td>
+               <th>íšŒì‚¬ì‚¬ì§„</th>
+               <td><input type="file" name="upload" id="upload" th:value="${info.originalfile}">
+            </td> 
             </tr>
             <tr>
-            	<td colspan="2" class="center"><input type="submit" value="¼öÁ¤">
+            	<td colspan="2" class="center"><input type="submit" value="ìˆ˜ì •">
             	</td>
             </tr>
             

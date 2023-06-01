@@ -50,7 +50,7 @@ public class WebSecurityConfig {
                   "/image/**",
                   "/css/**",
                   "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
-        .antMatchers("/company/update").hasRole("ROLE_ADMIN")// /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
+        .antMatchers("/company/update").hasRole("ADMIN")// /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용

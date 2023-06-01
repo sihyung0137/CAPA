@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.CompanyService;
 import net.softsociety.spring03.util.FileService;
 import net.softsociety.spring03.vo.Company_info;
+import net.softsociety.spring03.vo.Post;
 
 
 
@@ -128,9 +129,9 @@ public class CompanyController {
     * @return
     */
    @GetMapping("companyInfoForm")
-   public String companyInfoForm(String companyName, Model model) {
+   public String companyInfoForm(String company_name, Model model) {
 	     
-	   String company_name = companyName;
+//	   String company_name = companyName;
 	   
 	   log.debug("회사 이름 가져옴?:{}",company_name);
 	   
@@ -184,13 +185,44 @@ public class CompanyController {
 	   }
 	   
 	   int result = service.update(company_info);
-	   
+	   log.debug("컴페니인포================== : {} ", company_info);
 	   if(result == 1 && savedfile != null) {
 		   FileService.deleteFile(uploadPath + "/" + oldSavedfile); 
 	   }
 	   
 	   return "redirect:/company/companyInfoForm?company_name=" + company_info.getCompany_name();
    }
+   /**
+	 * Post 삭제
+	 * @param postnum 삭제할 글 번호
+	 * @param user 인증정보
+	 */
+	@GetMapping ("delete")
+	public String deletet(String company_name
+			, @AuthenticationPrincipal UserDetails user) {
+		//해당 번호의 글 정보 조회
+		Company_info info = service.readinfo(company_name);
+		
+		if(info == null) {
+			return "redirect:system";
+		}
+		
+		//첨부된 파일명 확인
+		String savedfile = info.getSavedfile();
+		
+//		info.setCompany_name(user.getUsername());
+		
+		//글 삭제
+		int result = service.delete(info);
+		
+//		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post);
+		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if(result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		return "redirect:companyForm?company_name=" + info.getCompany_name();
+	}
    
    
 }

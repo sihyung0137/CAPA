@@ -40,8 +40,13 @@ public class BoardController {
 	   String uploadPath;
 	
 	@GetMapping("boardpage")
-	public String boardpage() {
-		return"boardView/boardpage";
+	public String boardpage(Model model, Post post, String searchWord) {
+//		
+//		ArrayList<Post> list = service.selectAll(searchWord);
+//		
+//		model.addAttribute("searchWord", searchWord);
+//		model.addAttribute("list", list);
+ 		return"boardView/boardpage";
 	}
 	
 	@GetMapping("createBoard")
