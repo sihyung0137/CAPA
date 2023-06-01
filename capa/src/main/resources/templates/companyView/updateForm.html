@@ -115,12 +115,14 @@ function goHome(){
 </script>
 </head>
 <body>
+
  	<div id="logoLoca">
 	<img src="../image/capa.PNG" id="logo" onclick="goHome();">
 	</div>
 	<h1>회사 정보 수정</h1>
 	<hr>
 	<div id="center">
+    
 	<form th:action="@{/company/update}" method="post"
 	onsubmit="return validation();" enctype="multipart/form-data">
 	<!-- <input type="hidden" name="company_name" th:value="${info.company_name}"> -->
