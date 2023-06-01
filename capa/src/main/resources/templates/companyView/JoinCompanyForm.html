@@ -62,6 +62,7 @@
 </style>
 
 <script>
+
 function validation() {
    let name = document.getElementById('company_name');
    let sales = document.getElementById('sales');
@@ -134,7 +135,7 @@ function goHome(){
          <table>
             <tr>
                <th>회사이름</th>
-               <td><input type="text" name="company_name" id="company_name" class="put">
+               <td><input type="text" name="company_name" id="company_name" th:value="${company_name}" class="put">
                </td>
             </tr>
             <tr>
@@ -153,7 +154,7 @@ function goHome(){
             </tr>
             <tr>
                <th>회사홈페이지 URL</th>
-               <td><input type="text" name="homepage" id="homepage" placeholder="http://" class="put"></td>
+               <td><input type="text" name="homepage" id="homepage" th:value="${homepage}" placeholder="http://" class="put"></td>
             </tr>
             <tr>
                <th>평균급여</th>

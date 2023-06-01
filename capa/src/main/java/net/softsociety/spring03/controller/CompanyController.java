@@ -65,8 +65,13 @@ public class CompanyController {
     * @return
     */
    @GetMapping("joinCompanyForm")
-   public String joinCompanyForm() {
-      return "/companyView/joinCompanyForm";
+   public String joinCompanyForm(String company_name
+		   , String homepage, Model model) {
+	   
+	   model.addAttribute("company_name", company_name);
+	   model.addAttribute("homepage", homepage);
+      
+	   return "/companyView/joinCompanyForm";
    }
    
    /**
@@ -83,7 +88,7 @@ public class CompanyController {
 			String savedfile = FileService.saveFile(upload, uploadPath);
 			company_info.setOriginalfile(upload.getOriginalFilename());
 			company_info.setSavedfile(savedfile);
-		}
+		}  
       
       int result = service.insertCompanyInfo(company_info);
       log.debug("회사 정보 등록 완료 ?:{}", result);
