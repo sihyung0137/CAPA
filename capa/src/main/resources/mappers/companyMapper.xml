@@ -79,19 +79,21 @@
 	</select>
 	
 	<update id="update" parameterType="Company_info">
-		update CAPA_Company_info
+		update
+			CAPA_Company_info
 		set 
+			company_name = #{company_name},
 			sales = #{sales},
 			employees = #{employees},
-			c_address = #{c_address}
-			lat = #{lat},
-			lng = #{lng},			
+			c_address = #{c_address},	
+			lat = #{lat},	
+			lng = #{lng},	
 			homepage = #{homepage},
 			salary_AVG = #{salary_AVG},
 			filed = #{filed},
 			scale = #{scale},
 			info = #{info},
-			Edate = #{Edate},
+			Edate = #{Edate}
 			<if test="originalfile != null and savedfile != null">
 			, originalfile = #{originalfile}
 			, savedfile = #{savedfile}
@@ -100,4 +102,11 @@
 			company_name = #{company_name}
 	</update>
 
+	<delete id="delete" parameterType="Company_info">
+	delete from
+		CAPA_Company_info
+	where
+		company_name = #{company_name}
+	
+	</delete>
 </mapper>

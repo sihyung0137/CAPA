@@ -19,6 +19,8 @@ public interface CompanyService {
 
    int update(Company_info company_info);
 
+   int delete(Company_info info);
+
 
 
 //   int update(Company_info info);
