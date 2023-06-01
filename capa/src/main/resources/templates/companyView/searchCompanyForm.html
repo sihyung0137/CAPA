@@ -95,6 +95,18 @@ hr {
 	color: white;
 	background: rgb(27, 156, 133);
 }
+#searchWord{
+	width:400px;
+	height:30px;
+	border-radius: 30px; 
+	text-align: center;
+}
+.insert{
+	width:200px;
+	height:25px;
+	border-radius: 20px;
+	text-align: center;
+}
 </style>
 <script>
 
@@ -113,8 +125,6 @@ hr {
 	<h1>회사정보</h1>
 	<div id="login">
 		<ul>
-			<!-- 		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/join}">회원가입</a></li>
-		      <li sec:authorize="not isAuthenticated()"><a th:href="@{member/loginForm}">로그인</a></li> -->
 			<li sec:authorize="isAuthenticated()"><a
 				th:href="@{/member/logout}">로그아웃</a></li>
 			<li sec:authorize="isAuthenticated()"><a
@@ -123,27 +133,14 @@ hr {
 	</div>
 	<hr>
 
-
-
-	<!--원래 검색창  	
-	<div id="searchBox">
-		<form th:action="@{/company/CompanyForm}" method="get">
-			<input type="text"  name="company_name" id="searchWord">
-			<input type="button"value="검색" class="bt" onclick="wordSearch();">
-		</form>
-	</div> -->
-
 	<div id="searchBox">
 		<form th:action="@{/company/companyForm}" method="get">
-			<!-- 			<select id="type" name="type">
-				<option value="company_name">회사명</option>
-			</select> -->
-			<input type="text" name="searchWord" id="searchWord"> <input
-				type="submit" value="검색" class="bt">
+			<input type="text" name="searchWord" id="searchWord" placeholder="회사명을 입력해 주세요 :)"> 
+			<input type="submit" value="검색" class="bt">
 		</form>
 	</div>
 
-<!-- ------------------------------------------------------------------------------ -->
+<!-- 검색 결과 없을 때------------------------------------------------------------------------------ -->
 	<div id="divBox">
 		<div th:if="${#lists.isEmpty(list)}">
 			<p>검색 결과가 없습니다. 회사 정보 등록을 요청해 주세요.</p>
@@ -151,18 +148,20 @@ hr {
 				<table>
    				<tr>
    					<th>회사명</th>
-   					<td><input type="text" id="company_name" name="company_name"></td>
+   					<td><input type="text" id="company_name" name="company_name" class="insert"></td>
    				</tr>
    				<tr>
    				<th>회사 URL</th>
-   				<td><input type="text" id="homepage" name="homepage"></td>
+   				<td><input type="text" id="homepage" name="homepage" class="insert"></td>
    				</tr>
    				<tr>
-   					<td colspan="2"><input type="submit" value="요청"></td>
+   					<td colspan="2"><input type="submit" value="요청" class="bt"></td>
    				</tr>
    				</table>
    			</form>
 		</div>
+		
+<!-- ---------------------------------------------------------------------------------- -->
 		<section>
 			<div id="container" th:each="list:${list}"
 				th:value="${list.company_name}"
@@ -174,9 +173,7 @@ hr {
 							id="companyImg"></td>
 						<th th:text="${list.company_name}"></th>
 					</tr>
-
 				</table>
-
 			</div>
 		</section>
 	</div>
