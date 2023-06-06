@@ -31,7 +31,14 @@ public class PostController {
 			MultipartFile upload) {
 		log.debug("post {}:",post);	
 		post.setMemberid(user.getUsername());
-		
+		if(post.getBoardname() != null && post.getBoardname().contains(",")) {
+			String[] str = post.getBoardname().split(",");
+			log.debug("test1: {}", str[0]);
+			log.debug("test2: {}", str[1]);
+			post.setBoardnum(Integer.parseInt(str[0]));
+			post.setBoardname(str[1]);
+		}
+		log.debug("postall: {}", post);
 		log.debug("포스트 글쓰기 가져온 값 :{}",post);
 		
 		if (!upload.isEmpty()) {

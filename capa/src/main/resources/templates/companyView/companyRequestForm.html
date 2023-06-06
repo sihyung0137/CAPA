@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>회사 등록하기</title>
+<title>회사 등록 요청</title>
 <style>
 	section{
 		text-align: center;
@@ -58,6 +58,7 @@
 	  color:white;
 	  background:rgb(27, 156, 133);
 	}
+
 </style>
 
 <script>
@@ -71,8 +72,8 @@ function validation() {
    let filed = document.getElementById('filed');
    let scale = document.getElementById('scale');
    let info = document.getElementById('info');
-   let homepage = document.getElementById('homepage');
-   let upload = document.getElementById('upload');
+   
+   
    
    if(name.value==''){
       alert('회사이름을 입력하세요');
@@ -94,11 +95,6 @@ function validation() {
       address.focus();
       return false;
    }
-   if(homepage.value==''){
-	      alert('회사URL을 입력하세요');
-	      address.focus();
-	      return false;
-	   }
    if(salary.value==''){
       alert('평균급여를 입력하세요');
       salary.focus();
@@ -109,8 +105,8 @@ function validation() {
       filed.focus();
       return false;
    }
-   if(scale.value.includes('선택')){
-      alert('회사규모를 선택하세요.');
+   if(scale.value==''){
+      alert('회사규모를 입력하세요');
       scale.focus();
       return false;
    }
@@ -119,17 +115,6 @@ function validation() {
       info.focus();
       return false;
    }
-
-   if(!upload.value){
-	  alert("파일을 첨부하시오!");
-	  console.log(upload)
-      return false;
-   }
-   //로고 첨부 여부 확인
-   /* if(logo.value == ''){
-		alert("로고를 첨부해 주세요.");
-	    return false;
-	} */
    return true;
 }
 function goHome(){
@@ -145,7 +130,7 @@ function goHome(){
 	<h1>회사 정보 등록</h1>
 	<hr>
    <section>
-      <form id="joinForm" th:action="@{/company/joinCompany}" method="post"
+      <form id="requestForm" th:action="@{/company/requestCompany}" method="post"
          onsubmit="return validation();" enctype="multipart/form-data" >
          <table>
             <tr>
@@ -155,12 +140,12 @@ function goHome(){
             </tr>
             <tr>
                <th>매출</th>
-               <td><input type="number" name="sales" id="sales" class="put">
+               <td><input type="text" name="sales" id="sales" class="put">
                </td>
             </tr>
             <tr>
                <th>사원수</th>
-               <td><input type="number" name="employees" id="employees" placeholder="숫자만 적어주세요" class="put">
+               <td><input type="text" name="employees" id="employees" placeholder="숫자만 적어주세요" class="put">
                </td>
             </tr>
             <tr>
@@ -173,7 +158,7 @@ function goHome(){
             </tr>
             <tr>
                <th>평균급여</th>
-               <td><input type="number" name="salary_AVG" id="salary_AVG" placeholder="한 달 기준 월급" class="put">
+               <td><input type="text" name="salary_AVG" id="salary_AVG" placeholder="한 달 기준 월급" class="put">
                </td>
             </tr>
             <tr>
@@ -183,13 +168,7 @@ function goHome(){
             </tr>
             <tr>
                <th>회사규모</th>
-               <td>
-					<select id="scale" name="scale">
-						<option>선택하세요.</option>
-						<option>대기업</option>
-						<option>유수기업</option>
-						<option>중소기업</option>
-					</select>               
+               <td><input type="text" name="scale" id="scale" placeholder="유수기업, 대기업, 중소기업" class="put">
                </td>
             </tr>
             <tr>
@@ -205,7 +184,7 @@ function goHome(){
             </tr>
             <tr>
                <th>회사사진</th>
-               <td><input type="file" name="upload" id="upload">
+               <td><input type="file" name="upload" id="logo" >
                </td>
             </tr>
             

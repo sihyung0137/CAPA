@@ -51,7 +51,7 @@
 			</if>
 		</where>
 		order by
-			company_name desc
+			Edate desc
 	</select>
 	
 	<select id="readinfo" parameterType="String" resultType="Company_info">
