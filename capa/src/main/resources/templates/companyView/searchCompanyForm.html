@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회사정보 찾기</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
 #divBox {
 	margin: auto;
@@ -14,7 +15,7 @@
 	margin-bottom: 50px;
 }
 
-#container {
+.container {
 	background-color: white;
 	border: solid 1px #ddd;
 	box-shadow: 2px 2px 3px 1px #dadce0;
@@ -95,30 +96,121 @@ hr {
 	color: white;
 	background: rgb(27, 156, 133);
 }
-#searchWord{
-	width:400px;
-	height:30px;
-	border-radius: 30px; 
+
+#searchWord {
+	width: 400px;
+	height: 30px;
+	border-radius: 30px;
 	text-align: center;
 }
-.insert{
-	width:200px;
-	height:25px;
+
+.insert {
+	width: 200px;
+	height: 25px;
 	border-radius: 20px;
 	text-align: center;
 }
+
+.btnfavo {
+	width: 70px;
+}
 </style>
 <script>
+	let url = "http://localhost:8888/capa/company/"
+	$(document).ready(function() {
+		$.each($('.container'), function(index, item) {
+			$(item).children(':nth-child(n+2)').on('click', function() {
+				goPage($(item).attr('value'));
+			})
+		});
+		$.each($('.btnfavo'), function(index, item) {
+			$(item).on('click', function() {
+				let favo = $(item).children('.favo');
+				favo.toggle();
+				let unfavo = $(item).children('.unfavo');
+				unfavo.toggle()
+				if(favo.is(':visible')) {
+					//북마크 지우기
+					console.log("unfavorite");
+					alert("즐겨찾기에서 제외되었습니다");
+					let company_name = $('.btnfavo').val();
+					console.log(company_name);
+						function favo() {
+						
+						}
+				} else {
+					//북마크 넣기
+					console.log("favorite");
+					alert("즐겨찾기에 등록되었습니다");
+					let company_name = $('.btnfavo').val();
+					console.log(company_name);
+						function unfavo() {
+							
+						}
+				}
+			});
+		});
+		
+	});
+	/*function favo() {
+		$.ajax({
+			url: url + "favo",
+			type: "post",
+			data: 
+			success: function() {
+				$("#unfavo").show();
+				$("#favo").hide();
+			}
+			
+		});
+	}
+	function unfavo() {
+		$.ajax({
+			url: url + "unfavo",
+			type: "post",
+			data: 
+			success: function() {
+				$("#favo").show();
+				$("#unfavo").hide();
+			}
+			
+		});
+	}
+	$("#btnfavo").on("click", function() {
+		console.log('here');
+		// favorite 버튼에 이벤트 달기
+		$("#favo").toggle();
+		// unfavorite 버튼에 이벤트 달기
+		$("#unfavo").toggle();
+	});*/
 
-	
-	function goPage(company_name){
-			location.href='/capa/company/companyInfoForm?company_name=' + company_name; 
+	function goPage(company_name) {
+		location.href = '/capa/company/companyInfoForm?company_name='
+				+ company_name;
 	}
-	
-	function goHome(){
-		location.href="/capa";
+
+	function goHome() {
+		location.href = "/capa";
+		
 	}
-	</script>
+
+	function check() {
+		alert("요청이 완료되었습니다 !");
+	}
+	// 즐겨찾기 추가
+	function favorites(e) {
+		var i = $(".Unfavorites").index(e); // 같은 클래스 내 index 값을 가져옴
+		document.getElementsByClassName('Unfavorites')[i].style.display = "none"; // 즐겨찾기 취소 버튼 비활성화
+		document.getElementsByClassName('Favorites')[i].style.display = "inline"; // 즐겨찾기 추가 버튼 활성화
+	}
+	// 즐겨찾기 해제
+	function Unfavorites(e) {
+		var i = $(".Favorites").index(e); // 같은 클래스 내 index 값을 가져옴
+		document.getElementsByClassName('Unfavorites')[i].style.display = "inline"; // 즐겨찾기 취소 버튼 비활성화
+		document.getElementsByClassName('Favorites')[i].style.display = "none"; // 즐겨찾기 추가 버튼 활성화
+	}
+</script>
+
 </head>
 
 <body>
@@ -131,50 +223,67 @@ hr {
 			<li sec:authorize="isAuthenticated()"><a
 				th:href="@{/member/logout}">로그아웃</a></li>
 			<li sec:authorize="isAuthenticated()"><a
-				th:href="@{/company/joinCompanyForm}">회사정보 입력</a></li>
+				th:href="@{/company/joinCompanyForm}"
+				sec:authorize="hasRole('ADMIN')">회사정보 입력</a></li>
 		</ul>
 	</div>
 	<hr>
 
 	<div id="searchBox">
 		<form th:action="@{/company/companyForm}" method="get">
-			<input type="text" name="searchWord" id="searchWord" placeholder="회사명을 입력해 주세요 :)"> 
-			<input type="submit" value="검색" class="bt">
+			<input type="text" name="searchWord" id="searchWord"
+				placeholder="회사명을 입력해 주세요 :)"> <input type="submit"
+				value="검색" class="bt">
 		</form>
 	</div>
 
-<!-- 검색 결과 없을 때------------------------------------------------------------------------------ -->
+	<!-- 검색 결과 없을 때------------------------------------------------------------------------------ -->
 	<div id="divBox">
 		<div th:if="${#lists.isEmpty(list)}">
 			<p>검색 결과가 없습니다. 회사 정보 등록을 요청해 주세요.</p>
-			<form th:action="@{/company/joinCompanyForm}" method="get">
+			<form th:action="@{/company/requestCompany}" method="post"
+				onsubmit="return check();">
 				<table>
-   				<tr>
-   					<th>회사명</th>
-   					<td><input type="text" id="company_name" name="company_name" class="insert"></td>
-   				</tr>
-   				<tr>
-   				<th>회사 URL</th>
-   				<td><input type="text" id="homepage" name="homepage" class="insert"></td>
-   				</tr>
-   				<tr>
-   					<td colspan="2"><input type="submit" value="요청" class="bt"></td>
-   				</tr>
-   				</table>
-   			</form>
+					<tr>
+						<th>회사명</th>
+						<td><input type="text" id="company_name" name="company_name"
+							class="insert"></td>
+					</tr>
+					<tr>
+						<th>회사 URL</th>
+						<td><input type="text" id="homepage" name="homepage"
+							class="insert"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="요청" class="bt"></td>
+					</tr>
+				</table>
+			</form>
 		</div>
-		
-<!-- ---------------------------------------------------------------------------------- -->
+
+		<!-- ---------------------------------------------------------------------------------- -->
 		<section>
-			<div id="container" th:each="list:${list}"
-				th:value="${list.company_name}"
-				th:onclick="goPage(this.getAttribute('value'));">
+			<div class="container" th:each="list:${list}"
+				th:value="${list.company_name}">
 				<table>
 					<tr>
 						<td><img
 							th:src="@{/company/upload(company_name=${list.company_name})}"
 							id="companyImg"></td>
 						<th th:text="${list.company_name}"></th>
+					</tr>
+					<tr>
+						<!-- 북마크
+						<span class="rating-star"> <span class="Unfavorites"
+							value="Unfavorites" style="display: inline;"
+							onclick="favorites(this)"></span> <span class="Favorites"
+							value="Favorites" style="display: none;"
+							onclick="Unfavorites(this)"></span>
+						</span> -->
+						<div class="btnfavo" th:value="${list.company_name}">
+							<img src="../image/unfavorite.png" class="favo"> 
+							<img src="../image/favorite.png" class="unfavo" style="display: none">
+						</div>
 					</tr>
 				</table>
 			</div>

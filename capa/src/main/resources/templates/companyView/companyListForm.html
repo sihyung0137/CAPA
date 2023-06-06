@@ -56,9 +56,16 @@ td {
 							th:href="@{/company/companyInfoForm(company_name=${Company_info.company_name})}"></a>
 						</td>
 					</tr>
+					<tr> <!-- 북마크 -->
+					    <span class="rating-star">
+					        <span class="Unfavorites" value="Unfavorites"   style="display: inline;" onclick="favorites(this)"></span>
+					        <span class="Favorites" value="Favorites" style="display: none;" onclick="Unfavorites(this)"></span>
+					    </span>
+						
+						
+					</tr>
 					<!-- <tr> //  별점과 북마크버튼을 나중에 가져와야함
-                  <td><a th:text="${reply.
-                  
+					
                   }"></td>
                </tr> -->
 				</table>

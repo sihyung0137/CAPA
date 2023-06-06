@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.spring03.service.BoardService;
 import net.softsociety.spring03.util.FileService;
+import net.softsociety.spring03.util.PageNavigator;
 import net.softsociety.spring03.vo.Board;
 import net.softsociety.spring03.vo.Post;
 
@@ -32,12 +33,64 @@ import net.softsociety.spring03.vo.Post;
 @Slf4j
 @RequestMapping("/board")
 public class BoardController {
+
 	
+	//게시판 목록의 페이지당 글 수
+	@Value("${user.post.page}")
+	int countPerPage;
+		
+	//게시판 목록의 페이지 이동 링크 수
+	@Value("${user.post.group}")
+	int pagePerGroup;
+	
+	//post 첨부파일 업로드 경로
+	@Value("${spring.servlet.multipart.location}")
+	String uploadPath;
+	
+
 	@Autowired
 	private BoardService service;
 
-	@Value("${spring.servlet.multipart.location}")
-	   String uploadPath;
+	/**
+	 * 게시글 리스트 읽기
+	 * 
+	 * @param boardname으로 검색
+	 */
+//	@GetMapping("system")
+//	public String system(Model model, Post post) {
+//		log.debug("서비스 들어오오오옴 :{}", post.getBoardname());
+//		ArrayList<Post> postlist = service.postlist(post);
+//		model.addAttribute("postlist", postlist);
+//		log.debug("postlist : {} ", postlist);
+//		return "boardView/system";
+//	}
+
+	/**
+	 * 게시판 글목록으로 이동
+	 * @param page 현재 페이지
+	 * @param type 검색 대상
+	 * @param searchWord 검색어
+	 */
+	@GetMapping("system")
+	public String list(Model model
+			, @RequestParam(name = "page", defaultValue = "1" ) int page
+			, String type
+			, String searchWord) {
+		log.debug("나 여기 시스템에 있다");
+		//페이징 정보 객체
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		//현재 페이지의 글 목록 조회
+		ArrayList<Post> postlist = service.list(navi, type, searchWord);
+		
+		log.debug("postlist : {} ", postlist); // 값을 못찾고 있음 뭐지?
+		
+		model.addAttribute("navi", navi);
+		model.addAttribute("postlist", postlist);
+		model.addAttribute("type", type);
+		model.addAttribute("searchWord", searchWord);
+				
+		return "/boardView/system";	
+	}
 	
 	@GetMapping("boardpage")
 	public String boardpage(Model model, Post post, String searchWord) {
@@ -46,225 +99,218 @@ public class BoardController {
 //		
 //		model.addAttribute("searchWord", searchWord);
 //		model.addAttribute("list", list);
- 		return"boardView/boardpage";
+		return "boardView/boardpage";
 	}
-	
+
 	@GetMapping("createBoard")
 	public String createBoard() {
 		log.debug("게시판 생성 들어왔니????????????????????");
-		return"boardView/createBoard";
+		return "boardView/createBoard";
 	}
-	
+
 	@PostMapping("createBoard")
 	public String createBoard2(Board board) {
 		log.debug("게시판 생성 가지고 온 값 : {}", board);
-		
+
 		int result = service.createBoard(board);
 		log.debug("게시판 생성 성공?:{}", result);
-		
+
 		return "redirect:boardpage";
 	}
-	/**
-	 * 게시글 리스트 읽기 
-	 * @param boardname으로 검색 
-	 */
-	@GetMapping("system")
-	public String system(Model model, Post post) {
-		log.debug("서비스 들어오오오옴 :{}", post.getBoardname());
-		
-		ArrayList<Post> postlist = service.postlist(post);
-		model.addAttribute("postlist", postlist);
-		log.debug("postlist : {} ", postlist);
-		return "boardView/system";
-	}
+
 	
 	/**
-	 * 게시글 작성 
+	 * 게시글 작성
+	 * 
 	 * @param
 	 */
 	@GetMapping("write")
 	public String write(Board board, Model model, @AuthenticationPrincipal UserDetails user) {
-		log.debug("글쓰기 들어옴");
 		board.setMemberid(user.getUsername());
-		log.debug("글쓰기 가져온 값ㅇ : {}",board);
-		
+		log.debug("글쓰기 가져온 값ㅇ : {}", board);
+
 		model.addAttribute("board", board);
-		
+
 		return "boardView/write";
 	}
+
 	/**
-	 * 게시글 읽기 
-	 * @param  postnum으로 검색
+	 * 게시글 읽기
+	 * 
+	 * @param postnum으로 검색
 	 */
 	@GetMapping("read")
-	public String read(
-			Model model
-			,@RequestParam(name="postnum", defaultValue = "0") int postnum
-			) {
-		
+	public String read(Model model, @RequestParam(name = "postnum", defaultValue = "0") int postnum) {
+
 		Post post = service.read(postnum);
 		if (post == null) {
-			return "redirect:/board/system"; //글이 없으면 목록으로
+			return "redirect:/board/system"; // 글이 없으면 목록으로
 		}
-		
+
+		log.debug("post : {} ", post);
 		model.addAttribute("post", post);
 		return "boardView/readForm";
 	}
+
 	@GetMapping("download")
 	public void fileDownload(int postnum, Model model, HttpServletResponse response) {
-		//전달된 글 번호로 글 정보 조회
+		// 전달된 글 번호로 글 정보 조회
 		Post post = service.read(postnum);
-		if (post == null) return;
-		
-		//원래의 파일명
-		String originalfile = new String(post.getOriginalfile());
-		try {
-			response.setHeader("Content-Disposition", " attachment;filename="+ URLEncoder.encode(originalfile, "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		if (post == null)
+			return;
+
+		// 원래의 파일명
+		if (post.getOriginalfile() != null) {
+			String originalfile = new String(post.getOriginalfile());
+			try {
+				response.setHeader("Content-Disposition",
+						" attachment;filename=" + URLEncoder.encode(originalfile, "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+
+			// 저장된 파일 경로
+			String fullPath = uploadPath + "/" + post.getSavedfile();
+
+			// 서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+			FileInputStream filein = null;
+			ServletOutputStream fileout = null;
+
+			try {
+				filein = new FileInputStream(fullPath);
+				fileout = response.getOutputStream();
+
+				// Spring의 파일 관련 유틸 이용하여 출력
+				FileCopyUtils.copy(filein, fileout);
+
+				filein.close();
+				fileout.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		//저장된 파일 경로
-		String fullPath = uploadPath + "/" + post.getSavedfile();
-		
-		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
-		FileInputStream filein = null;
-		ServletOutputStream fileout = null;
-		
-		try {
-			filein = new FileInputStream(fullPath);
-			fileout = response.getOutputStream();
-			
-			//Spring의 파일 관련 유틸 이용하여 출력
-			FileCopyUtils.copy(filein, fileout);
-			
-			filein.close();
-			fileout.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
+
+	}
+
 	/**
 	 * 전달된 postnum으로 글정보를 조회해서 본인 post이면 post수정폼으로 이동
-	 * @param 
+	 * 
+	 * @param
 	 */
 	@GetMapping("updatePost")
-	public String updatePost(
-			@AuthenticationPrincipal UserDetails user
-			, Model model
-			, int postnum) {
-		log.debug("user : {}",user);
+	public String updatePost(@AuthenticationPrincipal UserDetails user, Model model, int postnum) {
+		log.debug("user : {}", user);
 		log.debug("postnum : {}", postnum);
-				
+
 		Post post = service.read(postnum);
-		
-		if(!post.getMemberid().equals(user.getUsername())) {
+
+		if (!post.getMemberid().equals(user.getUsername())) {
 			return "redirect:system";
 		}
 		model.addAttribute("post", post);
-		
+
 		return "/boardView/updatePostForm";
 	}
+
 	/**
 	 * post수정
-	 * @param 
+	 * 
+	 * @param
 	 */
 	@PostMapping("updatePost")
-	public String update(
-			Post post
-			, @AuthenticationPrincipal UserDetails user
-			, MultipartFile upload) {
-		
+	public String update(Post post, @AuthenticationPrincipal UserDetails user, MultipartFile upload) {
+
 		post.setMemberid(user.getUsername());
 		Post oldPost = null;
 		String oldSavedfile = null;
 		String savedfile = null;
-		
-		//첨부파일이 있는 경우 기존파일 삭제 후 새 파일 저장
+
+		// 첨부파일이 있는 경우 기존파일 삭제 후 새 파일 저장
 		if (upload != null && !upload.isEmpty()) {
 			oldPost = service.read(post.getBoardnum());
 			oldSavedfile = oldPost == null ? null : oldPost.getSavedfile();
-			
+
 			savedfile = FileService.saveFile(upload, uploadPath);
 			post.setOriginalfile(upload.getOriginalFilename());
 			post.setSavedfile(savedfile);
 		}
-		
+
 		int result = service.updatePost(post);
-		
-		//글 수정 성공  and 첨부된 파일이 있는 경우 파일도 삭제
-		if(result == 1 && savedfile != null) {
+
+		// 글 수정 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
 			FileService.deleteFile(uploadPath + "/" + oldSavedfile);
 		}
 		return "redirect:/board/read?postnum=" + post.getPostnum();
 	}
+
 	/**
 	 * Post 삭제
+	 * 
 	 * @param postnum 삭제할 글 번호
-	 * @param user 인증정보
+	 * @param user    인증정보
 	 */
-	@GetMapping ("deletePost")
-	public String deletePost(int postnum
-			, @AuthenticationPrincipal UserDetails user) {
+	@GetMapping("deletePost")
+	public String deletePost(int postnum, @AuthenticationPrincipal UserDetails user) {
 		log.debug("postnum================================= : {}", postnum);
-		//해당 번호의 글 정보 조회
+		// 해당 번호의 글 정보 조회
 		Post post = service.read(postnum);
-		
-		if(post == null) {
+
+		if (post == null) {
 			return "redirect:system";
 		}
-		
-		//첨부된 파일명 확인
+
+		// 첨부된 파일명 확인
 		String savedfile = post.getSavedfile();
-		
-		//로그인 아이디를 post객체에 저장
+
+		// 로그인 아이디를 post객체에 저장
 		post.setMemberid(user.getUsername());
-		
-		//글 삭제
+
+		// 글 삭제
 		int result = service.deletePost(post);
-		
+
 //		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post);
-		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
-		if(result == 1 && savedfile != null) {
+		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
 			FileService.deleteFile(uploadPath + "/" + savedfile);
 		}
-		
+
 		log.debug("post=========================== : {}", post);
 		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post.getBoardname());
 		return "redirect:system?boardname=" + post.getBoardname();
 	}
-	
+
 	/**
 	 * Post 관리자 권한으로 삭제
+	 * 
 	 * @param postnum 삭제할 글 번호
-	 * @param user 인증정보
+	 * @param user    인증정보
 	 */
-	@GetMapping ("deletePost2")
-	public String deletePost2(int postnum
-			, @AuthenticationPrincipal UserDetails user) {
+	@GetMapping("deletePost2")
+	public String deletePost2(int postnum, @AuthenticationPrincipal UserDetails user) {
 		log.debug("postnum================================= : {}", postnum);
-		//해당 번호의 글 정보 조회
+		// 해당 번호의 글 정보 조회
 		Post post = service.read(postnum);
-		
-		if(post == null) {
+
+		if (post == null) {
 			return "redirect:system";
 		}
-		
-		//첨부된 파일명 확인
+
+		// 첨부된 파일명 확인
 		String savedfile = post.getSavedfile();
-		
-		//로그인 아이디를 post객체에 저장
+
+		// 로그인 아이디를 post객체에 저장
 		post.setMemberid(user.getUsername());
-		
-		//글 삭제
+
+		// 글 삭제
 		int result = service.deletePost2(post);
-		
+
 //		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post);
-		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
-		if(result == 1 && savedfile != null) {
+		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
 			FileService.deleteFile(uploadPath + "/" + savedfile);
 		}
-		
+
 		log.debug("post=========================== : {}", post);
 		log.debug("post++++++++++++++++++++++++++++++++++++ : {}", post.getBoardname());
 		return "redirect:system?boardname=" + post.getBoardname();

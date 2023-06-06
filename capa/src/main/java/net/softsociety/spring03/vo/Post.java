@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Post {
 	
+	int displaynum;
 	int postnum;
 	int boardnum;
 	String boardname;

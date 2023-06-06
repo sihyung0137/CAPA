@@ -35,18 +35,7 @@
 		margin-top: 40px;
 		height:auto;
 	}
-	.bt{
-	  border: 0;
-	  outline: none;
-	  background:rgb(38, 49, 89);
-	  color:white;
-	  cursor: pointer;
-	  border-radius: 5px;
-	}
-	.bt:hover {
-	  color: white;
-	  background:rgb(27, 156, 133);
-	}
+
 	hr{
 		border:0px;
 		background : rgb(38, 49, 89);
@@ -74,133 +63,213 @@
 		margin-bottom:40px; 
 	}
 	
-	a{
+	.uANDd{
 	text-decoration: none;
 	color:black;
 	}
-	a:hover {
+	.uANDd:hover {
+		color: rgb(234, 84, 85);
+	}
+	img{ 
+		max-width: 300px;
+		height: auto;
+	}
+	#writetext{
+		margin:auto;
+		text-align: center;
+	}
+	.bt{
+	  border: 0;
+	  outline: none;
+	  background:  rgb(36, 55, 99);
+	  color:white;
+	  cursor: pointer;
+	  border-radius: 5px;
+	}
+	.bt:hover {
+	  color: white;
+	  background: rgb(27, 156, 133);
+	}
+	.btn{
+		text-decoration: none;
+		color:black;
+	}
+	.btn:hover {
 		color: rgb(234, 84, 85);
 }
-img{ 
-	max-width: 300px;
-	height: auto;
+#replyTable{
+	margin-bottom: 60px;
 }
 </style>
-<script th:src = "@{/js/jquery-3.6.4.min.js}"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-
- 	function loadReply(){
-		let boardnum = $("#boardnum").val();
-		//alert(boardnum);
+let url = "http://localhost:8888/capa/reply/"
+	$(document).ready(function(){
 		
-			$.ajax({
-			url : "loadReply",
-			type : "get",
-			data : {"boardnum" : boardnum},
-			success : function(list){
+		// 댓글쓰기 버튼에 이벤트 달기
+		$("#btnWrite").on("click", function() {writeReply();});
+		
+		// 댓글수정 버튼에 이벤트 달기
+		$("#btnUpdate").on("click", function() {updateReply();});
+		
+		// 댓글수정 버튼 숨기기
+		$("#btnUpdate").hide();
+		
+		// 댓글취소 버튼에 이벤트 달기
+		$("#btnCancel").on("click", function() {cancelReply();});
+		
+		$("#btnCancel").hide();
+		
+		// 댓글목록 불러오기
+		loadReply();
+	
+	});
+	
+	//댓글작성
+	function writeReply() {
+		// 댓글창에 있는 텍스트 가져오기
+		console.log("텍스트를 가져오니?");
+		let replytext = $("#replytext").val();
+		
+		// 댓글내용의 길이 확인
+		if(replytext.length < 5) {
+			alert("댓글이 너무 짧습니다")
+			return;
+		}
+		// 글 번호
+		let postnum = $("#postnum").val();
+		// boardnum
+		let boardnum = $('#boardnum').val();
+		console.log(boardnum);
+		// ajax호출하여 댓글을 서버에 등록
+		$.ajax({
+			url: url + "writeReply",
+			type: "post",
+			data: {"postnum": postnum, "replytext": replytext, "boardnum": boardnum},
+			success: function() {
+				loadReply();
+				$("#replytext").val("");
+			}
+		});
+	}
+	//댓글 불러오기
+	function loadReply() {
+		//댓글 번호
+		let postnum = $('#postnum').val();
+		
+		//댓글 요청하는 ajax코트
+		$.ajax({
+			url: url + "loadReply",
+			type: "get",
+			data: {"postnum": postnum},
+			success: function(list) {
 				let str = "";
 				
-				//현재 로그인한 username
 				let loginUser = $("#loginUser").val();
-				
+
 				//댓글 목록에 있는 요소만큼 반복
 				$.each(list, function(index, reply){
 					str += "<tr>";
-					str += "<th>"+ reply.replytext +"</th>";
-					str += "<td>"+ reply.memberid +"</td>"; 
-					str += "<td>"+ reply.inputdate +"</td>"; 
+					str += "<td>" + reply.replytext + "</td>"; //글 내용
+					str += "<td>" + reply.memberid + "</td>"; // 글쓴이 id
+					str += "<td>" + reply.inputdate + "</td>"; // 글쓴 시간
 					str += "<td>";
 					if(reply.memberid == loginUser){
-						str += "<a href = '#' onclick='getOneReply(" + reply.replynum + ");'>수정</a>"; 
-						str += "&nbsp;"+ "|" + "&nbsp;";
-						str += "<a href = '#' onclick = 'deleteReply(" + reply.replynum + ");'>삭제</a>";
-					}else{
-						//버튼 없으니 칸이 줄어들어서 그냥 공백 넣어줌
-						str += "&nbsp;&nbsp;&nbsp;"
+						str += "<a href='#' class=btn onclick='getOneReply(" + reply.replynum + ");'>수정</a>";
+						str += "&nbsp;|&nbsp;";
+						str += "<a href='#' class=btn onclick='deleteReply(" + reply.replynum + ");'>삭제</a>";
 					}
-					str += "</td>"; 
+					str += "</td>" // 수정 / 삭세 (버튼)
 					str += "</tr>";
 				});
-
+				
+				// append : 요소에 태크를 붙인다
 				$("#replyTable").html(str);
 			}
+			
 		});
-	} 
- 	
- 	function getOneReply(replynum){
- 		
- 		$.ajax({
- 			url:"getOneReply",
- 			type:"get",
- 			data:{"replynum": replynum},
- 			success:function(reply){
- 				$("#replytext").val(reply.replytext);
- 				//댓글 쓰기 버튼 숨기기
- 				$("#btnWrite").hide();
- 				
- 				//댓글 수정,취소 버튼 보여주기
- 				$("#btnUpdate").show();
- 				$("#btnReset").show();
- 				
- 				//hidden태그 댓글 번호 설정하기
- 				$("#replynum").val(reply.replynum);
- 				loadReply();
- 			}
- 		});
- 	}
- 	
- 	function resetReply(){
- 		$("#btnWrite").show();
- 		$("#btnReset").hide();
- 		$("#btnUpdate").hide();
- 
- 		$("#replytext").val("");
- 		
- 	}
- 	
- 	function updateReply(){
- 		let replynum = $("#replynum").val();
- 		
- 		// 댓글 텍스트 가져오기
- 		let replytext = $("#replytext").val();
- 		
- 		let reply = {
- 				//앞에 key값은 vo와 같아야 해
- 				"replynum" : replynum,
- 				"replytext" : replytext
- 		};
- 		
- 		$.ajax({
- 			url:"updateReply",
- 			type :"post",
- 			data : reply,
- 	 		success : function(){
- 	 			$("#btnUpdate").hide();
- 	 			$("#btnReset").hide();
- 	 			$("#btnWrite").show();
- 	 			$("#replyNum").val("");
- 	 			$("#replytext").val("");
- 	 			loadReply();
- 	 			location.hash="replyTable";
- 			} 
- 		});
- 	}
- 	
- 	function deleteReply(replynum){
- 		if (confirm('삭제하시겠습니까?')) {
- 			$.ajax({
- 				url : "deleteReply",
- 				type : "get",
- 				data : {"replynum" : replynum},
- 				success : function(){
- 					loadReply();
- 					//댓글 삭제했을 때 위로 안 올라가고 새로고침 됨
-  					location.hash="replyTable";
- 				}
- 			});
- 		}
- 	}
+	}
+	//댓글취소버튼
+	function cancelReply() {
+		$("#replytext").val("");
+		// 수정하기에서 취소하기를 누르면 그냥 버튼보여주는 것
+		$("#btnWrite").show();
+		$("#btnCancel").hide();
+		$("#btnUpdate").hide();
+	}
+	//댓글삭제버튼
+	function deleteReply(replynum) {
+		if(confirm('삭제하시겠습니까?')) {
+			
+			$.ajax({
+				url: url + "deleteReply",
+				type: "get",
+				data: {"replynum": replynum},
+				success: function() {
+					loadReply();
+					
+					location.hash = "replyTable";
+				}
+			});
+		}
+		
+	}
+	//리플수정하기
+	function getOneReply(replynum) {
+		//alert(num);
+		
+		$.ajax({
+			url: url + "getOneReply",
+			type: "get",
+			data: {"replynum": replynum},
+			success: function(reply) {
+				location.hash = "writetext";
+				//댓글정보 보여주기
+				$("#replytext").val(reply.replytext);
+				//댓글쓰기 버튼 숨기기
+				$("#btnWrite").hide();
+				
+				//댓글취소 버튼 보여주기
+				$("#btnCancel").show();
+				
+				//댓글수정 버튼 보여주기
+				$("#btnUpdate").show();
+				
+				//히든태그에 댓글 번호 설정하기
+				$("#replynum").val(reply.replynum);
+				
+			}
+		});
+	}
+	function updateReply() {
+		// 댓글 번호 가져오기
+		let replynum = $("#replynum").val();
+		// 댓글 텍스트 가져오기
+		let replytext = $("#replytext").val();
+		
+		let reply = {
+				"replynum": replynum,
+				"replytext": replytext
+		};
+		console.log(reply);
+		// ajax로 수정기능 실행하기
+		$.ajax({
+			url: url + "updateReply",
+			type: "post",
+			data: reply,
+			success: function() {
+				// 수정 끝나면 각종 데이터 초기화하기(수정하기버튼, 댓글쓰기버튼, 댓글번호, 댓글입력창)
+				loadReply();
+				$("#replytext").val("");
+				$("#replytext").val("");
+				$("#btnWrite").show();
+				$("#btnUpdate").hide();
+				$("#btnCancel").hide();
+			}
+		});
+	}
+</script>
+<script>
  	function goPage(){
  		location.href="/capa/board/system?boardname="+'system';
  	}
@@ -245,35 +314,35 @@ img{
 				
 		</tr>
 	</table>
-	<div th:if="${#authentication.name} == ${post.memberid}" id="updateANDdelete"> 
-		<a th:href="@{/board/updatePost(postnum=${post.postnum})}">수정</a>&emsp;
-		<a th:href="@{/board/deletePost(postnum=${post.postnum})}">삭제</a>
-	</div>
-	
-	<div sec:authorize="hasRole('ADMIN')" id="updateANDdelete"> 
-		<a th:href="@{/board/deletePost2(postnum=${post.postnum})}">관리자 삭제</a>
-	</div>
-	<!-- <div th:if="${#authentication.name} == ${board.memberid}" id="deleteANDupdate">
-	<input type="button" th:onclick="|javascript:updateForm('${board.boardnum}')|" id="updateB" class="bt" value="수정하기">&emsp;
-	<input type="button" th:onclick="|javascript:deleteForm('${board.boardnum}')|" id="deleteB" class="bt" value="삭제하기">
+	<!-- 작성자만 보이는 수정과 삭제 버튼 -->
+	<div th:if="${#authentication.name} == ${post.memberid}" id="updateANDdelete" > 
+		<a th:href="@{/board/updatePost(postnum=${post.postnum})}" class="uANDd">수정</a>&emsp;
+		<a th:href="@{/board/deletePost(postnum=${post.postnum})}" class="uANDd">삭제</a>
 	</div>
 	
 	<hr>
 	
-	<input type="hidden" name="boardnum" id="boardnum" th:value = "${board.boardnum}">
-	댓글
-	<div id="replyBox">
+	<!-- ADMIN과 MANAGER만 보이는 관리자 권한으로 삭제 -->
+	<div sec:authorize="hasAnyRole('ADMIN','MANAGER')" id="updateANDdelete"> 
+		<a th:href="@{/board/deletePost2(postnum=${post.postnum})}" class="uANDd">관리자 권한으로 삭제</a>
+	</div>
+	<!-- 댓글 작성 폼 시작 -->
+	<div sec:authorize="isAuthenticated()" id="writetext">
 		<textarea id="replytext"></textarea><br>
-		<input type="button" id="btnWrite" value="댓글쓰기" class="bt">
-		<input type="button" id="btnUpdate" value="수정하기" class="bt">
-		<input type="button" id="btnReset" value="취소하기" class="bt">
+		<input type="button" value="댓글쓰기" id="btnWrite" class="bt">
+		<input type="button" value="수정하기" id="btnUpdate" class="bt">
+		<input type="button" value="취소하기" id="btnCancel" class="bt">
 		<input type="hidden" id="replynum">
 	</div>
+	<!-- 글 번호를 가지고 있는 요소 -->
+	<input type="hidden" id="postnum" th:value="${post.postnum}">
+	<input type="hidden" id="boardnum" th:value="${post.boardnum}">
 	
-	리플 목록 출력
+	
+	<!-- 댓글 목록 출력 시작 -->
 	<table class="reply" id="replyTable">
 	</table>
-	로그인 유저 숨겨두기
-	<input type = "hidden" id="loginUser" th:value="${#authentication.name}"> -->
+	
+	<input type="hidden" id="loginUser" th:value="${#authentication.name}">
 </body>
 </html>

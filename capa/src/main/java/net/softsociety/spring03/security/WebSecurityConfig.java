@@ -33,14 +33,15 @@ public class WebSecurityConfig {
                   "/board/load",
                   "/post/read",
                   "/board/boardpage",
-                  "/board/write",
                   "/board/download",
                   "/board/loadReply",
                   "/board/createBoard",
-                  "/board/write",
                   "/board/system",
                   "/post/writePost",
                   
+                  
+                  "/company/company",
+                  "/company/companyInfoForm", // 누구나 볼수 있게 열어놓았음
                   "/company/companyForm", // 누구나 볼수 있게 열어놓았음
                   "/company/companyListForm", 
                   "/company/joinCompanyForm", // 테스트용으로 열어놓았으니 권한에 맞게 보이게끔 다시 고쳐야함
@@ -50,7 +51,7 @@ public class WebSecurityConfig {
                   "/image/**",
                   "/css/**",
                   "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
-        .antMatchers("/company/update").hasRole("ADMIN")// /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
+        .antMatchers("/company/update", "/company/searchCompanyForm").hasRole("ADMIN")// /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용

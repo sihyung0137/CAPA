@@ -10,18 +10,11 @@
     		(CAPA_Board_seq.nextval, #{boardnum}, #{boardname}, #{boardtype}, #{boardjob})
     </insert>    
 
-	<select id="postlist" parameterType="Post" resultType="Post">
-	select * from CAPA_Post
-	where 
-		boardname = #{boardname}
-	order by
-		postnum desc
-	</select>
-	
 	<select id="read" parameterType="int" resultType="Post">
 	select 
 		postnum
 		, boardname
+		, boardnum
 		, memberid
 		, title
 		, content
@@ -73,4 +66,74 @@
 	where
 		postnum = #{postnum}
 	</delete>	
+	
+	<!-- <select id="postlist" parameterType="Post" resultType="Post">
+	select * from CAPA_Post
+	where 
+		boardname = #{boardname}
+	order by
+		postnum desc
+	</select> -->
+	
+	<!-- 전체 글 개수 (검색 필터링 후) -->
+	<select id="countPost" parameterType="map" resultType="int">
+	select
+		count(*)
+	from
+		CAPA_Post
+	<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'title'">
+			upper(title) like '%' || upper(#{searchWord}) || '%'
+		</if>	
+		<if test="type == 'contents'">
+			upper(content) like '%' || upper(#{searchWord}) || '%'
+		</if>	
+		<if test="type == 'memberid'">
+			memberid like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			upper(title) like '%' || upper(#{searchWord}) || '%'
+			or upper(content) like '%' || upper(#{searchWord}) || '%'
+			or memberid like '%' || #{searchWord} || '%'
+		</if>	
+	</where> 
+	</if>
+	</select>
+	<!-- 현재 페이지 목록(검색 필터링 후) -->
+	<select id="selectPostList" parameterType="map" resultType="Post">
+	select rownum displaynum, postnum, boardnum, boardname, memberid, title, content, inputdate, hits
+	from(select	
+		postnum
+		, boardnum
+		, boardname
+		, memberid
+		, title
+		, content
+		, inputdate
+		, hits
+	from 
+		CAPA_Post
+	<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'title'">
+			upper(title) like '%' || upper(#{searchWord}) || '%'
+		</if>
+		<if test="type == 'contents'">
+			upper(content) like '%' || upper(#{searchWord}) || '%'
+		</if>	
+		<if test="type == 'memberid'">
+			memberid like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			upper(title) like '%' || upper(#{searchWord}) || '%'
+			or upper(content) like '%' || upper(#{searchWord}) || '%'
+			or memberid like '%' || #{searchWord} || '%'
+		</if>	
+	</where> 
+	</if>	
+	<!-- order by
+		postnum desc -->) x 
+		order by postnum desc
+	</select>
     </mapper>

@@ -5,7 +5,9 @@
       <mapper namespace="net.softsociety.spring03.dao.PostDAO">
      	<insert id="writePost" parameterType="Post">
 		insert into CAPA_post (
+			
 			 postnum
+			, boardnum
 			, boardname
 			, memberid
 			, title
@@ -16,6 +18,7 @@
 			</if>			
 		) values (
 			CAPA_Post_seq.nextval
+			, #{boardnum}
 			, #{boardname}
 			, #{memberid}
 			, #{title}

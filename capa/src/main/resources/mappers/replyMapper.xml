@@ -1,0 +1,58 @@
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.softsociety.spring03.dao.ReplyDAO">
+<!-- 댓글 저장 -->
+<insert id="insertReply" parameterType="Reply">
+	insert into
+	CAPA_Reply(
+		replynum
+		, boardnum
+		, postnum
+		, memberid
+		, replytext
+	)
+	values (
+		CAPA_Reply_seq.nextval
+		, #{boardnum}
+		, #{postnum}
+		, #{memberid}
+		, #{replytext}
+	)
+</insert>
+<select id="listReply" parameterType="int" resultType="Reply">
+	select 
+		replynum
+		, postnum
+		, memberid
+		, replytext
+		, to_char(inputdate, 'yy.mm.dd') inputdate
+	from
+		CAPA_Reply
+	where
+		postnum = #{postnum}
+	order by 
+		replynum
+</select>
+<delete id="deleteReply" parameterType="Reply">
+	delete from
+		CAPA_Reply
+	where
+		replynum =#{replynum}
+		and memberid = #{memberid}
+</delete>
+<select id="getOneReply" parameterType="int" resultType="Reply">
+	select * from CAPA_Reply
+	where replynum = #{replynum}
+</select>
+<update id="updateReply" parameterType="Reply">
+	update
+		CAPA_Reply
+	set
+		replytext = #{replytext}
+	where
+		replynum = #{replynum} and memberid = #{memberid}
+</update>
+</mapper>

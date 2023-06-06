@@ -228,7 +228,14 @@ public class CompanyController {
 		
 		return "redirect:companyForm?company_name=" + info.getCompany_name();
 	}
-   
-   
+	/**
+	 * 회사등록요청
+	 * @param 
+	 */
+	@PostMapping("requestCompany")
+	public String requestCompany() {
+     
+      return "redirect:companyForm";
+	}
 }
    
